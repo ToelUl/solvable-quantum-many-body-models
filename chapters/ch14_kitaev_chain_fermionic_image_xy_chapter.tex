@@ -1,0 +1,373 @@
+\chapter{The Kitaev Chain as the Fermionic Image of the XY Mother Model}
+\label{chap:kitaev-chain-fermionic-image}
+
+The Kitaev chain is the fermionic image of the transverse-field XY chain.  From
+the spin point of view it is obtained by the Jordan--Wigner transformation; from
+the fermion point of view it is a one-dimensional spinless $p$-wave
+superconductor.  This chapter isolates the fermionic interpretation of the XY
+solution and connects it to Majorana edge modes and the BdG topological
+invariant.
+
+\section{Spinless \texorpdfstring{$p$}{p}-wave superconducting chain}
+\label{sec:kitaev-p-wave-chain}
+
+We use the convention
+\begin{equation}
+\label{eq:kitaev-hamiltonian}
+    H_{\rm K}
+    =
+    -t\sum_{j}
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -\mu\sum_j\left(n_j-\frac12\right)
+    +\Delta\sum_j
+    \left(
+        c_jc_{j+1}+c_{j+1}^\dagger c_j^\dagger
+    \right),
+\end{equation}
+where $n_j=c_j^\dagger c_j$.  The hopping $t$ and chemical potential $\mu$ are
+ordinary number-conserving terms, while $\Delta$ is a nearest-neighbor odd-parity
+pairing amplitude.  For the moment $\Delta$ is taken real.  A uniform complex
+phase will be discussed below.
+
+The pairing term breaks fermion-number conservation but preserves fermion parity:
+\begin{equation}
+\label{eq:kitaev-parity-conservation}
+    [H_{\rm K},(-1)^N]=0,
+    \qquad
+    N=\sum_j n_j.
+\end{equation}
+Thus the Kitaev chain belongs naturally to the same BdG framework used for the
+XY chain.
+
+\section{Dictionary from the XY mother model}
+\label{sec:kitaev-xy-dictionary}
+
+The bulk Jordan--Wigner image of the XY chain in the conventions of these notes
+is
+\begin{equation}
+\label{eq:kitaev-xy-bulk-image}
+    H_{\rm XY}^{\rm bulk}
+    =
+    -J\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -J\gamma\sum_j
+    \left(
+        c_j^\dagger c_{j+1}^\dagger+c_{j+1}c_j
+    \right)
+    -h\sum_j(1-2n_j).
+\end{equation}
+Using
+\begin{equation}
+    c_{j+1}^\dagger c_j^\dagger=-c_j^\dagger c_{j+1}^\dagger,
+    \qquad
+    c_jc_{j+1}=-c_{j+1}c_j,
+\end{equation}
+comparison between \cref{eq:kitaev-hamiltonian} and
+\cref{eq:kitaev-xy-bulk-image} gives the bulk dictionary
+\begin{equation}
+\label{eq:kitaev-xy-dictionary}
+    t=J,
+    \qquad
+    \Delta=J\gamma,
+    \qquad
+    \mu=-2h.
+\end{equation}
+The constant term matches because
+\begin{equation}
+    -\mu\sum_j\left(n_j-\frac12\right)
+    =
+    2h\sum_j n_j-hL
+    \qquad
+    (\mu=-2h).
+\end{equation}
+
+This dictionary is convention-dependent.  If one writes the pairing term as
+$\Delta_{\rm cr}\sum_j(c_j^\dagger c_{j+1}^\dagger+c_{j+1}c_j)$ instead, then
+$\Delta_{\rm cr}=-J\gamma$ in the present Jordan--Wigner convention.  The
+spectrum and phase diagram are unchanged; only the orientation convention for
+the BdG pairing plane is changed.
+
+For a periodic spin chain, the boundary term is also sector dependent.  In a
+fixed fermion-parity sector,
+\begin{equation}
+\label{eq:kitaev-boundary-from-spin}
+    P_F=p
+    \quad\Longrightarrow\quad
+    c_{L+1}=-p\,c_1.
+\end{equation}
+For an intrinsically fermionic Kitaev chain, one may instead specify periodic,
+anti-periodic, or open boundary conditions directly.  The bulk topological phase
+diagram is the same, but exact finite-size spectra depend on this choice.
+
+\section{BdG block and spectrum}
+\label{sec:kitaev-bdg-block-spectrum}
+
+For a translation-invariant chain, the normal-state dispersion is
+\begin{equation}
+\label{eq:kitaev-xi-k}
+    \xi(k)=-\mu-2t\cos k.
+\end{equation}
+With the Fourier and BdG convention used in the earlier chapters, the odd-parity
+pairing gap for real $\Delta$ may be written as
+\begin{equation}
+\label{eq:kitaev-gap-real}
+    \Delta(k)=2\ii\Delta\sin k.
+\end{equation}
+The BdG block is therefore
+\begin{equation}
+\label{eq:kitaev-bdg-block}
+    \mathcal{H}_{\rm K}(k)
+    =
+    \begin{pmatrix}
+        -\mu-2t\cos k & 2\ii\Delta\sin k\\
+        -2\ii\Delta\sin k & \mu+2t\cos k
+    \end{pmatrix}.
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:kitaev-d-vector}
+    \mathcal{H}_{\rm K}(k)
+    =
+    \bm d_{\rm K}(k)\cdot\bm\tau,
+    \qquad
+    \bm d_{\rm K}(k)
+    =
+    \bigl(0,-2\Delta\sin k,-\mu-2t\cos k\bigr).
+\end{equation}
+The quasiparticle spectrum is
+\begin{equation}
+\label{eq:kitaev-spectrum}
+    E(k)
+    =
+    \sqrt{(-\mu-2t\cos k)^2+4\Delta^2\sin^2 k}.
+\end{equation}
+Under \cref{eq:kitaev-xy-dictionary}, this reproduces the XY-chain spectrum
+\begin{equation}
+    E(k)
+    =
+    2\sqrt{(h-J\cos k)^2+(J\gamma\sin k)^2}.
+\end{equation}
+
+For $\Delta\neq0$, the bulk gap can close only at $k=0$ or $k=\pi$.  The two
+conditions are
+\begin{equation}
+\label{eq:kitaev-gap-closing}
+    k=0:\quad \mu=-2t,
+    \qquad
+    k=\pi:
+    \quad \mu=2t.
+\end{equation}
+Thus the gapped phases are separated by the lines
+\begin{equation}
+\label{eq:kitaev-critical-lines}
+    \mu=\pm 2t.
+\end{equation}
+
+\section{Complex pairing phase and Nambu gauge}
+\label{sec:kitaev-complex-gap-phase}
+
+Let the pairing amplitude be complex:
+\begin{equation}
+\label{eq:kitaev-complex-delta}
+    \Delta=\abs{\Delta}\ee^{\ii\theta_\Delta}.
+\end{equation}
+With the Fourier convention containing a constant phase $\phi$,
+\begin{equation}
+    c_k=\frac{\ee^{-\ii\phi}}{\sqrt{L}}
+    \sum_j\ee^{-\ii kj}c_j,
+\end{equation}
+the momentum-space gap becomes
+\begin{equation}
+\label{eq:kitaev-complex-gap-fourier-phase}
+    \Delta_\phi(k)
+    =
+    2\ii\abs{\Delta}\,
+    \ee^{\ii(\theta_\Delta-2\phi)}\sin k.
+\end{equation}
+The phase $\phi$ is a Nambu/Fourier gauge convention.  Choosing
+\begin{equation}
+\label{eq:kitaev-gauge-remove-uniform-phase}
+    \phi=\frac{\theta_\Delta}{2}
+\end{equation}
+removes the uniform superconducting phase from the bulk BdG block.  Therefore a
+spatially uniform pairing phase is not by itself a new bulk phase of matter.  It
+rotates the BdG vector in the pairing plane but leaves $E(k)$ and the topological
+criterion unchanged.
+
+A phase difference, phase winding, or boundary flux is different.  If the pairing
+phase cannot be removed by a single-valued global gauge transformation, it may
+represent physical supercurrent or flux data and can affect boundary spectra.
+
+\section{Majorana representation}
+\label{sec:kitaev-majorana-representation}
+
+Define site Majorana operators using the convention of the covariance-matrix
+chapter:
+\begin{equation}
+\label{eq:kitaev-majorana-definitions}
+    A_j=c_j+c_j^\dagger,
+    \qquad
+    B_j=\ii(c_j-c_j^\dagger).
+\end{equation}
+They satisfy
+\begin{equation}
+    A_j^\dagger=A_j,
+    \qquad
+    B_j^\dagger=B_j,
+    \qquad
+    \{A_i,A_j\}=2\delta_{ij},
+    \qquad
+    \{B_i,B_j\}=2\delta_{ij},
+    \qquad
+    \{A_i,B_j\}=0.
+\end{equation}
+Also
+\begin{equation}
+\label{eq:kitaev-density-majorana}
+    n_j-\frac12=-\frac{\ii}{2}A_jB_j.
+\end{equation}
+For real $\Delta$, the Hamiltonian becomes
+\begin{equation}
+\label{eq:kitaev-majorana-hamiltonian}
+    H_{\rm K}
+    =
+    \frac{\ii}{2}\sum_j
+    \left[
+        \mu A_jB_j
+        +(t-\Delta)A_jB_{j+1}
+        -(t+\Delta)B_jA_{j+1}
+    \right],
+\end{equation}
+up to boundary terms fixed by the chosen boundary condition.
+
+Two limiting cases reveal the phase structure immediately.
+
+\paragraph{Trivial atomic limit.}
+For $t=\Delta=0$ and $\mu<0$ or $\mu>0$, Majoranas on the same site are paired by
+$\ii\mu A_jB_j/2$.  There are no protected edge Majoranas.
+
+\paragraph{Topological dimerized limit.}
+For $\mu=0$ and $\Delta=t>0$,
+\begin{equation}
+\label{eq:kitaev-topological-special-point}
+    H_{\rm K}
+    =
+    -\ii t\sum_j B_jA_{j+1}.
+\end{equation}
+On an open chain this pairs $B_j$ with $A_{j+1}$ on each bond.  The operators
+$A_1$ and $B_L$ are left unpaired and become zero-energy Majorana edge modes.
+The two edge Majoranas combine into a nonlocal fermion
+\begin{equation}
+\label{eq:kitaev-edge-fermion}
+    f_{\rm edge}=\frac{1}{2}(A_1+\ii B_L),
+\end{equation}
+producing two nearly degenerate ground states of opposite fermion parity in a
+long open chain.
+
+\section{Topological invariant}
+\label{sec:kitaev-topological-invariant}
+
+For real parameters, the BdG vector lies in a plane.  Define
+\begin{equation}
+\label{eq:kitaev-q-function}
+    q(k)
+    =
+    d_z(k)+\ii d_y(k)
+    =
+    -\mu-2t\cos k-2\ii\Delta\sin k.
+\end{equation}
+The integer winding number in the real-pairing BDI convention is
+\begin{equation}
+\label{eq:kitaev-winding-number}
+    \nu
+    =
+    \frac{1}{2\pi\ii}
+    \int_{-\pi}^{\pi}\dd k\,\partial_k\log q(k).
+\end{equation}
+For $t\Delta\neq0$, the loop winds around the origin if and only if
+\begin{equation}
+\label{eq:kitaev-topological-condition}
+    \abs{\mu}<2\abs{t}.
+\end{equation}
+The orientation of the winding depends on the sign of $t\Delta$ and on the
+chosen definition of $q(k)$, but the distinction between zero and nonzero winding
+is robust.
+
+If only particle--hole symmetry is kept, the class-D invariant is the
+corresponding $\ZZ_2$ quantity.  In the present convention it can be written as
+\begin{equation}
+\label{eq:kitaev-pfaffian-invariant}
+    \mathcal{M}
+    =
+    \sgn\{\xi(0)\xi(\pi)\}
+    =
+    \sgn\{(-\mu-2t)(-\mu+2t)\}
+    =
+    \sgn(\mu^2-4t^2).
+\end{equation}
+The topological phase has
+\begin{equation}
+\label{eq:kitaev-class-d-nontrivial}
+    \mathcal{M}=-1
+    \quad\Longleftrightarrow\quad
+    \abs{\mu}<2\abs{t}.
+\end{equation}
+Using the XY dictionary $\mu=-2h$ and $t=J$, this becomes
+\begin{equation}
+\label{eq:kitaev-xy-topological-condition}
+    \abs{h}<\abs{J},
+\end{equation}
+which is the region between the two Ising gap-closing lines of the XY mother
+model.
+
+\section{Relation to the TFIM and the XY chain}
+\label{sec:kitaev-relation-to-tfim-xy}
+
+The transverse-field Ising model corresponds to the Kitaev chain with
+\begin{equation}
+\label{eq:kitaev-tfim-dictionary}
+    \gamma=1
+    \quad\Longleftrightarrow\quad
+    \Delta=t=J,
+    \qquad
+    \mu=-2h.
+\end{equation}
+For $J,h>0$, the TFIM transition at $h=J$ is the Kitaev transition at
+\begin{equation}
+    \mu=-2t.
+\end{equation}
+The spin ferromagnetic phase $h<J$ is the topological superconducting phase
+$\abs{\mu}<2\abs{t}$.  The spin paramagnet $h>J$ is the trivial superconducting
+phase.
+
+This identification is conceptually useful but should not be overinterpreted.
+The fermions in the Kitaev-chain description are Jordan--Wigner fermions, not
+microscopic electrons of the original spin chain.  The Majorana edge modes of
+the open Kitaev chain correspond, in the spin language, to the near degeneracy of
+the symmetry-broken Ising phase and to nonlocal string operators.
+
+\section{Summary}
+\label{sec:kitaev-summary}
+
+The Kitaev chain is the fermionic form of the XY mother model.  The convention
+used in these notes gives the bulk dictionary
+\begin{equation}
+    t=J,
+    \qquad
+    \Delta=J\gamma,
+    \qquad
+    \mu=-2h.
+\end{equation}
+Its BdG spectrum is
+\begin{equation}
+    E(k)=\sqrt{(-\mu-2t\cos k)^2+4\abs{\Delta}^2\sin^2 k}.
+\end{equation}
+For nonzero pairing, the bulk transitions occur at $\mu=\pm2t$.  The phase
+$\abs{\mu}<2\abs{t}$ is topological and supports Majorana edge modes on an open
+chain.  A uniform complex phase of $\Delta$ rotates the BdG pairing plane and can
+be absorbed by a Nambu gauge choice, while phase winding or boundary flux may
+carry physical information.

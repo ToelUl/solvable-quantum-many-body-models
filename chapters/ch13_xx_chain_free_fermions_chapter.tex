@@ -1,0 +1,321 @@
+\chapter{The XX Chain and Free Fermions}
+\label{chap:xx-chain-free-fermions}
+
+The XX chain is the number-conserving limit of the XY mother model.  It is the
+cleanest example of how a spin chain can become an ordinary tight-binding
+fermion problem after the Jordan--Wigner transformation.  Unlike the TFIM and
+the generic XY chain, the XX chain has a conserved fermion number, a Fermi sea,
+and a gapless critical phase with two Fermi points.
+
+\section{The \texorpdfstring{$\gamma=0$}{gamma=0} limit of the XY chain}
+\label{sec:xx-gamma-zero-limit}
+
+Setting $\gamma=0$ in the transverse-field XY chain gives
+\begin{equation}
+\label{eq:xx-spin-hamiltonian}
+    H_{\rm XX}
+    =
+    -\frac{J}{2}\sum_{j=1}^{L}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +
+        \sigma_j^y\sigma_{j+1}^y
+    \right)
+    -h\sum_{j=1}^{L}\sigma_j^z.
+\end{equation}
+Equivalently, in terms of spin raising and lowering operators,
+\begin{equation}
+\label{eq:xx-spin-flip-form}
+    H_{\rm XX}
+    =
+    -J\sum_j
+    \left(
+        \sigma_j^+\sigma_{j+1}^-
+        +
+        \sigma_j^-\sigma_{j+1}^+
+    \right)
+    -h\sum_j\sigma_j^z.
+\end{equation}
+The first term moves a spin flip from one site to a neighboring site.  It does
+not create or annihilate spin flips in pairs.  This is the spin-language origin
+of fermion-number conservation.
+
+Using the Jordan--Wigner convention of these notes, the bulk fermionic
+Hamiltonian is
+\begin{equation}
+\label{eq:xx-fermion-hamiltonian-real-space}
+    H_{\rm XX}^{\rm bulk}
+    =
+    -J\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -hL+2h\sum_j n_j .
+\end{equation}
+There is no pairing term.  Therefore
+\begin{equation}
+\label{eq:xx-number-conservation}
+    [H_{\rm XX},N]=0,
+    \qquad
+    N=\sum_j n_j.
+\end{equation}
+This is stronger than the parity conservation of the generic XY chain.
+
+For a periodic spin chain, the same parity-sector boundary condition as before
+is present:
+\begin{equation}
+\label{eq:xx-parity-boundary-condition}
+    P_F=p
+    \quad\Longrightarrow\quad
+    c_{L+1}=-p\,c_1.
+\end{equation}
+In the thermodynamic limit this affects only the quantization of allowed momenta.
+
+\section{Fourier diagonalization}
+\label{sec:xx-fourier-diagonalization}
+
+In a fixed boundary sector, use
+\begin{equation}
+    c_j=\frac{1}{\sqrt{L}}\sum_{k\in\mathcal{K}_\vartheta}
+    \ee^{\ii kj}c_k,
+\end{equation}
+where $\vartheta=0$ or $\pi$ depending on the sector.  The Hamiltonian becomes
+\begin{equation}
+\label{eq:xx-momentum-hamiltonian}
+    H_{\rm XX}
+    =
+    -hL+
+    \sum_{k\in\mathcal{K}_\vartheta}
+    \xi(k)c_k^\dagger c_k,
+\end{equation}
+with single-particle dispersion
+\begin{equation}
+\label{eq:xx-dispersion}
+    \xi(k)=2(h-J\cos k).
+\end{equation}
+The many-body eigenstates are occupation-number states
+\begin{equation}
+\label{eq:xx-occupation-basis}
+    \ket{\{n_k\}}
+    =
+    \prod_{k}(c_k^\dagger)^{n_k}\ket{0},
+    \qquad
+    n_k=0,1,
+\end{equation}
+with energy
+\begin{equation}
+\label{eq:xx-many-body-energy}
+    E[\{n_k\}]
+    =
+    -hL+
+    \sum_k \xi(k)n_k.
+\end{equation}
+The diagonalization is therefore simpler than the BdG problem: no Bogoliubov
+rotation is required.
+
+\section{Ground-state Fermi sea}
+\label{sec:xx-ground-state-fermi-sea}
+
+At zero temperature the ground state fills all modes with negative
+single-particle energy:
+\begin{equation}
+\label{eq:xx-fill-negative-energy}
+    \xi(k)<0
+    \quad\Longleftrightarrow\quad
+    \cos k>\frac{h}{J}
+    \qquad (J>0).
+\end{equation}
+There are three regimes:
+\begin{equation}
+\label{eq:xx-ground-state-regimes}
+\begin{array}{ccl}
+    h>J &:& \text{no fermions are occupied},\\[2pt]
+    \abs{h}<J &:& \text{a Fermi sea is present},\\[2pt]
+    h<-J &:& \text{all fermion modes are occupied}.
+\end{array}
+\end{equation}
+For $\abs{h}<J$, the Fermi points are
+\begin{equation}
+\label{eq:xx-fermi-momentum}
+    k=\pm k_F,
+    \qquad
+    k_F=\arccos\left(\frac{h}{J}\right).
+\end{equation}
+The filled region is $\abs{k}<k_F$ in the convention of
+\cref{eq:xx-dispersion}.  The fermion density in the thermodynamic limit is
+\begin{equation}
+\label{eq:xx-fermion-density}
+    n
+    =
+    \langle c_j^\dagger c_j\rangle
+    =
+    \frac{k_F}{\pi},
+    \qquad
+    \abs{h}<J.
+\end{equation}
+Since $\sigma_j^z=1-2n_j$, the magnetization is
+\begin{equation}
+\label{eq:xx-z-magnetization}
+    m_z
+    =
+    \langle \sigma_j^z\rangle
+    =
+    1-\frac{2k_F}{\pi},
+    \qquad
+    k_F=\arccos\left(\frac{h}{J}\right).
+\end{equation}
+This interpolates from $m_z=-1$ at $h=-J$ to $m_z=+1$ at $h=J$.
+
+The ground-state energy density for $\abs{h}<J$ is
+\begin{equation}
+\label{eq:xx-ground-state-energy-density}
+    e_0
+    =
+    -h+
+    \frac{1}{2\pi}
+    \int_{-k_F}^{k_F}2(h-J\cos k)\,\dd k
+    =
+    -h+
+    \frac{2hk_F}{\pi}
+    -
+    \frac{2J\sin k_F}{\pi}.
+\end{equation}
+Outside the partially filled regime this expression must be replaced by the
+empty or completely filled Fermi sea.
+
+\section{Low-energy Dirac and Luttinger-liquid limit}
+\label{sec:xx-low-energy-limit}
+
+In the gapless region $\abs{h}<J$, expand near the two Fermi points:
+\begin{equation}
+\label{eq:xx-linearization}
+    k=\pm k_F+q,
+    \qquad
+    \abs{q}\ll1.
+\end{equation}
+The dispersion linearizes as
+\begin{equation}
+\label{eq:xx-linear-dispersion}
+    \xi(+k_F+q)\simeq v_F q,
+    \qquad
+    \xi(-k_F+q)\simeq -v_F q,
+\end{equation}
+where
+\begin{equation}
+\label{eq:xx-fermi-velocity}
+    v_F
+    =
+    \left.\abs{\frac{\dd \xi}{\dd k}}\right|_{k=k_F}
+    =
+    2J\sin k_F
+    =
+    2J\sqrt{1-\left(\frac{h}{J}\right)^2}.
+\end{equation}
+The continuum fermion is decomposed as
+\begin{equation}
+\label{eq:xx-right-left-decomposition}
+    c_j
+    \sim
+    \ee^{\ii k_F x}\psi_R(x)
+    +
+    \ee^{-\ii k_F x}\psi_L(x),
+    \qquad
+    x=ja.
+\end{equation}
+The low-energy Hamiltonian is the massless Dirac Hamiltonian
+\begin{equation}
+\label{eq:xx-dirac-continuum-hamiltonian}
+    H_{\rm cont}
+    =
+    -\ii v_F\int\dd x
+    \left(
+        \psi_R^\dagger\partial_x\psi_R
+        -
+        \psi_L^\dagger\partial_x\psi_L
+    \right).
+\end{equation}
+In spin-chain language this is the free-fermion point of a Luttinger liquid.  Its
+central charge is
+\begin{equation}
+\label{eq:xx-central-charge}
+    c=1,
+\end{equation}
+which distinguishes the XX critical region from the Ising critical point of the
+TFIM, where $c=1/2$.
+
+\section{Correlation functions}
+\label{sec:xx-correlation-functions}
+
+Because the Hamiltonian is number conserving and diagonal in momentum space, the
+basic equal-time fermion correlator is elementary.  In the thermodynamic ground
+state with $\abs{h}<J$,
+\begin{equation}
+\label{eq:xx-fermion-two-point}
+    \langle c_i^\dagger c_j\rangle
+    =
+    \frac{1}{2\pi}\int_{-k_F}^{k_F}
+    \ee^{\ii k(j-i)}\,\dd k
+    =
+    \begin{cases}
+        \dfrac{k_F}{\pi}, & i=j,\\[8pt]
+        \dfrac{\sin[k_F(j-i)]}{\pi(j-i)}, & i\neq j.
+    \end{cases}
+\end{equation}
+This $1/r$ decay is the fermionic signature of gaplessness.
+
+The longitudinal spin correlator is local in fermion density:
+\begin{equation}
+\label{eq:xx-longitudinal-correlator-density}
+    \sigma_j^z=1-2n_j.
+\end{equation}
+The transverse spin correlators, such as
+$\langle\sigma_i^x\sigma_j^x\rangle$, contain Jordan--Wigner strings and are
+computed as determinants or Pfaffians.  Their long-distance behavior in the
+critical region is algebraic, rather than exponential.  At half filling
+($h=0$, $k_F=\pi/2$), the leading transverse spin correlations decay as a power
+law with the characteristic free-fermion/Luttinger-liquid exponent.
+
+\section{Comparison with the generic XY chain}
+\label{sec:xx-comparison-generic-xy}
+
+The XX chain is obtained from the generic XY chain by turning off the pairing
+amplitude.  The distinction can be summarized as follows.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\caption{Generic XY chain versus the XX limit.}
+\label{tab:xx-vs-xy}
+\begin{tabularx}{\textwidth}{L{0.25\textwidth}L{0.33\textwidth}Y}
+\toprule
+Feature & Generic XY chain $(\gamma\neq0)$ & XX chain $(\gamma=0)$ \\
+\midrule
+Fermion number & Not conserved & Conserved \\
+Fermion parity & Conserved & Conserved, with full $U(1)$ enhanced symmetry \\
+Momentum-space block & BdG $(k,-k)$ block & Single-particle dispersion $\xi(k)$ \\
+Ground state & BCS paired state & Fermi sea \\
+Generic criticality & Ising lines at $h=\pm J$ & Gapless region $\abs{h}<J$ \\
+Continuum theory & Majorana, $c=1/2$ & Dirac/Luttinger liquid, $c=1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Adding a small nonzero anisotropy $\gamma$ to the gapless XX region introduces a
+$p$-wave pairing perturbation.  In the fermionic language this pairs the right-
+and left-moving modes and opens a gap except where the lattice mass also closes
+at the Ising transition.
+
+\section{Summary}
+\label{sec:xx-summary}
+
+The XX chain is the $\gamma=0$ limit of the XY mother model.  It is exactly a
+number-conserving tight-binding model with dispersion
+\begin{equation}
+    \xi(k)=2(h-J\cos k).
+\end{equation}
+For $J>0$, the ground state is empty for $h>J$, completely filled for $h<-J$,
+and a partially filled Fermi sea for $\abs{h}<J$.  The latter regime has two
+Fermi points, a linear low-energy Dirac description, and central charge $c=1$.
+This chapter therefore illustrates the difference between free-fermion
+solvability by a Fermi sea and free-fermion solvability by BdG pairing.

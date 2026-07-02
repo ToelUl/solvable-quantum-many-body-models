@@ -1,0 +1,494 @@
+\chapter{Duality}
+\label{chap:duality}
+
+Duality is one of the most efficient organizing principles in exactly solvable
+models.  A duality rewrites the same partition function, Hamiltonian, operator
+algebra, or low-energy field theory in variables adapted to a different physical
+regime.  In the Ising family, the essential effect is the exchange
+\begin{equation}
+\label{eq:duality-weak-strong-schematic}
+\begin{aligned}
+    \text{ordered variables}
+    &\longleftrightarrow
+    \text{domain-wall or disorder variables},\\
+    \text{strong coupling}
+    &\longleftrightarrow
+    \text{weak coupling}.
+\end{aligned}
+\end{equation}
+Thus duality is not merely a computational trick.  It explains why an apparently
+nonlocal description can become local after changing variables, why the
+transverse-field Ising critical point is located at the self-dual coupling, and
+why the two phases of the Ising chain are naturally described as order and
+disorder phases.
+
+This chapter develops duality at three levels:
+\begin{enumerate}[label=(\roman*)]
+    \item Kramers--Wannier duality of the two-dimensional classical Ising model;
+    \item the operator Kramers--Wannier duality of the one-dimensional TFIM; and
+    \item the precise logical status of self-duality as a criterion for
+    criticality.
+\end{enumerate}
+The conventions are matched to the TFIM Hamiltonian used in these notes,
+\begin{equation}
+\label{eq:duality-chapter-tfim}
+    H_{\rm TFIM}
+    =
+    -J\sum_j \sigma_j^x\sigma_{j+1}^x
+    -h\sum_j \sigma_j^z,
+    \qquad
+    J,h\geq0 .
+\end{equation}
+The ordered phase is therefore the phase with long-range order in
+$\sigma^x$, while the transverse-field or disordered phase is polarized by
+$\sigma^z$.
+
+\section{Classical Kramers--Wannier duality}
+\label{sec:classical-kramers-wannier-duality}
+
+Consider the anisotropic two-dimensional classical Ising model on a square
+lattice,
+\begin{equation}
+\label{eq:duality-2d-classical-ising}
+    Z(K_x,K_y)
+    =
+    \sum_{s_{r}=\pm1}
+    \exp\left[
+        K_x\sum_{\langle r r'\rangle_x}s_rs_{r'}
+        +
+        K_y\sum_{\langle r r'\rangle_y}s_rs_{r'}
+    \right],
+\end{equation}
+where $K_x$ and $K_y$ are dimensionless couplings along the two lattice
+directions.  The high-temperature expansion uses
+\begin{equation}
+\label{eq:duality-high-temp-bond}
+    \ee^{K s_rs_{r'}}
+    =
+    \cosh K\left(1+s_rs_{r'}\tanh K\right).
+\end{equation}
+After expanding all bonds and summing over the Ising spins, only configurations
+in which an even number of occupied bonds touches each site survive.  These are
+closed loops on the original lattice.  Schematically,
+\begin{equation}
+\label{eq:duality-high-temp-loops}
+    Z(K_x,K_y)
+    =
+    2^N(\cosh K_x)^{E_x}(\cosh K_y)^{E_y}
+    \sum_{\mathcal{C}\,\text{closed}}
+    (\tanh K_x)^{n_x(\mathcal{C})}
+    (\tanh K_y)^{n_y(\mathcal{C})}.
+\end{equation}
+Here $N$ is the number of spins, $E_x,E_y$ are the numbers of bonds in the two
+directions, and $n_x(\mathcal{C}),n_y(\mathcal{C})$ count occupied loop edges.
+
+The low-temperature expansion instead starts from the two ferromagnetic ground
+states.  A configuration is specified by domain walls on the dual lattice.  A
+domain wall segment crossing a bond of coupling $K$ costs a Boltzmann factor
+$\ee^{-2K}$.  Matching the loop weights in the high-temperature expansion to the
+domain-wall weights of a dual Ising model gives the dual couplings
+\begin{equation}
+\label{eq:duality-classical-dual-couplings-exp}
+    \ee^{-2K_x^*}=\tanh K_y,
+    \qquad
+    \ee^{-2K_y^*}=\tanh K_x .
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:duality-classical-dual-couplings-sinh}
+    \sinh(2K_x^*)\sinh(2K_y)=1,
+    \qquad
+    \sinh(2K_y^*)\sinh(2K_x)=1 .
+\end{equation}
+The exchange of directions in \cref{eq:duality-classical-dual-couplings-exp}
+comes from the fact that a horizontal bond of the dual lattice crosses a vertical
+bond of the original lattice, and conversely.
+
+Up to a non-singular prefactor depending on the couplings and the boundary
+conditions, the partition function of the original model equals the partition
+function of the dual model,
+\begin{equation}
+\label{eq:duality-classical-partition-map}
+    Z(K_x,K_y)
+    \propto
+    Z(K_x^*,K_y^*) .
+\end{equation}
+The proportionality factor affects the analytic part of the free energy but not
+the location of a nonanalytic singularity in the thermodynamic limit.
+
+For the isotropic model $K_x=K_y=K$, the self-dual condition is
+\begin{equation}
+\label{eq:duality-isotropic-ising-critical}
+    \ee^{-2K_c}=\tanh K_c,
+    \qquad
+    \sinh(2K_c)=1,
+    \qquad
+    K_c=\frac12\log(1+\sqrt2).
+\end{equation}
+For the anisotropic model, the self-dual curve is
+\begin{equation}
+\label{eq:duality-anisotropic-ising-critical}
+    \sinh(2K_x)\sinh(2K_y)=1 .
+\end{equation}
+This is the same condition that appeared in the transfer-matrix derivation of
+the quantum--classical correspondence in the previous chapter.
+In the strongly anisotropic limit, it reduces to the TFIM condition $h=J$.
+
+\section{Operator duality in the transverse-field Ising chain}
+\label{sec:operator-duality-tfim}
+
+The quantum version of Kramers--Wannier duality is an exact change of operator
+variables.  We first work on an infinite chain or in the bulk of a long open
+chain, where boundary subtleties do not obscure the local algebra.  Define dual
+Pauli operators on the bonds of the original lattice by
+\begin{equation}
+\label{eq:duality-dual-spin-definitions}
+    \mu_{j+\frac12}^z
+    =
+    \sigma_j^x\sigma_{j+1}^x,
+    \qquad
+    \mu_{j+\frac12}^x
+    =
+    \prod_{\ell\leq j}\sigma_\ell^z .
+\end{equation}
+The first operator measures whether neighbouring $\sigma^x$ spins are aligned;
+the second is a semi-infinite string of transverse-field operators and is called
+a \emph{disorder operator}.
+
+The operators in \cref{eq:duality-dual-spin-definitions} obey the Pauli algebra.
+Indeed,
+\begin{equation}
+\label{eq:duality-mu-pauli-algebra}
+    (\mu_{j+\frac12}^x)^2=(\mu_{j+\frac12}^z)^2=\id,
+    \qquad
+    \{\mu_{j+\frac12}^x,\mu_{j+\frac12}^z\}=0,
+\end{equation}
+and dual operators on distinct dual sites commute.  The anticommutation at the
+same dual site occurs because $\mu_{j+1/2}^x$ overlaps with
+$\sigma_j^x\sigma_{j+1}^x$ on exactly one site.  For different dual sites, the
+number of overlaps is either zero or two, so the operators commute.
+
+The inverse local identities are
+\begin{equation}
+\label{eq:duality-inverse-local-identities}
+    \sigma_j^x\sigma_{j+1}^x=\mu_{j+\frac12}^z,
+    \qquad
+    \sigma_j^z=\mu_{j-\frac12}^x\mu_{j+\frac12}^x .
+\end{equation}
+Substituting these into \cref{eq:duality-chapter-tfim} gives
+\begin{equation}
+\label{eq:duality-tfim-dual-hamiltonian-mu}
+    H_{\rm TFIM}
+    =
+    -J\sum_j\mu_{j+\frac12}^z
+    -h\sum_j\mu_{j-\frac12}^x\mu_{j+\frac12}^x .
+\end{equation}
+If we rotate the dual spin axes by defining
+\begin{equation}
+\label{eq:duality-rotated-dual-spins}
+    \widetilde{\sigma}_{j+\frac12}^x=\mu_{j+\frac12}^z,
+    \qquad
+    \widetilde{\sigma}_{j+\frac12}^z=\mu_{j+\frac12}^x,
+\end{equation}
+then the dual Hamiltonian becomes
+\begin{equation}
+\label{eq:duality-tfim-dual-hamiltonian-tilde}
+    H_{\rm TFIM}(J,h)
+    \longmapsto
+    -h\sum_j
+    \widetilde{\sigma}_{j-\frac12}^z
+    \widetilde{\sigma}_{j+\frac12}^z
+    -J\sum_j
+    \widetilde{\sigma}_{j+\frac12}^x .
+\end{equation}
+This is the same TFIM form after relabeling the axes, with the two couplings
+exchanged:
+\begin{equation}
+\label{eq:duality-tfim-coupling-exchange}
+    (J,h)\longleftrightarrow (h,J).
+\end{equation}
+Equivalently, in terms of the dimensionless ratio $g=h/J$,
+\begin{equation}
+\label{eq:duality-g-to-inverse-g}
+    g\longmapsto g^*=\frac1g,
+\end{equation}
+up to an overall energy scale.
+
+\begin{remark}[Why the dual lattice is shifted]
+The dual spins live on bonds $j+1/2$, not on the original sites $j$.  This shift
+is not cosmetic.  It encodes the fact that the elementary dual variable is a
+domain-wall variable: it naturally lives between two neighbouring order
+variables.  In the continuum limit, this shift becomes invisible, but on the
+lattice it is essential for getting the operator algebra and boundary conditions
+right.
+\end{remark}
+
+\section{Order and disorder operators}
+\label{sec:order-disorder-operators}
+
+The duality map makes the distinction between order and disorder completely
+explicit.  In the original spin language, the ferromagnetic order parameter is
+$\sigma_j^x$.  In the dual language, a two-point order correlator becomes a
+string of dual domain-wall variables:
+\begin{equation}
+\label{eq:duality-order-correlator-string}
+    \sigma_i^x\sigma_j^x
+    =
+    \prod_{m=i}^{j-1}
+    \mu_{m+\frac12}^z,
+    \qquad i<j .
+\end{equation}
+Conversely, the dual order operator $\mu^x$ is a disorder string in the original
+variables.  Its two-point function is
+\begin{equation}
+\label{eq:duality-disorder-correlator-string}
+    \mu_{i+\frac12}^x\mu_{j+\frac12}^x
+    =
+    \prod_{\ell=i+1}^{j}\sigma_\ell^z,
+    \qquad i<j .
+\end{equation}
+Thus Kramers--Wannier duality exchanges a local order operator with a nonlocal
+string operator.
+
+In the ordered phase $J>h$, the original spins have long-range $\sigma^x$ order,
+while the dual variables are disordered.  In the paramagnetic phase $h>J$, the
+original order is absent, but the disorder operator has long-range order:
+\begin{equation}
+\label{eq:duality-order-disorder-phases}
+    \begin{array}{ccl}
+    J>h &:& \langle \sigma^x\rangle\neq0,
+    \qquad \langle \mu^x\rangle=0,\\[2pt]
+    h>J &:& \langle \sigma^x\rangle=0,
+    \qquad \langle \mu^x\rangle\neq0 .
+    \end{array}
+\end{equation}
+This is the quantum-chain version of the classical statement that the low-
+temperature expansion in domain walls is dual to the high-temperature expansion
+in closed loops.
+
+\section{Finite chains, constraints, and boundary conditions}
+\label{sec:duality-boundary-conditions}
+
+The local formulas above are exact in the bulk.  On a finite chain, duality also
+acts on global sectors and boundary conditions.  This point is important because
+many solvable-chain calculations in these notes use periodic boundary
+conditions, parity sectors, and momentum quantization.
+
+For an open chain with $L$ sites,
+\begin{equation}
+\label{eq:duality-open-tfim}
+    H_{\rm OBC}
+    =
+    -J\sum_{j=1}^{L-1}\sigma_j^x\sigma_{j+1}^x
+    -h\sum_{j=1}^{L}\sigma_j^z,
+\end{equation}
+define
+\begin{equation}
+\label{eq:duality-open-definitions}
+    \mu_{j+\frac12}^z=\sigma_j^x\sigma_{j+1}^x,
+    \qquad
+    \mu_{j+\frac12}^x=\prod_{\ell=1}^{j}\sigma_\ell^z,
+    \qquad
+    j=1,\ldots,L-1.
+\end{equation}
+Then
+\begin{equation}
+\label{eq:duality-open-boundary-identities}
+    \sigma_j^z
+    =
+    \mu_{j-\frac12}^x\mu_{j+\frac12}^x,
+    \qquad
+    \mu_{\frac12}^x\equiv\id,
+    \qquad
+    \mu_{L+\frac12}^x\equiv P_z,
+\end{equation}
+where
+\begin{equation}
+\label{eq:duality-global-z2-charge}
+    P_z=\prod_{j=1}^{L}\sigma_j^z
+\end{equation}
+is the global Ising $\ZZ_2$ symmetry generator.  Therefore the dual open-chain
+Hamiltonian contains boundary terms involving the fixed endpoint variables
+$\mu_{1/2}^x$ and $\mu_{L+1/2}^x$.  In a fixed $P_z$ sector these are ordinary
+boundary conditions for the dual chain.
+
+For a periodic chain, the same issue appears as a relation between symmetry
+sectors and boundary twists.  The definitions
+\begin{equation}
+\label{eq:duality-periodic-definitions}
+    \mu_{j+\frac12}^z=\sigma_j^x\sigma_{j+1}^x,
+    \qquad
+    \mu_{j+\frac12}^x=\prod_{\ell=1}^{j}\sigma_\ell^z
+\end{equation}
+lead to
+\begin{equation}
+\label{eq:duality-periodic-constraint}
+    \prod_{j=1}^{L}\mu_{j+\frac12}^z
+    =
+    \prod_{j=1}^{L}\sigma_j^x\sigma_{j+1}^x
+    =
+    \id,
+\end{equation}
+and
+\begin{equation}
+\label{eq:duality-periodic-twist}
+    \mu_{L+\frac12}^x=P_z\mu_{\frac12}^x .
+\end{equation}
+Hence a periodic original chain maps to a dual chain with a constraint and a
+boundary condition determined by the original global $\ZZ_2$ charge.  Conversely,
+the global symmetry sector of the dual model determines the boundary condition
+of the original model.  This is the spin-chain analogue of the parity-dependent
+fermion boundary conditions encountered in the Jordan--Wigner transformation.
+
+\begin{remark}[Duality is not always an on-site unitary]
+On an infinite chain, Kramers--Wannier duality is a faithful isomorphism of local
+operator algebras.  On a finite periodic chain, it is not simply an on-site
+unitary map from one unconstrained $2^L$-dimensional spin Hilbert space to
+another unconstrained $2^L$-dimensional spin Hilbert space.  One must keep track
+of constraints, global sectors, and boundary twists.  Ignoring this point is a
+common source of erroneous factors of two in partition functions and spectra.
+\end{remark}
+
+\section{Self-duality and the TFIM critical point}
+\label{sec:self-duality-tfim-critical-point}
+
+The TFIM is self-dual when $J=h$.  Since duality exchanges $J$ and $h$, the point
+$J=h$ is invariant under the transformation.  The exact free-fermion spectrum of
+\cref{eq:duality-chapter-tfim} is
+\begin{equation}
+\label{eq:duality-tfim-spectrum}
+    E(k)
+    =
+    2\sqrt{
+        (h-J\cos k)^2
+        +
+        (J\sin k)^2
+    }.
+\end{equation}
+For $J,h>0$, the excitation gap is obtained at $k=0$:
+\begin{equation}
+\label{eq:duality-tfim-gap}
+    \Delta_{\rm gap}=2\abs{h-J}.
+\end{equation}
+Thus the self-dual point is indeed the quantum critical point,
+\begin{equation}
+\label{eq:duality-tfim-critical-point}
+    h=J .
+\end{equation}
+At this point the order and disorder descriptions are equally natural, the
+Majorana mass in the continuum limit changes sign, and the scaling limit is the
+Ising conformal field theory.
+
+This conclusion can also be obtained from the two-dimensional classical Ising
+model.  The transfer-matrix chapter showed that the anisotropic classical
+critical condition
+\begin{equation}
+    \sinh(2K_x)\sinh(2K_\tau)=1
+\end{equation}
+reduces, in the strongly anisotropic quantum limit, to $h=J$.  Kramers--Wannier
+duality and the quantum--classical correspondence therefore locate the same
+critical point.
+
+\section{When does self-duality determine a critical point?}
+\label{sec:self-duality-criterion-limitations}
+
+Self-duality is powerful, but it is not by itself a proof of criticality.  The
+precise statement is conditional.
+
+\begin{principle}[Self-duality criterion]
+Suppose a model depends on a coupling ratio $g$, and an exact duality maps
+$g\mapsto 1/g$.  If the model has exactly one phase transition separating two
+phases exchanged by the duality, and if the transition is not hidden by an
+extended critical region or by additional symmetry-breaking/topological
+structure, then the transition must occur at the self-dual point $g=1$.
+\end{principle}
+
+The assumptions in this principle matter.  A self-dual point can fail to be a
+unique continuous critical point for several reasons:
+\begin{enumerate}[label=(\roman*)]
+    \item there may be more than one transition, appearing in dual pairs away
+    from the self-dual point;
+    \item there may be a first-order transition at the self-dual point rather
+    than a continuous critical point;
+    \item there may be an extended critical phase rather than an isolated
+    critical point; or
+    \item the duality may exchange sectors or boundary conditions rather than
+    mapping a single finite-size Hamiltonian strictly to itself.
+\end{enumerate}
+For the ferromagnetic TFIM with $J,h>0$, the extra spectral information in
+\cref{eq:duality-tfim-spectrum} verifies that there is a single gap closing at
+$J=h$.  Thus in this model self-duality is not merely suggestive; it correctly
+identifies the exact critical point.
+
+\begin{remark}[Sign conventions]
+The sign of $h$ in \cref{eq:duality-chapter-tfim} is removable by the global
+unitary $\prod_j\sigma_j^x$, which flips $\sigma_j^z\mapsto-\sigma_j^z$ and leaves
+$\sigma_j^x\sigma_{j+1}^x$ invariant.  On a bipartite chain, the sign of $J$ can
+also be changed by a staggered rotation, up to boundary subtleties for periodic
+chains.  Therefore the essential ferromagnetic TFIM phase diagram is usually
+drawn in terms of $\abs{h}/\abs{J}$, with the critical point at
+$\abs{h}=\abs{J}$.
+\end{remark}
+
+\section{Relation to fermions and Majorana mass}
+\label{sec:duality-fermions-majorana-mass}
+
+Under the Jordan--Wigner transformation, the TFIM becomes a quadratic Majorana
+or BdG Hamiltonian.  In the convention of these notes, the single-particle gap is
+controlled by the difference $h-J$.  Near $k=0$ and near $h=J$, the BdG spectrum
+has the relativistic form
+\begin{equation}
+\label{eq:duality-majorana-low-energy-spectrum}
+    E(k)
+    \simeq
+    2\sqrt{(h-J)^2+J h\, k^2}
+\end{equation}
+up to higher-order lattice corrections.  The continuum theory is therefore a
+massive Majorana theory with mass proportional to
+\begin{equation}
+\label{eq:duality-majorana-mass}
+    m\propto h-J.
+\end{equation}
+Kramers--Wannier duality exchanges the two signs of this mass.  The ordered
+Ising phase and the disordered Ising phase are therefore two massive Majorana
+phases separated by the massless Majorana point $m=0$.
+
+This observation is also the bridge to the Kitaev-chain interpretation.  The
+TFIM ordered/disordered transition corresponds, after fermionization, to the
+transition between the topological and trivial phases of a one-dimensional
+spinless $p$-wave superconductor.  In the spin language this distinction is
+expressed as order versus disorder; in the fermion language it is expressed as a
+change in the Majorana mass sign and, for open chains, the presence or absence
+of unpaired boundary Majorana modes.  The next chapter will formulate this same
+transition in terms of winding numbers and BdG topology.
+
+\section{Summary}
+\label{sec:duality-summary}
+
+The essential identities of this chapter are
+\begin{equation}
+\label{eq:duality-summary-identities}
+    \mu_{j+\frac12}^z=\sigma_j^x\sigma_{j+1}^x,
+    \qquad
+    \mu_{j+\frac12}^x=\prod_{\ell\leq j}\sigma_\ell^z,
+    \qquad
+    \sigma_j^z=\mu_{j-\frac12}^x\mu_{j+\frac12}^x .
+\end{equation}
+They imply the bulk Hamiltonian mapping
+\begin{equation}
+\label{eq:duality-summary-hamiltonian-map}
+    -J\sum_j\sigma_j^x\sigma_{j+1}^x
+    -h\sum_j\sigma_j^z
+    \quad\longleftrightarrow\quad
+    -h\sum_j\widetilde{\sigma}_j^x\widetilde{\sigma}_{j+1}^x
+    -J\sum_j\widetilde{\sigma}_j^z,
+\end{equation}
+with the two couplings exchanged.  Consequently the TFIM is self-dual at
+$h=J$, and the exact spectrum confirms that this point is the unique continuous
+critical point of the ferromagnetic chain.
+
+The conceptual lesson is that duality turns nonlocal degrees of freedom into
+local ones.  The same physical theory can be described either by the original
+order variables $\sigma^x$, by the disorder variables $\mu^x$, by Jordan--Wigner
+fermions, or by Majorana fields.  This is precisely the equivalence-map viewpoint
+that underlies the organization of these lecture notes.

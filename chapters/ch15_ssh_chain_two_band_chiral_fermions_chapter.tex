@@ -1,0 +1,328 @@
+\chapter{The SSH Chain and Two-Band Chiral Fermions}
+\label{chap:ssh-chain-two-band-chiral-fermions}
+
+The Su--Schrieffer--Heeger (SSH) chain is not a Jordan--Wigner image of the XY
+mother model.  It is nevertheless an essential companion example because it is
+the simplest number-conserving two-band topological Hamiltonian.  The Kitaev
+chain uses a Nambu particle--hole basis; the SSH chain uses a sublattice basis.
+Both reduce topology to the winding of a two-component vector around the origin,
+but the Hilbert-space meaning of the two components is different.
+
+\section{SSH Hamiltonian}
+\label{sec:ssh-hamiltonian}
+
+Consider a one-dimensional chain with two sites per unit cell, labelled $A$ and
+$B$.  Let $a_j$ annihilate a fermion on sublattice $A$ in unit cell $j$, and let
+$b_j$ annihilate a fermion on sublattice $B$.  The SSH Hamiltonian is
+\begin{equation}
+\label{eq:ssh-real-space-hamiltonian}
+    H_{\rm SSH}
+    =
+    \sum_{j}
+    \left(
+        t_1 a_j^\dagger b_j
+        +
+        t_2 b_j^\dagger a_{j+1}
+        +
+        \text{h.c.}
+    \right).
+\end{equation}
+Here $t_1$ is the intracell hopping and $t_2$ is the intercell hopping.  The
+model conserves fermion number:
+\begin{equation}
+\label{eq:ssh-number-conservation}
+    [H_{\rm SSH},N]=0,
+    \qquad
+    N=\sum_j(a_j^\dagger a_j+b_j^\dagger b_j).
+\end{equation}
+Thus it is a Bloch-band problem rather than a BdG problem.
+
+The two exactly solvable limits are instructive.  If $t_2=0$, the chain is a set
+of isolated intracell dimers.  If $t_1=0$, the chain is a set of intercell dimers;
+for an open chain, the leftmost $A$ site and rightmost $B$ site are unpaired edge
+states.  The topological distinction between these two dimerizations is the
+central content of the SSH model.
+
+\section{Bloch form}
+\label{sec:ssh-bloch-form}
+
+Use the Fourier convention
+\begin{equation}
+    a_j=\frac{1}{\sqrt{L}}\sum_k\ee^{\ii kj}a_k,
+    \qquad
+    b_j=\frac{1}{\sqrt{L}}\sum_k\ee^{\ii kj}b_k.
+\end{equation}
+In the basis
+\begin{equation}
+\label{eq:ssh-bloch-spinor}
+    \psi_k=
+    \begin{pmatrix}
+        a_k\\ b_k
+    \end{pmatrix},
+\end{equation}
+the Hamiltonian becomes
+\begin{equation}
+\label{eq:ssh-momentum-hamiltonian}
+    H_{\rm SSH}
+    =
+    \sum_k\psi_k^\dagger h_{\rm SSH}(k)\psi_k,
+\end{equation}
+where
+\begin{equation}
+\label{eq:ssh-bloch-matrix}
+    h_{\rm SSH}(k)
+    =
+    \begin{pmatrix}
+        0&q(k)\\
+        q(k)^*&0
+    \end{pmatrix},
+    \qquad
+    q(k)=t_1+t_2\ee^{-\ii k}.
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:ssh-d-vector}
+    h_{\rm SSH}(k)
+    =
+    d_x(k)\sigma_x+d_y(k)\sigma_y,
+\end{equation}
+with
+\begin{equation}
+\label{eq:ssh-d-components}
+    d_x(k)=t_1+t_2\cos k,
+    \qquad
+    d_y(k)=t_2\sin k.
+\end{equation}
+The energy bands are
+\begin{equation}
+\label{eq:ssh-band-energies}
+    E_\pm(k)=\pm\abs{q(k)}
+    =
+    \pm\sqrt{t_1^2+t_2^2+2t_1t_2\cos k}.
+\end{equation}
+The gap closes when
+\begin{equation}
+\label{eq:ssh-gap-closing}
+    q(k)=0.
+\end{equation}
+For real positive hoppings this occurs at
+\begin{equation}
+\label{eq:ssh-critical-point}
+    t_1=t_2,
+    \qquad
+    k=\pi.
+\end{equation}
+
+\section{Chiral symmetry and winding number}
+\label{sec:ssh-chiral-symmetry-winding}
+
+The SSH Bloch Hamiltonian anticommutes with $\sigma_z$:
+\begin{equation}
+\label{eq:ssh-chiral-symmetry}
+    \sigma_z h_{\rm SSH}(k)\sigma_z=-h_{\rm SSH}(k).
+\end{equation}
+This is sublattice, or chiral, symmetry.  It forces the Hamiltonian to be
+off-diagonal in the $(A,B)$ basis and pins the spectrum symmetrically around zero
+energy.
+
+When the bulk is gapped, $q(k)$ never vanishes, so the map
+\begin{equation}
+\label{eq:ssh-q-map}
+    k\in S^1_{\rm BZ}
+    \longmapsto
+    q(k)\in\CC\setminus\{0\}
+\end{equation}
+has an integer winding number.  With the off-diagonal convention
+\cref{eq:ssh-bloch-matrix}, define
+\begin{equation}
+\label{eq:ssh-winding-number}
+    \nu_{\rm SSH}
+    =
+    \frac{1}{2\pi\ii}
+    \int_{-\pi}^{\pi}\dd k\,
+    \partial_k\log q(k).
+\end{equation}
+For $t_1,t_2>0$ and $q(k)=t_1+t_2\ee^{-\ii k}$, the result is
+\begin{equation}
+\label{eq:ssh-winding-result}
+    \nu_{\rm SSH}
+    =
+    \begin{cases}
+        -1, & t_2>t_1,\\
+        0, & t_1>t_2.
+    \end{cases}
+\end{equation}
+The sign is an orientation convention coming from the choice $\ee^{-\ii k}$ in
+$q(k)$.  Replacing $q(k)$ by $t_1+t_2\ee^{\ii k}$ reverses the sign.  The robust
+physical distinction is whether the winding is zero or nonzero.
+
+Geometrically, $q(k)$ traces a circle of radius $\abs{t_2}$ centered at $t_1$ in
+the complex plane.  The nontrivial phase is precisely the case in which this
+circle encloses the origin:
+\begin{equation}
+\label{eq:ssh-topological-condition}
+    \abs{t_2}>\abs{t_1}.
+\end{equation}
+
+\section{Zak phase}
+\label{sec:ssh-zak-phase}
+
+Let
+\begin{equation}
+    q(k)=\abs{q(k)}\ee^{\ii\varphi(k)}.
+\end{equation}
+A normalized occupied-band eigenstate may be chosen locally as
+\begin{equation}
+\label{eq:ssh-occupied-eigenstate}
+    \ket{u_-(k)}
+    =
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        -\ee^{\ii\varphi(k)}\\ 1
+    \end{pmatrix}.
+\end{equation}
+Its Berry connection is
+\begin{equation}
+\label{eq:ssh-berry-connection}
+    \mathcal{A}(k)
+    =
+    \ii\braket{u_-(k)}{\partial_k u_-(k)}
+    =
+    -\frac12\partial_k\varphi(k),
+\end{equation}
+up to gauge conventions.  The Zak phase is therefore
+\begin{equation}
+\label{eq:ssh-zak-phase}
+    \Phi_{\rm Zak}
+    =
+    \int_{-\pi}^{\pi}\mathcal{A}(k)\,\dd k
+    =
+    -\pi\nu_{\rm SSH}
+    \quad
+    \text{mod }2\pi.
+\end{equation}
+Thus the nontrivial SSH phase has Zak phase $\pi$ modulo $2\pi$, provided the
+unit-cell convention is fixed.  Changing the unit cell shifts the Zak phase by an
+integer multiple of $2\pi$ or changes the representative convention, but it does
+not remove the protected boundary-state distinction for a specified physical
+termination.
+
+\section{Open chain and edge modes}
+\label{sec:ssh-edge-modes}
+
+For an open chain with $L$ unit cells, the zero-energy eigenvalue equation at
+energy $E=0$ decouples between sublattices.  A left edge mode supported on the
+$A$ sublattice has the form
+\begin{equation}
+\label{eq:ssh-left-edge-ansatz}
+    \ket{\psi_L}
+    =
+    \sum_{j=1}^{L}\alpha_j a_j^\dagger\ket{0}.
+\end{equation}
+The Schrödinger equation gives the recursion
+\begin{equation}
+\label{eq:ssh-edge-recursion}
+    t_1\alpha_j+t_2\alpha_{j+1}=0,
+\end{equation}
+so that
+\begin{equation}
+\label{eq:ssh-edge-wavefunction}
+    \alpha_j
+    =
+    \left(-\frac{t_1}{t_2}\right)^{j-1}\alpha_1.
+\end{equation}
+This mode is normalizable at the left edge in the thermodynamic limit if and only
+if
+\begin{equation}
+\label{eq:ssh-edge-normalizability}
+    \abs{t_1}<\abs{t_2}.
+\end{equation}
+The right edge mode is similarly localized on the $B$ sublattice.  Thus the
+bulk winding condition and the edge-state condition agree.
+
+At the exactly dimerized point $t_1=0$, the edge modes are simply the unpaired
+operators $a_1^\dagger$ and $b_L^\dagger$.  This is the SSH analogue of the
+unpaired Majorana operators in the topological limit of the Kitaev chain.
+
+\section{Relation and distinction from the Kitaev chain}
+\label{sec:ssh-relation-distinction-kitaev}
+
+Both the SSH and Kitaev chains are two-band topological models, but the meanings
+of the two-component spinors are different:
+\begin{equation}
+\label{eq:ssh-kitaev-spinor-comparison}
+    \psi_k^{\rm SSH}
+    =
+    \begin{pmatrix}
+        a_k\\ b_k
+    \end{pmatrix},
+    \qquad
+    \Psi_k^{\rm Kitaev}
+    =
+    \begin{pmatrix}
+        c_k\\ c_{-k}^\dagger
+    \end{pmatrix}.
+\end{equation}
+The SSH Pauli matrices act in sublattice space.  The Kitaev Pauli matrices act in
+Nambu particle--hole space.  Consequently:
+\begin{itemize}[leftmargin=2.2em]
+    \item the SSH chain conserves fermion number, while the Kitaev chain
+    conserves only fermion parity;
+    \item the SSH spectral symmetry comes from sublattice chiral symmetry,
+    while the Kitaev BdG spectral symmetry comes from particle--hole redundancy;
+    \item SSH edge states are ordinary complex-fermion boundary orbitals, while
+    Kitaev edge states are Majorana zero modes;
+    \item the SSH winding is naturally a chiral-band winding, while the Kitaev
+    winding is a BdG/Nambu winding, reducible to a class-D $\ZZ_2$ invariant when
+    the real-pairing chiral symmetry is not imposed.
+\end{itemize}
+
+This comparison is useful because the same mathematical form
+\begin{equation}
+\label{eq:ssh-kitaev-two-band-common-form}
+    H(k)=d_x(k)\sigma_x+d_y(k)\sigma_y+d_z(k)\sigma_z
+\end{equation}
+can describe physically distinct objects.  A two-band matrix by itself does not
+say whether the Pauli matrices refer to sublattice, spin, orbital, or Nambu
+space.  The symmetry interpretation must always be specified.
+
+\section{SSH as a two-band chiral mother example}
+\label{sec:ssh-two-band-chiral-mother}
+
+The SSH chain represents the simplest member of a broader family of one-dimensional chiral two-band Hamiltonians:
+\begin{equation}
+\label{eq:ssh-general-chiral-two-band}
+    h(k)=
+    \begin{pmatrix}
+        0&q(k)\\ q(k)^*&0
+    \end{pmatrix}.
+\end{equation}
+Every such gapped Hamiltonian has a winding number
+\begin{equation}
+\label{eq:ssh-general-winding}
+    \nu
+    =
+    \frac{1}{2\pi\ii}\int_{\rm BZ}\dd k\,
+    \partial_k\log q(k).
+\end{equation}
+Longer-range hoppings simply replace $q(k)=t_1+t_2\ee^{-\ii k}$ by a finite
+Laurent polynomial in $\ee^{\ii k}$.  The topology is still controlled by whether
+and how this complex loop winds around the origin.  The SSH model is the minimal
+case in which this winding can be nonzero.
+
+\section{Summary}
+\label{sec:ssh-summary}
+
+The SSH chain is a number-conserving two-band model with Bloch Hamiltonian
+\begin{equation}
+    h_{\rm SSH}(k)=
+    \begin{pmatrix}
+        0&t_1+t_2\ee^{-\ii k}\\
+        t_1+t_2\ee^{\ii k}&0
+    \end{pmatrix}.
+\end{equation}
+It has chiral symmetry and an integer winding number.  For real positive
+hoppings, the nontrivial phase occurs when $t_2>t_1$ and supports boundary zero
+modes on an open chain.  It parallels the Kitaev chain at the level of two-band
+topology, but differs physically because its two-component structure is
+sublattice space rather than Nambu space.

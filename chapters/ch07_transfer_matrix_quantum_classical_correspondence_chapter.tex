@@ -1,0 +1,567 @@
+\chapter{Transfer Matrix and Quantum--Classical Correspondence}
+\label{chap:transfer-matrix-quantum-classical}
+
+The previous chapters developed the free-fermion machinery used to diagonalize
+one-dimensional quantum spin chains: Jordan--Wigner transformation, Fourier
+transform, BdG blocks, Bogoliubov quasiparticles, and Gaussian correlation
+functions. Transfer matrices provide a complementary route to exact solvability.
+They are indispensable for two related reasons:
+\begin{enumerate}[label=(\roman*)]
+    \item a classical statistical model in one higher dimension can often be
+    interpreted as an imaginary-time path integral of a quantum model; and
+    \item a family of commuting transfer matrices can generate a quantum
+    Hamiltonian by a logarithmic derivative or Hamiltonian limit.
+\end{enumerate}
+The first point is the quantum--classical correspondence. The second point is the
+bridge to vertex-model and Bethe-ansatz integrability in later chapters.
+
+\section{Classical transfer matrices}
+\label{sec:classical-transfer-matrices}
+
+Consider a classical statistical model on a strip with $M$ layers. Let
+$\bm{s}_m$ denote the entire configuration on the $m$th layer. If the Boltzmann
+weight couples only neighbouring layers, the partition function can be written as
+\begin{equation}
+\label{eq:transfer-matrix-general-partition-function}
+    Z
+    =
+    \sum_{\bm{s}_1,\ldots,\bm{s}_M}
+    T_{\bm{s}_1\bm{s}_2}
+    T_{\bm{s}_2\bm{s}_3}
+    \cdots
+    T_{\bm{s}_M\bm{s}_1}
+    =
+    \Tr T^M .
+\end{equation}
+The matrix $T$ is the \emph{transfer matrix}. Its matrix element
+$T_{\bm{s}\bm{s}'}$ is the Boltzmann weight for two adjacent layers
+$\bm{s}$ and $\bm{s}'$, including a chosen assignment of intra-layer weights.
+The trace implements periodic boundary conditions in the transfer direction.
+
+If $T$ is finite-dimensional and diagonalizable, with eigenvalues
+\begin{equation}
+    \lambda_0,\lambda_1,\lambda_2,\ldots,
+    \qquad
+    \abs{\lambda_0}\geq \abs{\lambda_1}\geq\cdots,
+\end{equation}
+then
+\begin{equation}
+\label{eq:transfer-matrix-free-energy}
+    Z=\sum_n \lambda_n^M .
+\end{equation}
+In the thermodynamic limit $M\to\infty$, the largest eigenvalue controls the free
+energy per transfer step. If each layer contains $L$ sites, then
+\begin{equation}
+\label{eq:transfer-matrix-free-energy-density}
+    f
+    =
+    -\frac{1}{\beta_{\rm cl}L}
+    \lim_{M\to\infty}\frac{1}{M}\log Z
+    =
+    -\frac{1}{\beta_{\rm cl}L}\log \lambda_0,
+\end{equation}
+up to the convention-dependent normalization of the classical inverse temperature
+$\beta_{\rm cl}$.
+
+Transfer matrices also encode correlation lengths. For a layer observable $O$,
+\begin{equation}
+\label{eq:transfer-matrix-correlation-spectral}
+    \langle O_m O_0\rangle
+    =
+    \frac{1}{Z}\Tr\left(O T^m O T^{M-m}\right).
+\end{equation}
+After inserting the spectral resolution of $T$, the connected correlation
+function has the large-distance form
+\begin{equation}
+\label{eq:transfer-matrix-correlation-length}
+    \langle O_m O_0\rangle_c
+    \sim
+    \left(\frac{\lambda_1}{\lambda_0}\right)^m,
+    \qquad
+    \xi^{-1}
+    =
+    \log\frac{\lambda_0}{\abs{\lambda_1}},
+\end{equation}
+provided $O$ has nonzero matrix element between the leading eigenstate and the
+first relevant subleading eigenstate. Thus the spectrum of $T$ plays the same
+role for a classical model that the spectrum of a Hamiltonian plays for a quantum
+model.
+
+\section{Warm-up: the one-dimensional classical Ising chain}
+\label{sec:transfer-matrix-1d-classical-ising}
+
+For the one-dimensional classical Ising model with spins $s_j=\pm1$ and periodic
+boundary conditions,
+\begin{equation}
+\label{eq:classical-ising-1d-partition-function}
+    Z_L(K)
+    =
+    \sum_{s_1,\ldots,s_L=\pm1}
+    \exp\left(K\sum_{j=1}^{L}s_js_{j+1}\right),
+    \qquad
+    s_{L+1}=s_1,
+\end{equation}
+the transfer matrix is the $2\times2$ matrix
+\begin{equation}
+\label{eq:1d-ising-transfer-matrix}
+    T_{ss'}=\ee^{Kss'},
+    \qquad
+    T=
+    \begin{pmatrix}
+        \ee^K & \ee^{-K} \\
+        \ee^{-K} & \ee^K
+    \end{pmatrix}.
+\end{equation}
+Its eigenvalues are
+\begin{equation}
+\label{eq:1d-ising-transfer-eigenvalues}
+    \lambda_+=\ee^K+\ee^{-K}=2\cosh K,
+    \qquad
+    \lambda_- =\ee^K-\ee^{-K}=2\sinh K.
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:1d-ising-exact-partition-function}
+    Z_L(K)=\lambda_+^L+\lambda_-^L.
+\end{equation}
+For finite $K$, the correlation length is finite:
+\begin{equation}
+\label{eq:1d-ising-correlation-length}
+    \xi^{-1}
+    =
+    \log\frac{\lambda_+}{\lambda_-}
+    =
+    \log\coth K .
+\end{equation}
+This elementary example already contains the main lesson: thermodynamics and
+correlations are spectral properties of the transfer matrix.
+
+\section{Transfer matrix as imaginary-time evolution}
+\label{sec:transfer-matrix-imaginary-time-evolution}
+
+A quantum thermal partition function is
+\begin{equation}
+\label{eq:quantum-thermal-partition-function}
+    Z_{\rm q}(\beta)
+    =
+    \Tr \ee^{-\beta H} .
+\end{equation}
+If imaginary time is discretized into $M$ steps,
+\begin{equation}
+    \beta=M\delta\tau,
+\end{equation}
+then
+\begin{equation}
+\label{eq:quantum-partition-transfer-matrix}
+    Z_{\rm q}(\beta)
+    =
+    \Tr\left(\ee^{-\delta\tau H}\right)^M .
+\end{equation}
+Thus the short imaginary-time evolution operator
+\begin{equation}
+\label{eq:quantum-transfer-matrix-definition}
+    T_{\rm q}(\delta\tau)=\ee^{-\delta\tau H}
+\end{equation}
+is itself a transfer matrix. Conversely, whenever a positive transfer matrix $T$
+can be written as
+\begin{equation}
+\label{eq:hamiltonian-from-transfer-matrix}
+    T=C\ee^{-a_\tau H},
+\end{equation}
+with $C>0$ and $a_\tau$ interpreted as an imaginary-time lattice spacing, it
+defines the quantum Hamiltonian
+\begin{equation}
+\label{eq:hamiltonian-log-transfer-matrix}
+    H
+    =
+    -\frac{1}{a_\tau}\log T
+    +
+    \frac{\log C}{a_\tau}\id .
+\end{equation}
+The additive constant proportional to $\id$ shifts the zero of energy and does not
+affect normalized expectation values or energy gaps.
+
+If $T\ket{n}=\lambda_n\ket{n}$ and
+$T=C\ee^{-a_\tau H}$, then
+\begin{equation}
+\label{eq:transfer-eigenvalues-energy-levels}
+    \lambda_n=C\ee^{-a_\tau E_n},
+    \qquad
+    E_n-E_0
+    =
+    -\frac{1}{a_\tau}
+    \log\frac{\lambda_n}{\lambda_0} .
+\end{equation}
+Therefore transfer-matrix gaps become quantum energy gaps. In particular,
+\begin{equation}
+\label{eq:correlation-length-quantum-gap}
+    \xi_\tau^{-1}
+    =
+    \log\frac{\lambda_0}{\abs{\lambda_1}}
+    =
+    a_\tau\,(E_1-E_0)
+\end{equation}
+when the first subleading eigenvalue controls the decay.
+
+\begin{remark}[Hermiticity and positivity]
+A symmetric positive transfer matrix defines a Hermitian Hamiltonian by
+$H=-a_\tau^{-1}\log T$, up to a constant. More general transfer matrices may be
+non-Hermitian. Such matrices are still useful, for example in stochastic and
+non-equilibrium problems, but the direct interpretation as a Hermitian quantum
+Hamiltonian then requires additional structure.
+\end{remark}
+
+\section{Trotter decomposition and the extra dimension}
+\label{sec:trotter-extra-dimension}
+
+The relation between a $d$-dimensional quantum model and a $(d+1)$-dimensional
+classical model follows from the Trotter product formula. Suppose
+\begin{equation}
+\label{eq:hamiltonian-split-A-B}
+    H=A+B,
+\end{equation}
+where $A$ and $B$ do not commute but have simple matrix elements in appropriate
+bases. Then
+\begin{equation}
+\label{eq:trotter-first-order}
+    \ee^{-\beta H}
+    =
+    \lim_{M\to\infty}
+    \left(
+        \ee^{-\delta\tau A}\ee^{-\delta\tau B}
+    \right)^M,
+    \qquad
+    \delta\tau=\frac{\beta}{M}.
+\end{equation}
+A symmetric version is
+\begin{equation}
+\label{eq:trotter-symmetric}
+    \ee^{-\delta\tau(A+B)}
+    =
+    \ee^{-\frac{\delta\tau}{2}A}
+    \ee^{-\delta\tau B}
+    \ee^{-\frac{\delta\tau}{2}A}
+    +O(\delta\tau^3).
+\end{equation}
+Inserting complete sets of states between the $M$ imaginary-time factors produces
+a classical sum over configurations on $M$ time slices. The additional discrete
+index is imaginary time. Schematically,
+\begin{equation}
+\label{eq:quantum-classical-schematic}
+    Z_{d\text{-dimensional quantum}}
+    =
+    \Tr\ee^{-\beta H}
+    \quad\longleftrightarrow\quad
+    Z_{(d+1)\text{-dimensional classical}} .
+\end{equation}
+This correspondence is exact in the Trotter limit $M\to\infty$ and becomes a
+controlled approximation at finite $M$.
+
+The correspondence is not a statement that the quantum model and the classical
+model are identical microscopic objects. Rather, their partition functions and
+correlation functions are two representations of the same Euclidean statistical
+sum. Quantum noncommutativity is converted into classical coupling along the
+imaginary-time direction.
+
+\section{From the anisotropic two-dimensional Ising model to the TFIM}
+\label{sec:anisotropic-ising-to-tfim-transfer}
+
+The most important example for these notes is the correspondence between the
+anisotropic two-dimensional classical Ising model and the one-dimensional TFIM.
+Let
+\begin{equation}
+\label{eq:anisotropic-2d-ising-partition-function}
+    Z_{\rm 2D}
+    =
+    \sum_{s_{j,m}=\pm1}
+    \exp\left[
+        K_x\sum_{j,m}s_{j,m}s_{j+1,m}
+        +
+        K_\tau\sum_{j,m}s_{j,m}s_{j,m+1}
+    \right],
+\end{equation}
+where $j=1,\ldots,L$ is the spatial coordinate and $m=1,\ldots,M$ is the transfer
+direction. The couplings $K_x$ and $K_\tau$ are classical dimensionless
+couplings.
+
+To match the Pauli convention used in these notes, take the classical variable
+$s_j=\pm1$ to label the eigenvalue of $\sigma_j^x$:
+\begin{equation}
+\label{eq:x-basis-transfer}
+    \sigma_j^x\ket{s_j}_x=s_j\ket{s_j}_x .
+\end{equation}
+The horizontal classical coupling is diagonal in this basis and gives the
+operator
+\begin{equation}
+\label{eq:horizontal-transfer-operator}
+    \exp\left(K_x\sum_{j=1}^{L}\sigma_j^x\sigma_{j+1}^x\right).
+\end{equation}
+The vertical one-site Boltzmann weight is
+\begin{equation}
+\label{eq:vertical-weight-matrix}
+    W_{ss'}=\ee^{K_\tau ss'}
+    =
+    \begin{pmatrix}
+        \ee^{K_\tau} & \ee^{-K_\tau} \\
+        \ee^{-K_\tau} & \ee^{K_\tau}
+    \end{pmatrix}_{s,s'} .
+\end{equation}
+In the $\sigma^x$ eigenbasis, the operator $\sigma^z$ flips $s$. Hence
+\begin{equation}
+\label{eq:vertical-weight-exp-sigmaz}
+    W
+    =
+    A\ee^{\kappa\sigma^z},
+    \qquad
+    \tanh\kappa=\ee^{-2K_\tau},
+    \qquad
+    A=\sqrt{2\sinh(2K_\tau)} .
+\end{equation}
+Indeed,
+\begin{equation}
+    A\cosh\kappa=\ee^{K_\tau},
+    \qquad
+    A\sinh\kappa=\ee^{-K_\tau}.
+\end{equation}
+A convenient symmetric row-to-row transfer matrix is therefore
+\begin{equation}
+\label{eq:2d-ising-row-transfer-operator}
+    T
+    =
+    A^L
+    \exp\left(
+        \frac{K_x}{2}\sum_j\sigma_j^x\sigma_{j+1}^x
+    \right)
+    \exp\left(
+        \kappa\sum_j\sigma_j^z
+    \right)
+    \exp\left(
+        \frac{K_x}{2}\sum_j\sigma_j^x\sigma_{j+1}^x
+    \right).
+\end{equation}
+Using the symmetric Trotter formula, the strongly anisotropic limit is obtained
+by setting
+\begin{equation}
+\label{eq:ising-tfim-parameter-scaling}
+    K_x=\delta\tau J,
+    \qquad
+    \kappa=\delta\tau h,
+    \qquad
+    \tanh(\delta\tau h)=\ee^{-2K_\tau}.
+\end{equation}
+Then
+\begin{equation}
+\label{eq:2d-ising-transfer-tfim-limit}
+    T
+    =
+    A^L
+    \exp\left[-\delta\tau H_{\rm TFIM}+O(\delta\tau^3)\right],
+\end{equation}
+with
+\begin{equation}
+\label{eq:transfer-chapter-tfim-hamiltonian}
+    H_{\rm TFIM}
+    =
+    -J\sum_j\sigma_j^x\sigma_{j+1}^x
+    -h\sum_j\sigma_j^z .
+\end{equation}
+This is precisely the TFIM convention fixed earlier in these notes.
+
+For small $\delta\tau$,
+\begin{equation}
+\label{eq:large-vertical-coupling}
+    \ee^{-2K_\tau}
+    =
+    \tanh(\delta\tau h)
+    =
+    \delta\tau h+O(\delta\tau^3),
+\end{equation}
+so the imaginary-time coupling $K_\tau$ is large. The quantum limit is therefore
+a strongly anisotropic limit of the classical two-dimensional model:
+\begin{equation}
+    K_x\to0,
+    \qquad
+    K_\tau\to\infty,
+    \qquad
+    K_x\ee^{2K_\tau}\;\text{fixed}.
+\end{equation}
+The classical critical condition of the anisotropic two-dimensional Ising model,
+\begin{equation}
+\label{eq:2d-ising-critical-condition}
+    \sinh(2K_x)\sinh(2K_\tau)=1,
+\end{equation}
+then becomes
+\begin{equation}
+\label{eq:tfim-critical-from-ising}
+    \frac{J}{h}=1,
+    \qquad
+    \text{or equivalently}\qquad
+    h=J.
+\end{equation}
+In the common normalization $J=1$, this gives the TFIM critical point $h=1$.
+
+\begin{remark}[Why the basis matters]
+Many textbooks write the TFIM as
+$-J\sum_j\sigma_j^z\sigma_{j+1}^z-\Gamma\sum_j\sigma_j^x$. These notes use the
+rotated convention
+$-J\sum_j\sigma_j^x\sigma_{j+1}^x-h\sum_j\sigma_j^z$ because it is adapted to the
+Jordan--Wigner occupation convention $n_j=(1-\sigma_j^z)/2$. The two forms are
+related by a global spin rotation. In the transfer-matrix derivation above, this
+rotation is implemented by labeling the classical Ising variable as the eigenvalue
+of $\sigma^x$ rather than $\sigma^z$.
+\end{remark}
+
+\section{Operator insertions and Euclidean correlators}
+\label{sec:operator-insertions-euclidean-correlators}
+
+The transfer-matrix correspondence also maps correlation functions. A diagonal
+classical row observable $O(\bm{s})$ becomes an operator $O$ acting on the row
+Hilbert space. Its correlation along the transfer direction is
+\begin{equation}
+\label{eq:transfer-correlator-as-quantum-correlator}
+    \langle O_m O_0\rangle_{\rm cl}
+    =
+    \frac{1}{Z}
+    \Tr\left(O T^m O T^{M-m}\right).
+\end{equation}
+If $T=C\ee^{-a_\tau H}$, then
+\begin{equation}
+\label{eq:euclidean-quantum-correlator}
+    \langle O_m O_0\rangle_{\rm cl}
+    =
+    \frac{1}{Z_{\rm q}}
+    \Tr\left(
+        O(\tau)O(0)\ee^{-\beta H}
+    \right),
+    \qquad
+    \tau=m a_\tau,
+\end{equation}
+where
+\begin{equation}
+\label{eq:imaginary-time-heisenberg-operator}
+    O(\tau)=\ee^{\tau H}O\ee^{-\tau H}.
+\end{equation}
+At zero temperature, this becomes the ground-state Euclidean correlator. Its
+large-$\tau$ decay is controlled by the lowest quantum excitation carrying the
+quantum numbers of $O$:
+\begin{equation}
+\label{eq:euclidean-spectral-decay}
+    \langle 0\vert O(\tau)O(0)\vert0\rangle_c
+    \sim
+    \ee^{-\tau(E_1-E_0)}.
+\end{equation}
+Thus the transfer-matrix spectrum, the classical correlation length, and the
+quantum excitation gap are the same spectral information in different languages.
+
+\section{Quantum-to-classical dictionary}
+\label{sec:quantum-classical-dictionary}
+
+For the TFIM/Ising example in the conventions of these notes, the essential
+parameter dictionary is
+\begin{equation}
+\label{eq:tfim-ising-dictionary}
+    \boxed{
+    K_x=\delta\tau J,
+    \qquad
+    \ee^{-2K_\tau}=\tanh(\delta\tau h)
+    }
+\end{equation}
+with row transfer matrix
+\begin{equation}
+\label{eq:tfim-ising-transfer-final}
+    T
+    \propto
+    \exp\left(
+        \frac{\delta\tau J}{2}
+        \sum_j\sigma_j^x\sigma_{j+1}^x
+    \right)
+    \exp\left(
+        \delta\tau h\sum_j\sigma_j^z
+    \right)
+    \exp\left(
+        \frac{\delta\tau J}{2}
+        \sum_j\sigma_j^x\sigma_{j+1}^x
+    \right).
+\end{equation}
+The proportionality constant shifts the quantum free energy by an additive
+constant. The operator in the exponential is $-\delta\tau H_{\rm TFIM}$ to
+leading order.
+
+The following table summarizes the correspondence.
+\begin{center}
+\begin{tabularx}{0.95\linewidth}{@{}L{0.31\linewidth}Y Y@{}}
+\toprule
+Concept & Classical transfer-matrix language & Quantum language \\
+\midrule
+Transfer direction & Layer index $m$ & Imaginary time $\tau=m a_\tau$ \\
+Row configuration & Classical spin row $\bm{s}_m$ & Basis vector of the quantum Hilbert space \\
+Transfer matrix & $T_{\bm{s}\bm{s}'}$ & $\ee^{-a_\tau H}$ up to normalization \\
+Largest eigenvalue & Dominant Boltzmann weight & Ground-state energy density \\
+Eigenvalue ratio & Correlation length $\xi^{-1}=\log(\lambda_0/\abs{\lambda_1})$ & Energy gap $a_\tau(E_1-E_0)$ \\
+Classical anisotropy & Different $K_x,K_\tau$ & Spatial velocity and time-lattice spacing \\
+Criticality & Divergent correlation length & Closing quantum gap \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Hamiltonian limits of commuting transfer matrices}
+\label{sec:hamiltonian-limits-commuting-transfer-matrices}
+
+In integrable lattice models one often has a one-parameter family of commuting
+transfer matrices,
+\begin{equation}
+\label{eq:commuting-transfer-matrices}
+    [T(u),T(v)]=0,
+\end{equation}
+where $u$ is a spectral parameter. If $T(u)$ is regular at a point $u=u_0$, the
+associated quantum Hamiltonian is commonly obtained from the logarithmic
+derivative
+\begin{equation}
+\label{eq:logarithmic-derivative-transfer-matrix}
+    H
+    \propto
+    \left.
+    \frac{\dd}{\dd u}\log T(u)
+    \right|_{u=u_0}
+    =
+    \left.
+    T(u)^{-1}\frac{\dd T(u)}{\dd u}
+    \right|_{u=u_0},
+\end{equation}
+plus an additive and multiplicative normalization. Because all $T(u)$ commute,
+the Hamiltonian obtained this way commutes with the entire transfer-matrix family:
+\begin{equation}
+\label{eq:hamiltonian-commutes-transfer-family}
+    [H,T(v)]=0.
+\end{equation}
+This is the transfer-matrix origin of infinitely many conserved quantities in
+Bethe-ansatz integrable chains. Later, the six-vertex transfer matrix will yield
+the XXZ Hamiltonian in precisely this sense.
+
+\section{Practical summary}
+\label{sec:transfer-practical-summary}
+
+The transfer-matrix method should be read as a spectral equivalence principle:
+\begin{equation}
+\label{eq:transfer-spectral-equivalence-principle}
+    \boxed{
+    \text{classical layer-to-layer transfer}
+    \quad\Longleftrightarrow\quad
+    \text{quantum imaginary-time evolution}
+    }.
+\end{equation}
+For the purposes of these notes, the essential workflow is:
+\begin{enumerate}[label=(\roman*)]
+    \item Write the classical partition function as $Z=\Tr T^M$.
+    \item Interpret the layer configuration as a quantum basis state.
+    \item If possible, write $T$ as $C\ee^{-a_\tau H}$ or take a controlled
+    Hamiltonian limit.
+    \item Extract quantum energies from transfer-matrix eigenvalue ratios.
+    \item Translate classical correlation lengths into quantum gaps.
+    \item Use anisotropic limits to connect two-dimensional classical models to
+    one-dimensional quantum Hamiltonians.
+\end{enumerate}
+The 2D classical Ising model and the 1D TFIM are the canonical example. The same
+logic also underlies the relation between the six-vertex model and the XXZ chain,
+the eight-vertex model and the XYZ chain, and more general tensor-network
+interpretations of Euclidean path integrals.

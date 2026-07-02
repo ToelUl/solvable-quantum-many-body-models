@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------------
+# Continuous build: compile the lecture notes on every push / pull request to
+# main, and publish the resulting main.pdf as a downloadable workflow artifact.
+# Engine: XeLaTeX (matches "% !TEX program = xelatex" in main.tex).
+# -----------------------------------------------------------------------------
+name: Build LaTeX (CI)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:        # allow running manually from the Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Compile main.tex with XeLaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
+          # texlive_version: 2025   # uncomment to pin a TeX Live year for reproducibility
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v6
+        with:
+          name: solvable-quantum-many-body-models-pdf
+          path: main.pdf
+          if-no-files-found: error

@@ -1,0 +1,669 @@
+
+\chapter{Rokhsar--Kivelson Points and Quantum Dimer Models}
+\label{chap:rk-qdm}
+
+The toric code and the quantum double models are exactly solvable because their
+Hamiltonians are sums of mutually commuting projectors.  The Kitaev honeycomb
+model is solvable because the spin Hamiltonian reduces to free Majorana
+fermions in every static gauge sector.  Rokhsar--Kivelson (RK) quantum dimer
+models provide a third mechanism in two dimensions: the full Hamiltonian need
+not be diagonalizable, but a special point in parameter space has an exact
+frustration-free ground state whose amplitudes are controlled by a classical
+statistical model.
+
+The central idea is
+\boxedpar{%
+classical constrained configurations
+\(\mathcal{C}\)
+\(\Longrightarrow\)
+quantum Hilbert space \(\operatorname{span}\{\ket{C}:C\in\mathcal{C}\}\)
+\(\Longrightarrow\)
+local resonance Hamiltonian
+\(\Longrightarrow\)
+exact equal-amplitude or weighted ground state at the RK point.}
+This chapter explains this mechanism for quantum dimer models.  The model is
+not usually exactly solvable in the strong spectral sense.  Its exact content is
+more specific: the ground-state wavefunction, equal-time ground-state
+correlators, and topological-sector structure can be obtained from a classical
+dimer ensemble.
+
+\section{Classical dimer coverings and the quantum Hilbert space}
+\label{sec:qdm-hilbert-space}
+
+Let \(\Lambda\) be a two-dimensional lattice with vertex set \(V\) and edge set
+\(E\).  A \emph{dimer covering}, or perfect matching, is a subset
+\(D\subset E\) such that every vertex is incident on exactly one occupied edge.
+Equivalently,
+\begin{equation}
+\label{eq:perfect-matching-constraint}
+    \sum_{\ell\ni i} n_{\ell}=1,
+    \qquad
+    n_{\ell}\in\{0,1\},
+    \qquad
+    i\in V .
+\end{equation}
+The classical configuration space is therefore
+\begin{equation}
+\label{eq:dimer-configuration-space}
+    \mathcal{C}_{\rm dim}
+    =
+    \{D\subset E:\text{\(D\) satisfies \cref{eq:perfect-matching-constraint}}\}.
+\end{equation}
+The quantum dimer Hilbert space is the vector space spanned by orthonormal basis
+states labelled by dimer coverings:
+\begin{equation}
+\label{eq:qdm-hilbert-space}
+    \calH_{\rm QDM}
+    =
+    \operatorname{span}\{\ket{D}:D\in\mathcal{C}_{\rm dim}\},
+    \qquad
+    \braket{D}{D'}=\delta_{D,D'} .
+\end{equation}
+This Hilbert space is already constrained.  It is not the full tensor product of
+independent qubits on edges.  The local condition \cref{eq:perfect-matching-constraint}
+plays a role analogous to a Gauss-law constraint: every site must be touched by
+exactly one dimer.
+
+\begin{remark}[Dimer constraint as an emergent gauge constraint]
+On a bipartite lattice one can orient every edge from the \(A\) sublattice to
+the \(B\) sublattice and define a background charge.  The dimer constraint can
+then be rewritten as a lattice divergence equation.  This is why height fields,
+Coulomb phases, and gauge-theory language naturally appear in quantum dimer
+models.  The constraint is not optional; it defines the Hilbert space.
+\end{remark}
+
+The elementary local move in the square-lattice quantum dimer model is a
+plaquette flip.  A plaquette \(p\) is called \emph{flippable} if it contains two
+parallel dimers on opposite edges.  There are two such local states, denoted
+abstractly by
+\begin{equation}
+\label{eq:local-dimer-plaquette-states}
+    \ket{h_p},
+    \qquad
+    \ket{v_p},
+\end{equation}
+where \(h\) and \(v\) stand for the two parallel dimer orientations on the
+plaquette.  The plaquette flip exchanges these two states and leaves all other
+edges unchanged.
+
+\section{The square-lattice quantum dimer Hamiltonian}
+\label{sec:square-lattice-qdm-hamiltonian}
+
+The standard square-lattice Rokhsar--Kivelson quantum dimer Hamiltonian is
+\begin{equation}
+\label{eq:qdm-hamiltonian-square}
+    H_{\rm QDM}
+    =
+    \sum_p H_p,
+\end{equation}
+with local plaquette term
+\begin{equation}
+\label{eq:qdm-local-hamiltonian}
+    H_p
+    =
+    -t
+    \left(
+        \ket{h_p}\bra{v_p}
+        +
+        \ket{v_p}\bra{h_p}
+    \right)
+    +
+    v
+    \left(
+        \ket{h_p}\bra{h_p}
+        +
+        \ket{v_p}\bra{v_p}
+    \right).
+\end{equation}
+The first term is kinetic: it resonates two dimer coverings that differ by one
+plaquette flip.  The second term is potential: it counts flippable plaquettes.
+The parameters \(t\) and \(v\) are usually taken real, and we will assume
+\(t>0\).
+
+In the two-dimensional subspace
+\(\operatorname{span}\{\ket{h_p},\ket{v_p}\}\), the local operator is the matrix
+\begin{equation}
+\label{eq:qdm-local-matrix}
+    H_p
+    \widehat{=}
+    \begin{pmatrix}
+        v & -t \\
+        -t & v
+    \end{pmatrix}.
+\end{equation}
+Thus the symmetric and antisymmetric local combinations have energies
+\begin{equation}
+\label{eq:qdm-local-eigenvalues}
+    E_{+}=v-t,
+    \qquad
+    E_{-}=v+t,
+\end{equation}
+where
+\begin{equation}
+\label{eq:qdm-local-symmetric-antisymmetric}
+    \ket{+_p}=\frac{1}{\sqrt{2}}(\ket{h_p}+\ket{v_p}),
+    \qquad
+    \ket{-_p}=\frac{1}{\sqrt{2}}(\ket{h_p}-\ket{v_p}).
+\end{equation}
+The RK point is the special point
+\begin{equation}
+\label{eq:rk-point-condition}
+    v=t .
+\end{equation}
+At this point, the local Hamiltonian becomes a positive semidefinite projector
+up to a scalar factor:
+\begin{equation}
+\label{eq:qdm-local-rk-projector}
+    H_p^{\rm RK}
+    =
+    t
+    \left(
+        \ket{h_p}-\ket{v_p}
+    \right)
+    \left(
+        \bra{h_p}-\bra{v_p}
+    \right).
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:qdm-rk-positive-semidefinite}
+    H_{\rm QDM}^{\rm RK}\geq0 .
+\end{equation}
+This is the frustration-free structure hidden in the model.
+
+\begin{remark}[Not a commuting-projector model]
+Although each \(H_p^{\rm RK}\) is a local positive-semidefinite projector, the
+different plaquette terms do not generally commute.  Thus the RK point is not a
+toric-code-type commuting-projector point.  Exact solvability here means exact
+ground-state solvability, not simultaneous diagonalization of the full spectrum.
+\end{remark}
+
+\section{The equal-amplitude RK ground state}
+\label{sec:equal-amplitude-rk-ground-state}
+
+The plaquette flip dynamics decomposes \(\mathcal{C}_{\rm dim}\) into connected
+components.  On a torus these components are labelled, in part, by winding
+numbers.  Let \(\mathcal{S}\subset\mathcal{C}_{\rm dim}\) be one connected
+sector under local plaquette flips.  Define
+\begin{equation}
+\label{eq:rk-equal-amplitude-state}
+    \ket{\Psi_{\mathcal{S}}}
+    =
+    \frac{1}{\sqrt{N_{\mathcal{S}}}}
+    \sum_{D\in\mathcal{S}}\ket{D},
+    \qquad
+    N_{\mathcal{S}}=\abs{\mathcal{S}} .
+\end{equation}
+This is the equal-amplitude superposition of all dimer coverings in the sector
+\(\mathcal{S}\).
+
+\begin{proposition}[RK ground state]
+At \(v=t\), the state \(\ket{\Psi_{\mathcal{S}}}\) is annihilated by every local
+RK plaquette term:
+\begin{equation}
+\label{eq:rk-state-annihilated}
+    H_p^{\rm RK}\ket{\Psi_{\mathcal{S}}}=0
+    \qquad
+    \text{for all }p .
+\end{equation}
+Consequently,
+\begin{equation}
+\label{eq:rk-state-ground-energy}
+    H_{\rm QDM}^{\rm RK}\ket{\Psi_{\mathcal{S}}}=0 .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Fix a plaquette \(p\).  The only basis states on which
+\(H_p^{\rm RK}\) acts nontrivially are pairs of dimer coverings
+\((D_h,D_v)\) that differ by flipping \(p\).  In the equal-amplitude state,
+\(\ket{D_h}\) and \(\ket{D_v}\) occur with the same coefficient.  The local
+operator \cref{eq:qdm-local-rk-projector} projects onto the antisymmetric
+combination \(\ket{D_h}-\ket{D_v}\).  Therefore the contribution from each
+flippable pair cancels.  Nonflippable configurations are annihilated because
+neither \(\ket{h_p}\) nor \(\ket{v_p}\) is present locally.  Hence every
+\(H_p^{\rm RK}\) annihilates the state.
+\end{proof}
+
+The proof also explains the logic of the RK construction.  The Hamiltonian is
+built so that every allowed local move imposes an equality of amplitudes between
+configurations connected by that move.  If the sector \(\mathcal{S}\) is
+connected under the local moves, those local equality conditions force a unique
+equal-amplitude state within that sector.
+
+\begin{theorem}[Sector-wise RK ground space]
+Assume a connected component \(\mathcal{S}\) of the dimer configuration graph is
+connected by the plaquette flips appearing in the Hamiltonian.  At \(v=t>0\),
+the zero-energy ground state in that component is the equal-amplitude state
+\(\ket{\Psi_{\mathcal{S}}}\).  The full RK ground space is spanned by one such
+state for each dynamically disconnected sector, together with possible isolated
+frozen configurations that contain no flippable plaquettes.
+\end{theorem}
+
+\begin{remark}[Frozen states]
+Some lattices or boundary conditions admit staggered dimer configurations with
+no flippable plaquettes.  These states are also annihilated by
+\(H_{\rm QDM}^{\rm RK}\), because every local term acts only on flippable
+plaquettes.  They are exact zero-energy states, but they are not liquid-like RK
+superpositions.  When discussing universal long-distance physics, one usually
+focuses on the liquid sectors rather than these frozen sectors.
+\end{remark}
+
+\section{Topological sectors and winding numbers}
+\label{sec:qdm-topological-sectors}
+
+On a simply connected domain with fixed boundary conditions, the local plaquette
+flips typically connect all dimer coverings compatible with the boundary.  On a
+torus, however, local flips cannot change global winding numbers.
+
+For a bipartite square lattice, choose a reference dimer configuration \(D_0\).
+Given another dimer covering \(D\), the superposition of \(D\) and \(D_0\) forms
+oriented transition loops.  The net number of transition-loop crossings through
+two noncontractible cuts defines two winding numbers
+\begin{equation}
+\label{eq:qdm-winding-numbers}
+    (W_x,W_y)\in\ZZ\times\ZZ .
+\end{equation}
+A local plaquette flip changes the dimer configuration only inside a
+contractible region.  Therefore it cannot change \((W_x,W_y)\).
+
+\begin{proposition}[Conservation of winding sectors]
+For the square-lattice quantum dimer model on a torus,
+\begin{equation}
+\label{eq:qdm-winding-conservation}
+    [H_{\rm QDM},W_x]=[H_{\rm QDM},W_y]=0,
+\end{equation}
+where \(W_x\) and \(W_y\) denote the winding-sector labels regarded as operators
+that are diagonal in the dimer basis.
+\end{proposition}
+
+\begin{proof}
+Each Hamiltonian term flips dimers around a single plaquette.  Such a move adds
+or removes an elementary contractible loop in the transition-graph
+representation.  A contractible modification has zero intersection number with
+any noncontractible cut.  Hence the winding numbers are unchanged by every
+local term.
+\end{proof}
+
+The existence of winding sectors is similar in spirit to the topological sectors
+of the toric code, but the physical meaning is different.  In the toric code the
+fourfold degeneracy on a torus is robust throughout a topologically ordered
+phase.  In the square-lattice RK dimer model, the number of winding sectors can
+grow with system size, and the RK point is critical rather than a stable gapped
+\(\ZZ_2\) topological phase.
+
+\section{Relation to classical dimer partition functions}
+\label{sec:rk-classical-dimer-correspondence}
+
+The RK wavefunction converts quantum equal-time expectation values into
+classical statistical averages.  Let \(\widehat{O}\) be an operator diagonal in
+the dimer basis:
+\begin{equation}
+\label{eq:diagonal-dimer-operator}
+    \widehat{O}\ket{D}=O(D)\ket{D} .
+\end{equation}
+Then in the equal-amplitude RK state,
+\begin{equation}
+\label{eq:rk-diagonal-observable-classical-average}
+    \bra{\Psi_{\mathcal{S}}}\widehat{O}\ket{\Psi_{\mathcal{S}}}
+    =
+    \frac{1}{N_{\mathcal{S}}}
+    \sum_{D\in\mathcal{S}}O(D).
+\end{equation}
+Thus diagonal ground-state correlations are exactly the correlations of a
+classical dimer model with uniform Boltzmann weight in the same sector.
+
+More generally, one may introduce positive classical weights \(w(D)>0\) and the
+wavefunction
+\begin{equation}
+\label{eq:weighted-rk-wavefunction}
+    \ket{\Psi_w}
+    =
+    \frac{1}{\sqrt{Z_w}}
+    \sum_{D\in\mathcal{C}_{\rm dim}}
+    \sqrt{w(D)}\ket{D},
+    \qquad
+    Z_w=
+    \sum_{D\in\mathcal{C}_{\rm dim}}w(D).
+\end{equation}
+Then diagonal observables satisfy
+\begin{equation}
+\label{eq:weighted-rk-classical-average}
+    \bra{\Psi_w}\widehat{O}\ket{\Psi_w}
+    =
+    \frac{1}{Z_w}
+    \sum_{D\in\mathcal{C}_{\rm dim}}w(D)O(D).
+\end{equation}
+This is the broader classical-to-quantum RK construction.
+
+\begin{principle}[RK classical--quantum correspondence]
+If a quantum ground state has amplitudes equal to the square roots of classical
+Boltzmann weights, then the norm of the quantum state is the classical partition
+function, and all equal-time diagonal quantum correlators are classical thermal
+correlators.
+\end{principle}
+
+For the uniform dimer RK state,
+\begin{equation}
+\label{eq:rk-norm-classical-partition-function}
+    \braket{\Psi}{\Psi}
+    =
+    \sum_{D\in\mathcal{C}_{\rm dim}}1
+    =
+    Z_{\rm dimer} .
+\end{equation}
+This relation is the reason why classical dimer techniques, especially
+Kasteleyn orientations and Pfaffians, enter the quantum problem.
+
+\section{Kasteleyn orientation and Pfaffian solvability}
+\label{sec:kasteleyn-pfaffian-dimers}
+
+Classical close-packed dimers on a planar graph are exactly solvable by the
+Kasteleyn--Pfaffian method.  Assign an antisymmetric matrix \(K\) to the graph,
+with entries
+\begin{equation}
+\label{eq:kasteleyn-matrix-definition}
+    K_{ij}
+    =
+    \begin{cases}
+        \phantom{-}\kappa_{ij}, & \text{if the oriented edge is }i\to j,\\
+        -\kappa_{ij}, & \text{if the oriented edge is }j\to i,\\
+        0, & \text{if }i\text{ and }j\text{ are not adjacent},
+    \end{cases}
+\end{equation}
+where \(\kappa_{ij}>0\) is the dimer fugacity on edge \((ij)\).  A Kasteleyn
+orientation is an orientation for which each face has an odd number of clockwise
+oriented edges, with a standard modification for boundary and topology.
+
+For a planar graph with a Kasteleyn orientation, the classical dimer partition
+function is
+\begin{equation}
+\label{eq:dimer-partition-pfaffian}
+    Z_{\rm dimer}=\abs{\Pf K} .
+\end{equation}
+Since
+\begin{equation}
+\label{eq:pfaffian-determinant-relation}
+    (\Pf K)^2=\det K,
+\end{equation}
+one can compute the free energy from a free-fermion determinant.  Moreover,
+dimer occupation correlations are obtained from entries of \(K^{-1}\).  For
+example, for two edges \(e=(ij)\) and \(e'=(kl)\), connected dimer correlations
+can be expressed by finite determinants built from matrix elements of
+\(K^{-1}\).
+
+\begin{remark}[Why Pfaffians matter for the quantum RK point]
+The RK Hamiltonian itself is not a free-fermion Hamiltonian.  However, its
+exact ground-state norm and diagonal equal-time correlators reduce to a
+classical dimer problem.  If that classical dimer problem is Pfaffian-solvable,
+then those quantum ground-state quantities are exactly computable by Pfaffian
+methods.  This is a ground-state correspondence, not a full spectral
+fermionization of the quantum Hamiltonian.
+\end{remark}
+
+On a torus, one needs four Pfaffians corresponding to different boundary signs
+around the two noncontractible cycles.  Schematically,
+\begin{equation}
+\label{eq:torus-dimer-four-pfaffians}
+    Z_{\rm dimer}^{\rm torus}
+    =
+    \frac{1}{2}
+    \left|
+        -\Pf K_{00}
+        +\Pf K_{10}
+        +\Pf K_{01}
+        +\Pf K_{11}
+    \right|,
+\end{equation}
+where the subscripts indicate twists along the two cycles.  The precise sign
+convention depends on the chosen Kasteleyn orientation, but the need for four
+spin structures is universal.
+
+\section{Height representation and the square-lattice RK point}
+\label{sec:qdm-height-representation}
+
+On bipartite planar lattices, close-packed dimer configurations can be mapped to
+integer-valued height configurations on the dual lattice.  The construction is
+local: crossing an edge changes the height by an amount that depends on whether
+the edge is occupied by a dimer and on the sublattice convention.  The exact
+microscopic increments are conventional, but the long-distance structure is not.
+The coarse-grained height field \(h(\bm r)\) has an effective classical action
+of Gaussian form
+\begin{equation}
+\label{eq:classical-dimer-height-action}
+    S_{\rm cl}[h]
+    =
+    \frac{K}{2}
+    \int \dd^2 r\,
+    (\nabla h)^2
+    +\text{irrelevant or locking terms} .
+\end{equation}
+For the square-lattice uniform dimer model, this height theory is critical.
+Consequently, the square-lattice RK ground state has algebraic equal-time dimer
+correlations.
+
+At the RK point, the quantum dynamics adds a kinetic term to the height field.
+The long-wavelength quantum theory is the quantum Lifshitz theory
+\begin{equation}
+\label{eq:quantum-lifshitz-action}
+    S_{\rm QL}[h]
+    =
+    \frac{1}{2}
+    \int \dd\tau\,\dd^2 r
+    \left[
+        (\partial_{\tau}h)^2
+        +
+        \kappa^2(\nabla^2 h)^2
+    \right] .
+\end{equation}
+The dispersion relation is therefore
+\begin{equation}
+\label{eq:quantum-lifshitz-dispersion}
+    \omega(\bm q)\sim \kappa \abs{\bm q}^2,
+\end{equation}
+so the dynamic critical exponent is
+\begin{equation}
+\label{eq:rk-dynamical-exponent}
+    z=2 .
+\end{equation}
+
+\begin{remark}[Why this is not a relativistic critical point]
+In most quantum critical points discussed earlier in one-dimensional free
+fermion chains, the low-energy theory has \(z=1\) and spacetime scaling is
+relativistic.  The square-lattice RK point is different: its effective action
+contains \((\nabla^2 h)^2\), not \((\nabla h)^2\), in the quantum potential
+energy.  The resulting \(\omega\sim q^2\) dispersion is a hallmark of RK-type
+criticality.
+\end{remark}
+
+The square-lattice phase diagram near the RK point is often summarized as
+follows.  For \(v/t>1\), flippable plaquettes cost energy and staggered frozen
+states dominate.  For sufficiently smaller \(v/t\), crystalline valence-bond
+solid phases appear.  The RK point \(v=t\) is a fine-tuned critical point
+separating the staggered regime from resonating dimer physics.
+
+\section{Triangular lattice and gapped \texorpdfstring{\(\ZZ_2\)}{Z2} dimer liquid}
+\label{sec:triangular-rk-liquid}
+
+The physics of the RK point depends strongly on the lattice.  On the triangular
+lattice, the elementary move again flips two parallel dimers around a rhombus,
+but the lattice is nonbipartite.  The absence of a bipartite height field changes
+the long-distance behavior.  At the triangular-lattice RK point, the equal-weight
+dimer liquid is gapped and realizes \(\ZZ_2\) topological order rather than a
+critical height phase.
+
+The distinction may be summarized as
+\begin{center}
+\begin{tabular}{L{0.28\linewidth}L{0.30\linewidth}L{0.30\linewidth}}
+\toprule
+Lattice type & Classical dimer ensemble & RK quantum phase \\
+\midrule
+Bipartite square lattice & Height/Coulomb phase with algebraic correlations & Critical RK point with \(z=2\) \\
+Nonbipartite triangular lattice & Short-ranged dimer correlations & Gapped \(\ZZ_2\) topological dimer liquid \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+On a torus, a gapped \(\ZZ_2\) dimer liquid has four topological sectors,
+analogous to the four ground states of the toric code.  A useful way to label
+them is by the parity of the number of dimers crossing two noncontractible cuts:
+\begin{equation}
+\label{eq:z2-dimer-winding-parities}
+    (P_x,P_y)\in\ZZ_2\times\ZZ_2 .
+\end{equation}
+Local plaquette flips preserve these parities.  In the thermodynamic limit, the
+four corresponding RK ground states become locally indistinguishable if the
+phase is gapped and topologically ordered.
+
+\begin{remark}[Relation to the toric code]
+The triangular-lattice RK dimer liquid and the toric code are not identical
+microscopic Hamiltonians.  However, they lie in the same broad topological
+universality class when the dimer liquid is gapped and has \(\ZZ_2\) topological
+order.  The toric code is the fixed-point commuting-projector representative;
+the quantum dimer model is a constrained Hilbert-space realization with
+resonance dynamics.
+\end{remark}
+
+\section{General RK construction from stochastic dynamics}
+\label{sec:general-rk-stochastic-construction}
+
+The dimer RK point is a special case of a general construction.  Let
+\(\mathcal{C}\) be a classical configuration space with positive weights
+\(w(C)>0\).  Suppose there is a set of local reversible moves
+\(C\leftrightarrow C'\).  Define local operators of the form
+\begin{equation}
+\label{eq:general-rk-local-projector}
+    H_{C,C'}
+    =
+    \gamma_{C,C'}
+    \left(
+        \sqrt{\frac{w(C')}{w(C)}}\ket{C}
+        -
+        \sqrt{\frac{w(C)}{w(C')}}\ket{C'}
+    \right)
+    \left(
+        \sqrt{\frac{w(C')}{w(C)}}\bra{C}
+        -
+        \sqrt{\frac{w(C)}{w(C')}}\bra{C'}
+    \right),
+\end{equation}
+with \(\gamma_{C,C'}>0\).  Then the state \(\ket{\Psi_w}\) in
+\cref{eq:weighted-rk-wavefunction} is annihilated by every such term.  Hence
+\begin{equation}
+\label{eq:general-rk-hamiltonian}
+    H_{\rm RK}[w]
+    =
+    \sum_{(C,C')}H_{C,C'}
+\end{equation}
+is frustration-free and has \(\ket{\Psi_w}\) as an exact ground state in every
+connected component of the move graph.
+
+This construction is closely related to classical Markov dynamics satisfying
+detailed balance.  A Markov generator \(M\) with stationary distribution
+\begin{equation}
+\label{eq:rk-stationary-distribution}
+    \pi(C)=\frac{w(C)}{Z_w}
+\end{equation}
+can often be transformed by a similarity transformation into a Hermitian RK
+Hamiltonian:
+\begin{equation}
+\label{eq:markov-to-rk-similarity}
+    H_{\rm RK}
+    =
+    -\Pi^{-1/2}M\Pi^{1/2},
+    \qquad
+    \Pi_{C,C'}=\pi(C)\delta_{C,C'} .
+\end{equation}
+Consequently, relaxation modes of the classical stochastic process map to
+excitation modes of the quantum RK Hamiltonian.
+
+\begin{principle}[Stochastic-matrix form]
+RK Hamiltonians often have a stochastic-matrix form: after a diagonal similarity
+transformation, the quantum Hamiltonian becomes a classical Markov generator.
+The exact ground state is the square root of the stationary distribution, while
+low-energy quantum modes mirror slow classical relaxation modes.
+\end{principle}
+
+\section{Excitations: resonons, visons, and monomers}
+\label{sec:qdm-excitations}
+
+Although the RK point gives an exact ground state, its excitations are generally
+more difficult than those of a free-fermion or commuting-projector model.
+Nevertheless, several important excitation types can be identified.
+
+\paragraph{Resonons.}
+On the square-lattice RK point, low-energy collective modes of the height field
+are sometimes called resonons.  Their energy vanishes as
+\begin{equation}
+\label{eq:resonon-dispersion}
+    E(\bm q)\sim \abs{\bm q}^2,
+\end{equation}
+consistent with the quantum Lifshitz exponent \(z=2\).
+
+\paragraph{Visons.}
+In a gapped \(\ZZ_2\) dimer liquid, a vison is a \(\ZZ_2\) vortex excitation.
+Operationally, a vison can be detected by a string operator that measures the
+parity of dimers crossing a path on the dual lattice.  Its mutual statistics
+with a monomer excitation is analogous to the mutual statistics of \(m\) and
+\(e\) particles in the toric code.
+
+\paragraph{Monomers.}
+A monomer is a violation of the close-packing constraint: a site is left
+unmatched or has the wrong dimer occupancy.  In a strict quantum dimer Hilbert
+space, monomers are excluded.  They can be introduced by enlarging the Hilbert
+space.  Their confinement or deconfinement diagnoses whether the dimer phase is
+crystalline, critical, or topologically ordered.
+
+\section{Comparison with earlier exact models}
+\label{sec:qdm-comparison-with-earlier-models}
+
+Quantum dimer models clarify an important distinction in these notes.  Exact
+solvability can refer to the full spectrum, to a sector-wise reduction, or only
+to the ground-state wavefunction and its equal-time correlations.  The RK point
+belongs to the last category.
+
+\begin{center}
+\small
+\begin{tabular}{L{0.23\linewidth}L{0.33\linewidth}L{0.31\linewidth}}
+\toprule
+Model class & Solvable structure & What is exactly controlled \\
+\midrule
+TFIM/XY/Kitaev chain & Jordan--Wigner plus BdG diagonalization & Full spectrum and Gaussian correlators \\
+XXZ/XYZ chains & Yang--Baxter algebra and Bethe ansatz & Spectrum through Bethe equations \\
+Toric code & Commuting stabilizers/projectors & Full spectrum and anyon algebra at the fixed point \\
+Kitaev honeycomb & Static \(\ZZ_2\) gauge fields plus free Majoranas & Free-fermion spectrum in each flux sector \\
+RK quantum dimer model & Frustration-free stochastic-matrix form & Exact ground state and classical equal-time correlators \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Thus the RK model is exactly solvable in a weaker but conceptually important
+sense.  It shows that a nontrivial many-body wavefunction can be known exactly
+even when the full many-body spectrum is not.
+
+\section{Summary}
+\label{sec:qdm-summary}
+
+The essential points of this chapter are:
+\begin{enumerate}[label=(\roman*)]
+    \item A quantum dimer model is defined on the constrained Hilbert space of
+    perfect matchings.
+    \item The square-lattice QDM has kinetic plaquette flips and a potential
+    term that counts flippable plaquettes.
+    \item At the RK point \(v=t\), the Hamiltonian becomes a sum of positive
+    semidefinite local terms.
+    \item In every connected sector, the equal-amplitude superposition of dimer
+    coverings is an exact zero-energy ground state.
+    \item The norm and diagonal equal-time correlators of the RK state are
+    those of a classical dimer model.
+    \item Classical dimer Pfaffian methods therefore compute quantum
+    ground-state correlations at the RK point.
+    \item Bipartite square-lattice RK physics is critical and described by a
+    height/quantum-Lifshitz theory with \(z=2\).
+    \item Nonbipartite triangular-lattice RK physics can realize a gapped
+    \(\ZZ_2\) topological dimer liquid.
+\end{enumerate}
+
+The next chapter moves from RK ground-state solvability to more general exact
+ground-state constructions, including valence-bond-solid states, stabilizer
+cluster states, and parent Hamiltonians of tensor-network states.

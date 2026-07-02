@@ -1,0 +1,787 @@
+\chapter{Jordan--Wigner Transformation}
+
+\section{Definition}
+
+The Jordan--Wigner transformation maps a one-dimensional spin-$1/2$ chain to a
+chain of spinless fermions. The essential difficulty is that spin operators on
+different sites commute, whereas fermionic operators on different sites must
+anticommute. The nonlocal Jordan--Wigner string supplies precisely the required
+fermionic signs.
+
+Throughout this chapter we use the convention
+\begin{equation}
+    |0\rangle_j \equiv |\uparrow\rangle_j,
+    \qquad
+    |1\rangle_j \equiv |\downarrow\rangle_j .
+\end{equation}
+Thus the occupied fermionic state corresponds to spin down. The Pauli matrices are
+\begin{equation}
+    \sigma^x =
+    \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+    \end{pmatrix},
+    \qquad
+    \sigma^y =
+    \begin{pmatrix}
+        0 & -\ii\\
+        \ii & 0
+    \end{pmatrix},
+    \qquad
+    \sigma^z =
+    \begin{pmatrix}
+        1 & 0\\
+        0 & -1
+    \end{pmatrix}.
+\end{equation}
+The spin raising and lowering operators are
+\begin{equation}
+    \sigma^+
+    =
+    \frac{\sigma^x+\ii\sigma^y}{2}
+    =
+    \begin{pmatrix}
+        0 & 1\\
+        0 & 0
+    \end{pmatrix},
+    \qquad
+    \sigma^-
+    =
+    \frac{\sigma^x-\ii\sigma^y}{2}
+    =
+    \begin{pmatrix}
+        0 & 0\\
+        1 & 0
+    \end{pmatrix}.
+\end{equation}
+They act as
+\begin{equation}
+    \sigma^+|\downarrow\rangle = |\uparrow\rangle,
+    \qquad
+    \sigma^-|\uparrow\rangle = |\downarrow\rangle .
+\end{equation}
+
+With the convention that spin down is occupied, it is natural to identify the local
+hard-core boson operators as
+\begin{equation}
+    b_j=\sigma_j^+,
+    \qquad
+    b_j^\dagger=\sigma_j^- .
+\end{equation}
+The local number operator is then
+\begin{equation}
+    n_j
+    =
+    b_j^\dagger b_j
+    =
+    \sigma_j^-\sigma_j^+
+    =
+    \frac{1-\sigma_j^z}{2}.
+\end{equation}
+Equivalently,
+\begin{equation}
+    \sigma_j^z = 1-2n_j.
+\end{equation}
+
+We define the Jordan--Wigner string by
+\begin{equation}
+\label{eq:jw-string-definition}
+    K_j
+    =
+    \prod_{\ell=1}^{j-1}\sigma_\ell^z
+    =
+    \prod_{\ell=1}^{j-1}(1-2n_\ell).
+\end{equation}
+Since \(n_\ell\) has eigenvalues \(0\) and \(1\), we may also write
+\begin{equation}
+    K_j
+    =
+    \exp\!\left(
+        \ii\pi\sum_{\ell=1}^{j-1}n_\ell
+    \right).
+\end{equation}
+This exponential form is often useful because
+\begin{equation}
+    \ee^{\ii\pi n_\ell}=1-2n_\ell=\sigma_\ell^z.
+\end{equation}
+
+The Jordan--Wigner transformation used in these notes is
+\begin{equation}
+\label{eq:jw-definition-product}
+    c_j
+    =
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^+,
+    \qquad
+    c_j^\dagger
+    =
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^- .
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:jw-definition-compact}
+    c_j = K_j\sigma_j^+ = K_j b_j,
+    \qquad
+    c_j^\dagger = K_j\sigma_j^- = K_j b_j^\dagger .
+\end{equation}
+The inverse transformation is
+\begin{equation}
+\label{eq:jw-inverse}
+    \sigma_j^+ = K_j c_j,
+    \qquad
+    \sigma_j^- = K_j c_j^\dagger,
+\end{equation}
+or, equivalently,
+\begin{equation}
+    b_j=K_jc_j,
+    \qquad
+    b_j^\dagger=K_jc_j^\dagger .
+\end{equation}
+
+The string satisfies
+\begin{equation}
+    K_j^\dagger=K_j,
+    \qquad
+    K_j^2=1,
+    \qquad
+    K_{j+1}=K_j\sigma_j^z=K_j(1-2n_j).
+\end{equation}
+Because \(K_j\) only acts on sites strictly to the left of \(j\), it commutes with all
+operators on site \(j\):
+\begin{equation}
+    [K_j,\sigma_j^\pm]=0,
+    \qquad
+    [K_j,\sigma_j^z]=0,
+    \qquad
+    [K_j,c_j]=0,
+    \qquad
+    [K_j,c_j^\dagger]=0.
+\end{equation}
+
+Using the inverse transformation, the spin operators become
+\begin{equation}
+\label{eq:spin-operators-jw}
+    \sigma_j^x
+    =
+    K_j(c_j^\dagger+c_j),
+    \qquad
+    \sigma_j^y
+    =
+    K_j\,\ii(c_j^\dagger-c_j),
+    \qquad
+    \sigma_j^z
+    =
+    1-2c_j^\dagger c_j .
+\end{equation}
+
+\begin{remark}
+A common source of sign confusion is the alternative string
+\(\prod_{\ell<j}(-\sigma_\ell^z)\). This differs from the convention used here by
+a site-dependent sign:
+\begin{equation}
+    \prod_{\ell=1}^{j-1}(-\sigma_\ell^z)
+    =
+    (-1)^{j-1}
+    \prod_{\ell=1}^{j-1}\sigma_\ell^z .
+\end{equation}
+It therefore corresponds to a staggered fermion redefinition
+\begin{equation}
+    c_j^{\mathrm{alt}} = (-1)^{j-1}c_j .
+\end{equation}
+In this chapter and in the rest of these notes, we consistently use
+\(K_j=\prod_{\ell<j}\sigma_\ell^z\).
+\end{remark}
+
+\section{Canonical anticommutation relations}
+
+We now prove that the operators defined by the Jordan--Wigner transformation obey
+the canonical fermionic anticommutation relations
+\begin{equation}
+\label{eq:canonical-fermion-algebra}
+    \{c_i,c_j^\dagger\}=\delta_{ij},
+    \qquad
+    \{c_i,c_j\}=0,
+    \qquad
+    \{c_i^\dagger,c_j^\dagger\}=0.
+\end{equation}
+
+First consider the same site. Since \(K_j\) commutes with \(\sigma_j^\pm\) and
+\(K_j^2=1\),
+\begin{align}
+    c_jc_j^\dagger
+    &=
+    K_j\sigma_j^+K_j\sigma_j^-
+    =
+    \sigma_j^+\sigma_j^-,
+    \\
+    c_j^\dagger c_j
+    &=
+    K_j\sigma_j^-K_j\sigma_j^+
+    =
+    \sigma_j^-\sigma_j^+.
+\end{align}
+Therefore
+\begin{equation}
+    \{c_j,c_j^\dagger\}
+    =
+    \sigma_j^+\sigma_j^-
+    +
+    \sigma_j^-\sigma_j^+
+    =
+    1.
+\end{equation}
+Also,
+\begin{equation}
+    c_j^2=(\sigma_j^+)^2=0,
+    \qquad
+    (c_j^\dagger)^2=(\sigma_j^-)^2=0.
+\end{equation}
+
+Now take \(i<j\). Define
+\begin{equation}
+    R_{ij}
+    =
+    \prod_{\ell=i+1}^{j-1}\sigma_\ell^z,
+\end{equation}
+so that
+\begin{equation}
+    K_j = K_i\sigma_i^zR_{ij}.
+\end{equation}
+All operators at different spin sites commute. The only nontrivial sign comes from
+the factor \(\sigma_i^z\), which is present in the string of the operator at site \(j\).
+
+For two annihilation operators,
+\begin{align}
+    c_i c_j
+    &=
+    K_i\sigma_i^+K_j\sigma_j^+
+    \nonumber\\
+    &=
+    K_i\sigma_i^+K_i\sigma_i^zR_{ij}\sigma_j^+
+    \nonumber\\
+    &=
+    \sigma_i^+\sigma_i^zR_{ij}\sigma_j^+
+    \nonumber\\
+    &=
+    -\sigma_i^+R_{ij}\sigma_j^+,
+\end{align}
+where we used
+\begin{equation}
+    \sigma_i^+\sigma_i^z=-\sigma_i^+.
+\end{equation}
+On the other hand,
+\begin{align}
+    c_j c_i
+    &=
+    K_j\sigma_j^+K_i\sigma_i^+
+    \nonumber\\
+    &=
+    K_i\sigma_i^zR_{ij}\sigma_j^+K_i\sigma_i^+
+    \nonumber\\
+    &=
+    \sigma_i^z\sigma_i^+R_{ij}\sigma_j^+
+    \nonumber\\
+    &=
+    +\sigma_i^+R_{ij}\sigma_j^+,
+\end{align}
+where
+\begin{equation}
+    \sigma_i^z\sigma_i^+=+\sigma_i^+.
+\end{equation}
+Hence
+\begin{equation}
+    c_ic_j=-c_jc_i,
+    \qquad i\neq j.
+\end{equation}
+Thus
+\begin{equation}
+    \{c_i,c_j\}=0.
+\end{equation}
+
+Similarly,
+\begin{align}
+    c_i c_j^\dagger
+    &=
+    K_i\sigma_i^+K_j\sigma_j^-
+    \nonumber\\
+    &=
+    \sigma_i^+\sigma_i^zR_{ij}\sigma_j^-
+    \nonumber\\
+    &=
+    -\sigma_i^+R_{ij}\sigma_j^-,
+\end{align}
+while
+\begin{align}
+    c_j^\dagger c_i
+    &=
+    K_j\sigma_j^-K_i\sigma_i^+
+    \nonumber\\
+    &=
+    \sigma_i^z\sigma_i^+R_{ij}\sigma_j^-
+    \nonumber\\
+    &=
+    +\sigma_i^+R_{ij}\sigma_j^-.
+\end{align}
+Therefore
+\begin{equation}
+    c_ic_j^\dagger=-c_j^\dagger c_i,
+    \qquad i\neq j.
+\end{equation}
+Together with the same-site result, this proves
+\begin{equation}
+    \{c_i,c_j^\dagger\}=\delta_{ij}.
+\end{equation}
+
+Finally, for two creation operators,
+\begin{align}
+    c_i^\dagger c_j^\dagger
+    &=
+    K_i\sigma_i^-K_j\sigma_j^-
+    \nonumber\\
+    &=
+    \sigma_i^-\sigma_i^zR_{ij}\sigma_j^-
+    \nonumber\\
+    &=
+    +\sigma_i^-R_{ij}\sigma_j^-,
+\end{align}
+where
+\begin{equation}
+    \sigma_i^-\sigma_i^z=+\sigma_i^-,
+\end{equation}
+whereas
+\begin{align}
+    c_j^\dagger c_i^\dagger
+    &=
+    K_j\sigma_j^-K_i\sigma_i^-
+    \nonumber\\
+    &=
+    \sigma_i^z\sigma_i^-R_{ij}\sigma_j^-
+    \nonumber\\
+    &=
+    -\sigma_i^-R_{ij}\sigma_j^-.
+\end{align}
+Hence
+\begin{equation}
+    c_i^\dagger c_j^\dagger=-c_j^\dagger c_i^\dagger,
+    \qquad i\neq j.
+\end{equation}
+This completes the proof of the canonical fermionic anticommutation relations.
+
+\section{Boundary conditions and fermion parity}
+
+For an open chain, the Jordan--Wigner transformation is unambiguous: the string
+always extends from the left boundary to the site immediately before \(j\). No operator
+wraps around the chain.
+
+For a periodic spin chain, however, a boundary term connecting site \(L\) to site \(1\)
+carries a fermion-parity-dependent sign. The total fermion number and fermion parity
+are
+\begin{equation}
+    N=\sum_{j=1}^L n_j,
+    \qquad
+    P_F=(-1)^N.
+\end{equation}
+Since \(1-2n_j=\sigma_j^z\), we have
+\begin{equation}
+\label{eq:fermion-parity-spin}
+    P_F
+    =
+    \prod_{j=1}^L(1-2n_j)
+    =
+    \prod_{j=1}^L\sigma_j^z.
+\end{equation}
+The parity operator satisfies
+\begin{equation}
+    P_F^2=1,
+    \qquad
+    P_F c_j P_F=-c_j,
+    \qquad
+    P_F c_j^\dagger P_F=-c_j^\dagger.
+\end{equation}
+
+The formal Jordan--Wigner string at site \(L+1\) is
+\begin{equation}
+    K_{L+1}
+    =
+    \prod_{j=1}^L\sigma_j^z
+    =
+    P_F.
+\end{equation}
+Thus, if the spin variables are periodic,
+\begin{equation}
+    \sigma_{L+1}^\pm\equiv\sigma_1^\pm,
+\end{equation}
+the formal extension of the Jordan--Wigner definition gives
+\begin{equation}
+\label{eq:formal-boundary-fermion}
+    c_{L+1}^{\mathrm{form}}
+    =
+    K_{L+1}\sigma_{L+1}^+
+    =
+    P_F\sigma_1^+
+    =
+    P_Fc_1 .
+\end{equation}
+This equation is a formal extension of the operator definition. It should not yet
+be identified with the effective boundary condition of a quadratic fermion
+Hamiltonian. The effective boundary condition is obtained only after the boundary
+spin bilinears are rewritten in the same algebraic form as the bulk nearest-neighbour
+bilinears.
+
+For example,
+\begin{align}
+    b_L^\dagger b_1
+    &=
+    K_Lc_L^\dagger c_1
+    \nonumber\\
+    &=
+    \left(\prod_{\ell=1}^{L-1}\sigma_\ell^z\right)c_L^\dagger c_1
+    \nonumber\\
+    &=
+    P_F\sigma_L^z c_L^\dagger c_1
+    \nonumber\\
+    &=
+    -P_F c_L^\dagger c_1.
+\end{align}
+Similarly,
+\begin{equation}
+    b_L^\dagger b_1^\dagger
+    =
+    -P_F c_L^\dagger c_1^\dagger.
+\end{equation}
+Therefore, within a fixed fermion-parity sector \(P_F=p=\pm1\), rewriting the boundary
+term in the same form as the bulk terms is equivalent to imposing the effective
+fermionic boundary condition
+\begin{equation}
+\label{eq:effective-jw-boundary-condition}
+    c_{L+1}=-p\,c_1.
+\end{equation}
+Consequently,
+\begin{equation}
+    p=+1
+    \quad\Longrightarrow\quad
+    c_{L+1}=-c_1,
+\end{equation}
+so the even-parity sector corresponds to anti-periodic fermions, whereas
+\begin{equation}
+    p=-1
+    \quad\Longrightarrow\quad
+    c_{L+1}=c_1,
+\end{equation}
+so the odd-parity sector corresponds to periodic fermions.
+
+\section{Useful Jordan--Wigner identities}
+
+This section collects the identities most frequently used when translating
+one-dimensional spin-chain Hamiltonians into fermionic language. All formulae below
+use the convention
+\begin{equation}
+    K_j=\prod_{\ell=1}^{j-1}\sigma_\ell^z
+    =
+    \prod_{\ell=1}^{j-1}(1-2n_\ell),
+    \qquad
+    c_j=K_j\sigma_j^+,
+    \qquad
+    c_j^\dagger=K_j\sigma_j^-.
+\end{equation}
+
+\subsection*{Local spin, hard-core boson, and number operators}
+
+The hard-core boson convention is
+\begin{equation}
+    \sigma_j^+=b_j,
+    \qquad
+    \sigma_j^-=b_j^\dagger,
+    \qquad
+    n_j=b_j^\dagger b_j=c_j^\dagger c_j.
+\end{equation}
+Therefore
+\begin{equation}
+    \sigma_j^x=b_j^\dagger+b_j,
+    \qquad
+    \sigma_j^y=\ii(b_j^\dagger-b_j),
+    \qquad
+    \sigma_j^z=1-2b_j^\dagger b_j=1-2c_j^\dagger c_j.
+\end{equation}
+The local hard-core algebra is
+\begin{equation}
+    \{b_j,b_j^\dagger\}=1,
+    \qquad
+    \{b_j,b_j\}=0,
+    \qquad
+    \{b_j^\dagger,b_j^\dagger\}=0,
+\end{equation}
+while for \(i\neq j\),
+\begin{equation}
+    [b_i,b_j]=0,
+    \qquad
+    [b_i,b_j^\dagger]=0,
+    \qquad
+    [b_i^\dagger,b_j^\dagger]=0.
+\end{equation}
+The fermions satisfy
+\begin{equation}
+    \{c_i,c_j^\dagger\}=\delta_{ij},
+    \qquad
+    \{c_i,c_j\}=0,
+    \qquad
+    \{c_i^\dagger,c_j^\dagger\}=0.
+\end{equation}
+
+\subsection*{String identities}
+
+The string identities most often used are
+\begin{equation}
+    K_j^2=1,
+    \qquad
+    K_j^\dagger=K_j,
+    \qquad
+    K_{j+1}=K_j(1-2n_j).
+\end{equation}
+Moreover,
+\begin{equation}
+    c_j^\dagger(1-2n_j)=c_j^\dagger,
+    \qquad
+    c_j(1-2n_j)=-c_j,
+\end{equation}
+and
+\begin{equation}
+    (1-2n_j)c_j^\dagger=-c_j^\dagger,
+    \qquad
+    (1-2n_j)c_j=c_j.
+\end{equation}
+These four identities are the main source of the signs in nearest-neighbour JW
+formulae.
+
+\subsection*{Hard-core boson bilinears}
+
+Using \(b_j=K_jc_j\), \(b_j^\dagger=K_jc_j^\dagger\), and
+\(K_{j+1}=K_j(1-2n_j)\), one obtains
+\begin{align}
+    b_j^\dagger b_j
+    &=
+    c_j^\dagger c_j
+    =
+    n_j,
+    \\
+    b_j^\dagger b_{j+1}^\dagger
+    &=
+    c_j^\dagger(1-2n_j)c_{j+1}^\dagger
+    =
+    c_j^\dagger c_{j+1}^\dagger,
+    \\
+    b_j^\dagger b_{j+1}
+    &=
+    c_j^\dagger(1-2n_j)c_{j+1}
+    =
+    c_j^\dagger c_{j+1},
+    \\
+    b_j b_{j+1}
+    &=
+    c_j(1-2n_j)c_{j+1}
+    =
+    -c_jc_{j+1},
+    \\
+    b_j b_{j+1}^\dagger
+    &=
+    c_j(1-2n_j)c_{j+1}^\dagger
+    =
+    -c_jc_{j+1}^\dagger.
+\end{align}
+Equivalently, after reordering fermions on different sites,
+\begin{equation}
+    -c_jc_{j+1}^\dagger
+    =
+    c_{j+1}^\dagger c_j,
+    \qquad
+    -c_jc_{j+1}
+    =
+    c_{j+1}c_j.
+\end{equation}
+
+\subsection*{Spin operators in fermions}
+
+The single-site spin operators are
+\begin{equation}
+    \sigma_j^x
+    =
+    K_j(c_j^\dagger+c_j),
+    \qquad
+    \sigma_j^y
+    =
+    K_j\,\ii(c_j^\dagger-c_j),
+    \qquad
+    \sigma_j^z
+    =
+    1-2n_j.
+\end{equation}
+
+The nearest-neighbour \(xx\) bilinear is
+\begin{align}
+    \sigma_j^x\sigma_{j+1}^x
+    &=
+    (b_j^\dagger+b_j)(b_{j+1}^\dagger+b_{j+1})
+    \nonumber\\
+    &=
+    c_j^\dagger c_{j+1}^\dagger
+    +
+    c_j^\dagger c_{j+1}
+    +
+    c_{j+1}^\dagger c_j
+    +
+    c_{j+1}c_j
+    \nonumber\\
+    &=
+    c_j^\dagger c_{j+1}^\dagger
+    +
+    c_j^\dagger c_{j+1}
+    +
+    \text{H.c.}.
+\end{align}
+The nearest-neighbour \(yy\) bilinear is
+\begin{align}
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    - (b_j^\dagger-b_j)(b_{j+1}^\dagger-b_{j+1})
+    \nonumber\\
+    &=
+    -c_j^\dagger c_{j+1}^\dagger
+    +
+    c_j^\dagger c_{j+1}
+    +
+    c_{j+1}^\dagger c_j
+    -
+    c_{j+1}c_j
+    \nonumber\\
+    &=
+    -\left(
+        c_j^\dagger c_{j+1}^\dagger
+        -
+        c_j^\dagger c_{j+1}
+        +
+        \text{H.c.}
+    \right).
+\end{align}
+The nearest-neighbour \(zz\) bilinear is
+\begin{align}
+    \sigma_j^z\sigma_{j+1}^z
+    &=
+    (1-2n_j)(1-2n_{j+1})
+    \nonumber\\
+    &=
+    1-2n_j-2n_{j+1}+4n_jn_{j+1}.
+\end{align}
+
+Useful linear combinations are
+\begin{align}
+    \sigma_j^x\sigma_{j+1}^x
+    +
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    2\left(
+        c_j^\dagger c_{j+1}
+        +
+        c_{j+1}^\dagger c_j
+    \right),
+    \\
+    \sigma_j^x\sigma_{j+1}^x
+    -
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    2\left(
+        c_j^\dagger c_{j+1}^\dagger
+        +
+        c_{j+1}c_j
+    \right).
+\end{align}
+
+\subsection*{Tensor-product representation}
+
+For direct matrix construction on a finite chain of length \(L\), the JW operators are
+\begin{equation}
+    c_j
+    =
+    \left(
+        \bigotimes_{\ell=1}^{j-1}\sigma_\ell^z
+    \right)
+    \otimes
+    \sigma_j^+
+    \otimes
+    \left(
+        \bigotimes_{\ell=j+1}^{L}\id_\ell
+    \right),
+\end{equation}
+and
+\begin{equation}
+    c_j^\dagger
+    =
+    \left(
+        \bigotimes_{\ell=1}^{j-1}\sigma_\ell^z
+    \right)
+    \otimes
+    \sigma_j^-
+    \otimes
+    \left(
+        \bigotimes_{\ell=j+1}^{L}\id_\ell
+    \right).
+\end{equation}
+For example, for \(L=4\),
+\begin{align}
+    c_1
+    &=
+    \sigma_1^+\otimes\id_2\otimes\id_3\otimes\id_4,
+    \\
+    c_2
+    &=
+    \sigma_1^z\otimes\sigma_2^+\otimes\id_3\otimes\id_4,
+    \\
+    c_3
+    &=
+    \sigma_1^z\otimes\sigma_2^z\otimes\sigma_3^+\otimes\id_4,
+    \\
+    c_4
+    &=
+    \sigma_1^z\otimes\sigma_2^z\otimes\sigma_3^z\otimes\sigma_4^+.
+\end{align}
+The creation operators are obtained by replacing \(\sigma_j^+\) with \(\sigma_j^-\).
+
+\subsection*{Compact summary}
+
+The essential dictionary is
+\begin{equation}
+    n_j
+    =
+    c_j^\dagger c_j
+    =
+    \frac{1-\sigma_j^z}{2},
+    \qquad
+    \sigma_j^z=1-2n_j,
+\end{equation}
+\begin{equation}
+    K_j
+    =
+    \prod_{\ell=1}^{j-1}\sigma_\ell^z
+    =
+    \prod_{\ell=1}^{j-1}(1-2n_\ell),
+\end{equation}
+\begin{equation}
+    c_j=K_j\sigma_j^+,
+    \qquad
+    c_j^\dagger=K_j\sigma_j^-,
+\end{equation}
+\begin{equation}
+    \sigma_j^x=K_j(c_j^\dagger+c_j),
+    \qquad
+    \sigma_j^y=K_j\,\ii(c_j^\dagger-c_j),
+    \qquad
+    \sigma_j^z=1-2c_j^\dagger c_j,
+\end{equation}
+and
+\begin{equation}
+    \{c_i,c_j^\dagger\}=\delta_{ij},
+    \qquad
+    \{c_i,c_j\}=0,
+    \qquad
+    \{c_i^\dagger,c_j^\dagger\}=0.
+\end{equation}
+These identities are the basic toolkit for translating one-dimensional spin chains
+into fermionic language.

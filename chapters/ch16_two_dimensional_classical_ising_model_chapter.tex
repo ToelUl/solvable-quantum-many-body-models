@@ -1,0 +1,593 @@
+\chapter{The Two-Dimensional Classical Ising Model}
+\label{chap:two-dimensional-classical-ising}
+
+The two-dimensional classical Ising model is the first genuinely nontrivial
+exactly solved lattice model in these notes.  It is also the central bridge
+between two themes developed earlier: transfer matrices and free fermions.  In
+one dimension, the classical Ising transfer matrix is only a $2\times2$ matrix;
+in two dimensions, a row-to-row transfer matrix acts on a $2^L$-dimensional row
+Hilbert space.  The remarkable fact, discovered by Onsager and reformulated by
+Kaufman, is that this exponentially large transfer matrix is still exactly
+solvable because it is a Gaussian operator in Majorana variables.
+
+This chapter has three goals.  First, we define the anisotropic zero-field model
+and construct its row-to-row transfer matrix in the same convention used in the
+quantum--classical correspondence chapter.  Second, we explain why the transfer
+matrix belongs to a free-fermion algebra.  Third, we extract the Onsager critical
+condition
+\begin{equation}
+\label{eq:2d-classical-ising-onsager-critical-preview}
+    \sinh(2K_x)\sinh(2K_y)=1
+\end{equation}
+from the closing of the transfer-matrix gap.
+
+\begin{remark}[Zero field is essential]
+The exact free-fermion solution discussed here applies to the square-lattice
+Ising model at zero magnetic field.  Adding a field term
+$H\sum_{j,m}s_{j,m}$ destroys the Gaussian structure of the transfer matrix.
+The two-dimensional Ising model in a nonzero magnetic field is not known to have
+a comparable closed-form exact solution.
+\end{remark}
+
+\section{Classical partition function}
+\label{sec:2d-classical-ising-partition-function}
+
+Consider an $L\times M$ square lattice with periodic boundary conditions in both
+directions.  A classical spin variable
+\begin{equation}
+    s_{j,m}=\pm1,
+    \qquad
+    j=1,\ldots,L,
+    \qquad
+    m=1,\ldots,M,
+\end{equation}
+lives at each lattice site.  We identify
+\begin{equation}
+    s_{L+1,m}=s_{1,m},
+    \qquad
+    s_{j,M+1}=s_{j,1}.
+\end{equation}
+The anisotropic zero-field Ising partition function is
+\begin{equation}
+\label{eq:2d-classical-ising-partition-function}
+    Z_{L,M}(K_x,K_y)
+    =
+    \sum_{\{s_{j,m}=\pm1\}}
+    \exp\left[
+        K_x\sum_{j,m}s_{j,m}s_{j+1,m}
+        +
+        K_y\sum_{j,m}s_{j,m}s_{j,m+1}
+    \right].
+\end{equation}
+Here $K_x$ and $K_y$ are dimensionless couplings.  If the physical Hamiltonian is
+\begin{equation}
+    E[s]
+    =
+    -J_x\sum_{j,m}s_{j,m}s_{j+1,m}
+    -J_y\sum_{j,m}s_{j,m}s_{j,m+1},
+\end{equation}
+then
+\begin{equation}
+    K_x=\beta J_x,
+    \qquad
+    K_y=\beta J_y .
+\end{equation}
+For most of this chapter we assume $K_x,K_y>0$, corresponding to the
+ferromagnetic model.  Antiferromagnetic signs can often be moved by sublattice
+spin flips on a bipartite lattice, but the ferromagnetic case is the canonical
+one for discussing the thermal order--disorder transition.
+
+Let
+\begin{equation}
+    \bm{s}_m=(s_{1,m},\ldots,s_{L,m})
+\end{equation}
+denote the $m$th row configuration.  The Boltzmann weight between two adjacent
+rows can be distributed symmetrically as
+\begin{equation}
+\label{eq:2d-classical-ising-symmetric-row-weight}
+    T_{\bm{s},\bm{s}'}
+    =
+    \exp\left[
+        \frac{K_x}{2}\sum_{j=1}^{L}s_js_{j+1}
+        +
+        K_y\sum_{j=1}^{L}s_js_j'
+        +
+        \frac{K_x}{2}\sum_{j=1}^{L}s_j's_{j+1}'
+    \right].
+\end{equation}
+Then
+\begin{equation}
+\label{eq:2d-classical-ising-z-tr-tm}
+    Z_{L,M}(K_x,K_y)=\Tr T^M .
+\end{equation}
+The symmetrization in \cref{eq:2d-classical-ising-symmetric-row-weight} is not
+physically necessary, but it makes $T$ real symmetric and therefore convenient
+for spectral analysis.
+
+\section{Operator form of the row-to-row transfer matrix}
+\label{sec:2d-classical-ising-row-transfer-operator}
+
+We now rewrite $T$ as an operator acting on a row Hilbert space
+\begin{equation}
+    \calH_{\rm row}=(\CC^2)^{\otimes L}.
+\end{equation}
+To remain consistent with the transverse-field Ising convention used earlier in
+these notes, we label a classical row configuration by eigenvalues of
+$\sigma_j^x$:
+\begin{equation}
+\label{eq:2d-classical-ising-x-basis}
+    \sigma_j^x\ket{s_1,\ldots,s_L}_x
+    =
+    s_j\ket{s_1,\ldots,s_L}_x .
+\end{equation}
+In this basis, the intra-row interaction is diagonal:
+\begin{equation}
+\label{eq:2d-classical-ising-horizontal-operator}
+    \exp\left(
+        \frac{K_x}{2}\sum_{j=1}^{L}\sigma_j^x\sigma_{j+1}^x
+    \right).
+\end{equation}
+The vertical one-site Boltzmann matrix is
+\begin{equation}
+\label{eq:2d-classical-ising-vertical-weight}
+    W_{ss'}=\ee^{K_yss'}
+    =
+    \begin{pmatrix}
+        \ee^{K_y} & \ee^{-K_y} \\
+        \ee^{-K_y} & \ee^{K_y}
+    \end{pmatrix}_{s,s'} .
+\end{equation}
+Since $\sigma^z$ flips the $\sigma^x$ eigenvalue, this matrix can be written as
+\begin{equation}
+\label{eq:2d-classical-ising-vertical-exp}
+    W=A\ee^{\kappa\sigma^z},
+    \qquad
+    \tanh\kappa=\ee^{-2K_y},
+    \qquad
+    A=\sqrt{2\sinh(2K_y)} .
+\end{equation}
+Indeed,
+\begin{equation}
+    A\cosh\kappa=\ee^{K_y},
+    \qquad
+    A\sinh\kappa=\ee^{-K_y}.
+\end{equation}
+The parameter $\kappa$ is the dual coupling associated with $K_y$:
+\begin{equation}
+\label{eq:2d-classical-ising-kappa-dual}
+    \ee^{-2K_y}=\tanh\kappa
+    \quad\Longleftrightarrow\quad
+    \sinh(2K_y)\sinh(2\kappa)=1 .
+\end{equation}
+Thus the symmetric row-to-row transfer matrix is
+\begin{equation}
+\label{eq:2d-classical-ising-symmetric-transfer-operator}
+    T
+    =
+    A^L
+    \exp\left(
+        \frac{K_x}{2}\sum_{j=1}^{L}\sigma_j^x\sigma_{j+1}^x
+    \right)
+    \exp\left(
+        \kappa\sum_{j=1}^{L}\sigma_j^z
+    \right)
+    \exp\left(
+        \frac{K_x}{2}\sum_{j=1}^{L}\sigma_j^x\sigma_{j+1}^x
+    \right).
+\end{equation}
+This is the precise point at which the two-dimensional classical model starts to
+look like a one-dimensional quantum spin chain: $T$ is an exponential product of
+operators acting on a one-dimensional row Hilbert space.
+
+\begin{remark}[Relation to the notation $K_\tau$]
+In the quantum--classical correspondence chapter, the transfer direction was
+written as an imaginary-time direction and the vertical coupling was denoted
+$K_\tau$.  In the present chapter we write the two classical directions as
+$x$ and $y$.  Thus $K_y$ here plays the role of $K_\tau$ there.
+\end{remark}
+
+\section{Kaufman's free-fermion structure}
+\label{sec:2d-classical-ising-kaufman-free-fermion}
+
+At first sight, \cref{eq:2d-classical-ising-symmetric-transfer-operator} is not
+easier than the original classical problem, because it acts on a
+$2^L$-dimensional vector space.  The key observation is that both exponential
+factors are Gaussian after the Jordan--Wigner transformation.
+
+Using the Jordan--Wigner convention fixed earlier in these notes, define
+Majorana operators
+\begin{equation}
+\label{eq:2d-classical-ising-majorana-definitions}
+    a_{2j-1}
+    =
+    \left(\prod_{\ell<j}\sigma_\ell^z\right)\sigma_j^x,
+    \qquad
+    a_{2j}
+    =
+    \left(\prod_{\ell<j}\sigma_\ell^z\right)\sigma_j^y .
+\end{equation}
+They satisfy
+\begin{equation}
+\label{eq:2d-classical-ising-majorana-algebra}
+    a_m^\dagger=a_m,
+    \qquad
+    \{a_m,a_n\}=2\delta_{mn} .
+\end{equation}
+In the bulk one has the local identities
+\begin{equation}
+\label{eq:2d-classical-ising-majorana-spin-identities}
+    \sigma_j^z=-\ii a_{2j-1}a_{2j},
+    \qquad
+    \sigma_j^x\sigma_{j+1}^x=-\ii a_{2j}a_{2j+1} .
+\end{equation}
+Therefore the two building blocks of $T$ become
+\begin{align}
+\label{eq:2d-classical-ising-vertical-majorana-gaussian}
+    \exp\left(\kappa\sum_j\sigma_j^z\right)
+    &=
+    \exp\left(-\ii\kappa\sum_j a_{2j-1}a_{2j}\right),
+    \\
+\label{eq:2d-classical-ising-horizontal-majorana-gaussian}
+    \exp\left(\frac{K_x}{2}\sum_j\sigma_j^x\sigma_{j+1}^x\right)
+    &=
+    \exp\left(-\frac{\ii K_x}{2}\sum_j a_{2j}a_{2j+1}\right),
+\end{align}
+up to the usual boundary-sector term for a periodic spin chain.
+
+Equations \cref{eq:2d-classical-ising-vertical-majorana-gaussian,eq:2d-classical-ising-horizontal-majorana-gaussian}
+show that $T$ is a product of exponentials of Majorana bilinears.  Such operators
+are fermionic Gaussian operators.  Their adjoint action maps Majoranas linearly
+to Majoranas:
+\begin{equation}
+\label{eq:2d-classical-ising-gaussian-adjoint-action}
+    T^{-1}a_mT
+    =
+    \sum_{n=1}^{2L}R_{mn}a_n,
+\end{equation}
+where $R$ is a $2L\times2L$ matrix preserving the Majorana anticommutation
+relations.  The exponentially large transfer-matrix problem is therefore reduced
+to the diagonalization of a one-particle Majorana transformation.
+
+\begin{remark}[Boundary sectors]
+For periodic spin boundary conditions, the boundary term in
+$\sigma_L^x\sigma_1^x$ contains the fermion-parity operator
+$P_F=\prod_{j=1}^{L}\sigma_j^z$.  Consequently, the exact finite-$L$ partition
+function is obtained by combining parity-projected fermion traces with periodic
+and antiperiodic momenta, in the same spirit as the TFIM parity-sector
+bookkeeping.  In the thermodynamic limit these sector distinctions affect only
+subleading finite-size terms, not the bulk free energy or the critical curve.
+\end{remark}
+
+Because the model is translation invariant, the one-particle Majorana problem
+block-diagonalizes in momentum.  For each momentum $k$, the relevant
+$2\times2$ block has eigenvalues $\ee^{\pm\varepsilon(k)}$, where
+\begin{equation}
+\label{eq:2d-classical-ising-onsager-dispersion}
+    \cosh\varepsilon(k)
+    =
+    \cosh(2\kappa)\cosh(2K_x)
+    -
+    \sinh(2\kappa)\sinh(2K_x)\cos k .
+\end{equation}
+The quantity $\varepsilon(k)$ is the transfer-matrix analogue of a quasiparticle
+energy.  More precisely, it is the single-particle gap in the logarithm of the
+transfer matrix.  Its minimum occurs at $k=0$ for ferromagnetic couplings, and
+\begin{equation}
+\label{eq:2d-classical-ising-transfer-gap}
+    \varepsilon(0)
+    =
+    2\abs{\kappa-K_x} .
+\end{equation}
+Thus the transfer-matrix gap closes when
+\begin{equation}
+\label{eq:2d-classical-ising-kappa-equals-kx}
+    \kappa=K_x .
+\end{equation}
+Using \cref{eq:2d-classical-ising-kappa-dual}, this is equivalent to
+\begin{equation}
+\label{eq:2d-classical-ising-onsager-critical}
+    \boxed{\sinh(2K_x)\sinh(2K_y)=1.}
+\end{equation}
+This is the Onsager critical line for the anisotropic two-dimensional Ising
+model.
+
+\section{Largest eigenvalue and Onsager free energy}
+\label{sec:2d-classical-ising-onsager-free-energy}
+
+Let
+\begin{equation}
+\label{eq:2d-classical-ising-phi-definition}
+    \Phi(K_x,K_y)
+    =
+    \lim_{L,M\to\infty}\frac{1}{LM}\log Z_{L,M}(K_x,K_y)
+\end{equation}
+be the dimensionless free-energy density with the sign convention appropriate to
+$\log Z$.  The physical free energy per site is
+\begin{equation}
+    f=-\beta^{-1}\Phi
+\end{equation}
+when $K_\mu=\beta J_\mu$.  Since $Z=\Tr T^M$, $\Phi$ is the logarithm of the
+largest transfer-matrix eigenvalue per row site.
+
+From the Gaussian diagonalization one obtains
+\begin{equation}
+\label{eq:2d-classical-ising-onsager-free-energy-kappa}
+    \Phi(K_x,K_y)
+    =
+    \frac12\log\!\bigl(2\sinh(2K_y)\bigr)
+    +
+    \frac12\int_{-\pi}^{\pi}\frac{\dd k}{2\pi}\,\varepsilon(k),
+\end{equation}
+where $\varepsilon(k)$ is defined by
+\cref{eq:2d-classical-ising-onsager-dispersion}.  Equivalently,
+\begin{align}
+\label{eq:2d-classical-ising-onsager-free-energy-standard}
+    \Phi(K_x,K_y)
+    &=
+    \frac12\log\!\bigl(2\sinh(2K_y)\bigr)
+    +
+    \frac{1}{2\pi}
+    \int_0^\pi \dd k\,\operatorname{arcosh} X(k),
+    \\
+    X(k)
+    &=
+    \cosh(2\kappa)\cosh(2K_x)
+    -
+    \sinh(2\kappa)\sinh(2K_x)\cos k .
+\end{align}
+The appearance of $\operatorname{arcosh}$ is the transfer-matrix version of
+``taking a quasiparticle energy from a one-particle evolution eigenvalue.''
+
+A useful check is the decoupled-row limit $K_x=0$.  Then
+\begin{equation}
+    \varepsilon(k)=2\kappa,
+\end{equation}
+and \cref{eq:2d-classical-ising-onsager-free-energy-kappa} gives
+\begin{equation}
+    \Phi(0,K_y)
+    =
+    \frac12\log\!\bigl(2\sinh(2K_y)\bigr)+\kappa
+    =
+    \log(2\cosh K_y),
+\end{equation}
+which is exactly the free-energy density of independent vertical Ising chains
+viewed through the chosen transfer direction.
+
+For the isotropic model $K_x=K_y=K$, the critical point follows from
+\begin{equation}
+    \sinh^2(2K_c)=1,
+\end{equation}
+and therefore
+\begin{equation}
+\label{eq:2d-classical-ising-isotropic-kc}
+    \boxed{K_c=\frac12\log(1+\sqrt2).}
+\end{equation}
+If $K=\beta J$, this gives
+\begin{equation}
+\label{eq:2d-classical-ising-isotropic-tc}
+    k_B T_c
+    =
+    \frac{2J}{\log(1+\sqrt2)} .
+\end{equation}
+
+\section{Duality interpretation of the critical curve}
+\label{sec:2d-classical-ising-duality-interpretation}
+
+The same critical condition follows from Kramers--Wannier duality.  The
+high-temperature expansion writes each bond factor as
+\begin{equation}
+\label{eq:2d-classical-ising-high-temp-bond}
+    \ee^{Ks_rs_{r'}}
+    =
+    \cosh K\left(1+s_rs_{r'}\tanh K\right).
+\end{equation}
+After summing over spins, only closed even-degree bond configurations survive.
+The low-temperature expansion of a dual Ising model is instead a sum over domain
+walls.  Matching high-temperature loops of the original lattice with
+domain-wall loops of the dual lattice gives
+\begin{equation}
+\label{eq:2d-classical-ising-dual-couplings}
+    \ee^{-2K_x^*}=\tanh K_y,
+    \qquad
+    \ee^{-2K_y^*}=\tanh K_x .
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:2d-classical-ising-dual-couplings-sinh}
+    \sinh(2K_x^*)\sinh(2K_y)=1,
+    \qquad
+    \sinh(2K_y^*)\sinh(2K_x)=1 .
+\end{equation}
+A self-dual point satisfies
+\begin{equation}
+    K_x^*=K_x,
+    \qquad
+    K_y^*=K_y,
+\end{equation}
+and hence obeys
+\begin{equation}
+    \sinh(2K_x)\sinh(2K_y)=1 .
+\end{equation}
+Duality alone identifies the possible transition curve if there is a unique
+ferromagnetic critical line.  The transfer-matrix solution gives the sharper
+statement: the one-particle transfer gap actually closes on this curve.
+
+\section{Order parameter and critical behavior}
+\label{sec:2d-classical-ising-order-parameter-critical-behavior}
+
+The finite-volume partition function at zero field has a global $\ZZ_2$ symmetry
+$s_{j,m}\mapsto -s_{j,m}$, so the finite-volume magnetization vanishes exactly.
+The spontaneous magnetization is defined by taking the thermodynamic limit before
+removing an infinitesimal symmetry-breaking field:
+\begin{equation}
+\label{eq:2d-classical-ising-spontaneous-magnetization-definition}
+    M
+    =
+    \lim_{H\to0^+}\lim_{L,M\to\infty}
+    \frac{1}{LM}\sum_{j,m}\langle s_{j,m}\rangle_H .
+\end{equation}
+Yang's exact result for the anisotropic square-lattice model is
+\begin{equation}
+\label{eq:2d-classical-ising-yang-magnetization}
+    M(K_x,K_y)
+    =
+    \begin{cases}
+    \displaystyle
+    \left[
+        1-\frac{1}{\sinh^2(2K_x)\sinh^2(2K_y)}
+    \right]^{1/8},
+    &
+    \sinh(2K_x)\sinh(2K_y)>1,\\[12pt]
+    0,
+    &
+    \sinh(2K_x)\sinh(2K_y)\leq1 .
+    \end{cases}
+\end{equation}
+For the isotropic model this reduces to
+\begin{equation}
+\label{eq:2d-classical-ising-isotropic-magnetization}
+    M(K)
+    =
+    \left[1-\sinh^{-4}(2K)\right]^{1/8},
+    \qquad
+    K>K_c .
+\end{equation}
+Thus the magnetization exponent is
+\begin{equation}
+\label{eq:2d-classical-ising-beta-exponent}
+    M\sim (T_c-T)^{1/8},
+    \qquad
+    \beta_{\rm Ising}=\frac18 .
+\end{equation}
+
+The transfer-matrix dispersion also reveals the divergence of the correlation
+length.  Along the transfer direction, the inverse correlation length is given by
+the relevant transfer gap.  Near the ferromagnetic critical line,
+\begin{equation}
+\label{eq:2d-classical-ising-correlation-length-gap}
+    \xi_y^{-1}\sim\varepsilon(0)=2\abs{\kappa-K_x} .
+\end{equation}
+Because $\kappa-K_x$ is linear in the distance from the critical curve, the
+correlation-length exponent is
+\begin{equation}
+\label{eq:2d-classical-ising-nu-exponent}
+    \xi\sim\abs{T-T_c}^{-1},
+    \qquad
+    \nu=1 .
+\end{equation}
+The full critical behavior of the two-dimensional Ising universality class is
+summarized by
+\begin{equation}
+\label{eq:2d-classical-ising-critical-exponents}
+\begin{gathered}
+    \alpha=0\quad(\text{logarithmic specific-heat divergence}),
+    \qquad
+    \beta=\frac18,
+    \qquad
+    \gamma=\frac74,
+    \\
+    \nu=1,
+    \qquad
+    \eta=\frac14,
+    \qquad
+    \delta=15 .
+\end{gathered}
+\end{equation}
+In these notes, the most important point is not the list of exponents itself,
+but their origin: the classical thermal transition is controlled by a massless
+free-fermion transfer-matrix theory at criticality.
+
+\section{Connection to the one-dimensional TFIM}
+\label{sec:2d-classical-ising-connection-to-tfim}
+
+The transfer matrix in
+\cref{eq:2d-classical-ising-symmetric-transfer-operator} becomes the imaginary-
+time evolution operator of the one-dimensional TFIM in a strongly anisotropic
+limit.  Set
+\begin{equation}
+\label{eq:2d-classical-ising-tfim-scaling}
+    K_x=\delta\tau J,
+    \qquad
+    \kappa=\delta\tau h,
+    \qquad
+    \tanh(\delta\tau h)=\ee^{-2K_y} .
+\end{equation}
+Then, using the symmetric Trotter formula,
+\begin{equation}
+\label{eq:2d-classical-ising-tfim-transfer-limit}
+    T
+    =
+    A^L\exp\left[-\delta\tau H_{\rm TFIM}+O(\delta\tau^3)\right],
+\end{equation}
+with
+\begin{equation}
+\label{eq:2d-classical-ising-tfim-hamiltonian}
+    H_{\rm TFIM}
+    =
+    -J\sum_{j=1}^{L}\sigma_j^x\sigma_{j+1}^x
+    -h\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+The Onsager condition becomes
+\begin{equation}
+    \sinh(2\delta\tau J)\sinh(2K_y)=1.
+\end{equation}
+Using
+\begin{equation}
+    \ee^{-2K_y}=\tanh(\delta\tau h)
+    =
+    \delta\tau h+O(\delta\tau^3),
+\end{equation}
+one finds
+\begin{equation}
+\label{eq:2d-classical-ising-tfim-critical-limit}
+    h=J .
+\end{equation}
+Thus the thermal critical point of the anisotropic two-dimensional classical
+Ising model maps to the zero-temperature quantum critical point of the
+one-dimensional transverse-field Ising model.
+
+\begin{center}
+\begin{tabular}{@{}L{0.31\linewidth}L{0.31\linewidth}L{0.28\linewidth}@{}}
+\toprule
+Classical 2D Ising object & Transfer-matrix object & 1D quantum interpretation \\
+\midrule
+Row configuration $\bm{s}_m$ & Basis vector in $\calH_{\rm row}$ & Spin-chain configuration \\
+Row-to-row transfer matrix $T$ & Positive operator on $\calH_{\rm row}$ & Imaginary-time step $\ee^{-\delta\tau H}$ \\
+Largest eigenvalue of $T$ & Ground-state sector of $-\log T$ & Free-energy density / ground-state energy density \\
+Transfer gap $\varepsilon(0)$ & Mass gap of $-\log T$ & Quantum excitation gap \\
+Onsager curve & Gapless transfer matrix & TFIM critical point $h=J$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Summary}
+\label{sec:2d-classical-ising-summary}
+
+The two-dimensional zero-field Ising model is exactly solvable because its
+row-to-row transfer matrix is a fermionic Gaussian operator.  The essential chain
+of ideas is
+\begin{equation}
+\label{eq:2d-classical-ising-solution-chain}
+\begin{gathered}
+    \text{2D classical partition function}
+    \longrightarrow
+    \text{row transfer matrix}
+    \longrightarrow
+    \text{Majorana Gaussian operator}
+    \\
+    \longrightarrow
+    \text{one-particle dispersion }\varepsilon(k).
+\end{gathered}
+\end{equation}
+The Onsager critical point is the point where the transfer-matrix quasiparticle
+gap closes:
+\begin{equation}
+    \varepsilon(0)=0
+    \quad\Longleftrightarrow\quad
+    \kappa=K_x
+    \quad\Longleftrightarrow\quad
+    \sinh(2K_x)\sinh(2K_y)=1 .
+\end{equation}
+This is why the model belongs naturally in a lecture note on solvable quantum
+many-body systems: its exact solution is not merely a classical combinatorial
+miracle, but a free-fermion solution in transfer-matrix language.

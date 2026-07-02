@@ -1,0 +1,698 @@
+\chapter{Algebraic Bethe Ansatz}
+\label{chap:algebraic-bethe-ansatz}
+
+The coordinate Bethe ansatz solves the XXZ chain by constructing wave functions in
+ordered magnon-coordinate sectors.  The algebraic Bethe ansatz solves the same
+problem from the transfer-matrix side.  Instead of writing a many-body wave
+function explicitly, one uses the Yang--Baxter equation to build an operator
+algebra.  Bethe states are then obtained by applying a creation operator
+$B(u)$, extracted from the monodromy matrix, to a simple reference state.
+
+The conceptual chain is
+\[
+\begin{gathered}
+    R\text{-matrix satisfying YBE}
+    \Longrightarrow
+    \text{RTT algebra for }A(u),B(u),C(u),D(u) \\
+    \Longrightarrow
+    \text{Bethe vectors }B(\lambda_1)\cdots B(\lambda_M)\ket{0} \\
+    \Longrightarrow
+    \text{transfer-matrix eigenvalues and Bethe equations}.
+\end{gathered}
+\]
+Thus the algebraic Bethe ansatz diagonalizes not only one Hamiltonian, but the
+whole commuting transfer-matrix family.  The Hamiltonian eigenvalues are obtained
+afterwards by taking the logarithmic derivative of the transfer-matrix
+eigenvalue.
+
+Throughout this chapter we use the homogeneous six-vertex convention of
+\cref{chap:six-vertex-xxz}.  The local $R$-matrix is
+\begin{equation}
+\label{eq:aba-six-vertex-R}
+    R(u)=
+    \begin{pmatrix}
+        \sinh(u+\eta)&0&0&0\\
+        0&\sinh u&\sinh\eta&0\\
+        0&\sinh\eta&\sinh u&0\\
+        0&0&0&\sinh(u+\eta)
+    \end{pmatrix},
+    \qquad
+    \Delta=\cosh\eta .
+\end{equation}
+The trigonometric critical regime follows by analytic continuation
+$\eta\mapsto \ii\gamma$, giving $\Delta=\cos\gamma$.  We keep the hyperbolic
+notation because it makes the algebraic formulas compact.
+
+\section{Monodromy matrix}
+\label{sec:aba-monodromy-matrix}
+
+Let $V_a\simeq\CC^2$ be an auxiliary spin-$1/2$ space and
+\begin{equation}
+\label{eq:aba-quantum-space}
+    \calH_L=V_1\otimes\cdots\otimes V_L,
+    \qquad V_j\simeq\CC^2
+\end{equation}
+be the quantum spin-chain Hilbert space.  The monodromy matrix is the ordered
+product
+\begin{equation}
+\label{eq:aba-monodromy-definition}
+    M_a(u)
+    =R_{aL}(u)R_{a,L-1}(u)\cdots R_{a1}(u).
+\end{equation}
+It is a $2\times2$ matrix in the auxiliary space, whose entries are operators on
+$\calH_L$:
+\begin{equation}
+\label{eq:aba-monodromy-ABCD}
+    M_a(u)=
+    \begin{pmatrix}
+        A(u)&B(u)\\
+        C(u)&D(u)
+    \end{pmatrix}_a .
+\end{equation}
+The transfer matrix is the auxiliary trace
+\begin{equation}
+\label{eq:aba-transfer-matrix}
+    \tau(u)=\Tr_a M_a(u)=A(u)+D(u).
+\end{equation}
+The entries $A,B,C,D$ are not four independent Hamiltonians.  They are
+noncommuting operator-valued functions constrained by the RTT algebra below.
+
+It is useful to write the local $R$-operator as a matrix in the auxiliary space
+with quantum-site operators as entries.  In the convention of
+\cref{eq:aba-six-vertex-R},
+\begin{equation}
+\label{eq:aba-local-L-operator}
+    R_{aj}(u)=
+    \begin{pmatrix}
+        a_R(u)e^{11}_j+b_R(u)e^{22}_j
+        &c_R e^{21}_j\\
+        c_R e^{12}_j
+        &b_R(u)e^{11}_j+a_R(u)e^{22}_j
+    \end{pmatrix}_a,
+\end{equation}
+where
+\begin{equation}
+\label{eq:aba-local-weights}
+    a_R(u)=\sinh(u+\eta),
+    \qquad
+    b_R(u)=\sinh u,
+    \qquad
+    c_R=\sinh\eta,
+\end{equation}
+and $e^{\alpha\beta}_j=\ket{\alpha}_j\bra{\beta}_j$.  With
+$\ket{\uparrow}=\ket{1}$ and $\ket{\downarrow}=\ket{2}$, one has
+$e^{21}=\sigma^-$ and $e^{12}=\sigma^+$.
+
+Choose the ferromagnetic reference state
+\begin{equation}
+\label{eq:aba-reference-state}
+    \ket{0}=\ket{\uparrow\uparrow\cdots\uparrow} .
+\end{equation}
+On this state every local $R_{aj}(u)$ becomes upper triangular in auxiliary
+space:
+\begin{equation}
+\label{eq:aba-local-triangular-action}
+    R_{aj}(u)\ket{\uparrow}_j
+    =
+    \begin{pmatrix}
+        a_R(u)\ket{\uparrow}_j & c_R\ket{\downarrow}_j\\
+        0&b_R(u)\ket{\uparrow}_j
+    \end{pmatrix}_a .
+\end{equation}
+Multiplying over all sites preserves triangularity.  Hence
+\begin{equation}
+\label{eq:aba-pseudovacuum-action}
+    C(u)\ket{0}=0,
+    \qquad
+    A(u)\ket{0}=\alpha(u)\ket{0},
+    \qquad
+    D(u)\ket{0}=\delta(u)\ket{0},
+\end{equation}
+with vacuum eigenvalues
+\begin{equation}
+\label{eq:aba-vacuum-eigenvalues}
+    \alpha(u)=a_R(u)^L=\sinh^L(u+\eta),
+    \qquad
+    \delta(u)=b_R(u)^L=\sinh^L u .
+\end{equation}
+The operator $B(u)$ lowers one or more spins when expanded as an operator on the
+chain.  Its leading action on the reference state is a one-magnon superposition,
+so $B(u)$ is the algebraic creation operator for Bethe quasiparticles.
+
+\begin{remark}[Pseudovacuum]
+The word ``vacuum'' here is algebraic.  For the antiferromagnetic XXZ chain the
+physical ground state is usually not $\ket{0}$.  The state $\ket{0}$ is used
+because it is a highest-weight state for the RTT algebra: $C(u)$ annihilates it,
+while $A(u)$ and $D(u)$ act diagonally.
+\end{remark}
+
+\section{RTT relation and commuting transfer matrices}
+\label{sec:aba-rtt-commuting-transfer}
+
+The Yang--Baxter equation for the six-vertex $R$-matrix implies the local
+intertwining relation
+\begin{equation}
+\label{eq:aba-local-RLL}
+    R_{ab}(u-v)R_{aj}(u)R_{bj}(v)
+    =
+    R_{bj}(v)R_{aj}(u)R_{ab}(u-v).
+\end{equation}
+Multiplying this identity over all sites gives the RTT relation
+\begin{equation}
+\label{eq:aba-RTT-relation}
+    R_{ab}(u-v)M_a(u)M_b(v)
+    =
+    M_b(v)M_a(u)R_{ab}(u-v).
+\end{equation}
+This is the defining algebraic relation of the algebraic Bethe ansatz.  It is an
+operator identity on
+\begin{equation}
+    V_a\otimes V_b\otimes\calH_L .
+\end{equation}
+The two auxiliary spaces $a$ and $b$ are bookkeeping devices; the nontrivial
+operators act on the same quantum chain $\calH_L$.
+
+\begin{theorem}[Commuting transfer matrices]
+\label{thm:aba-commuting-transfer-matrices}
+The RTT relation implies
+\begin{equation}
+\label{eq:aba-transfer-commutativity}
+    [\tau(u),\tau(v)]=0,
+    \qquad
+    \text{for all }u,v .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Take $\Tr_a\Tr_b$ of \cref{eq:aba-RTT-relation}.  By cyclicity of the trace in
+the auxiliary spaces, $R_{ab}(u-v)$ can be moved through the trace and canceled.
+This gives
+\begin{equation}
+    \Tr_a M_a(u)\,\Tr_b M_b(v)
+    =
+    \Tr_b M_b(v)\,\Tr_a M_a(u),
+\end{equation}
+which is exactly \cref{eq:aba-transfer-commutativity}.
+\end{proof}
+
+The commutativity is the spectral reason for integrability.  Expanding around the
+regular point gives mutually commuting charges,
+\begin{equation}
+\label{eq:aba-conserved-charges-from-transfer}
+    \log\tau(u)=\sum_{n\geq0}u^n Q_n,
+    \qquad
+    [Q_m,Q_n]=0 .
+\end{equation}
+The XXZ Hamiltonian is one of these charges:
+\begin{equation}
+\label{eq:aba-xxz-from-log-transfer}
+    H_{\rm XXZ}^{(+)}
+    =
+    2J\sinh\eta
+    \left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}
+    -2J\cosh\eta\,L,
+\end{equation}
+which is the same normalization as
+\begin{equation}
+\label{eq:aba-xxz-hamiltonian}
+    H_{\rm XXZ}^{(+)}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +\sigma_j^y\sigma_{j+1}^y
+        +\Delta(\sigma_j^z\sigma_{j+1}^z-1)
+    \right),
+    \qquad
+    \Delta=\cosh\eta .
+\end{equation}
+The constant fixes the energy of the fully polarized reference state to zero.
+
+\section{The fundamental commutation relations}
+\label{sec:aba-fundamental-commutation-relations}
+
+The RTT relation contains many component equations.  The algebraic Bethe ansatz
+only needs the relations that move $A(u)$ and $D(u)$ through products of $B$'s.
+Introduce
+\begin{equation}
+\label{eq:aba-f-and-g-functions}
+    f(u)=\frac{\sinh(u+\eta)}{\sinh u},
+    \qquad
+    g(u)=\frac{\sinh\eta}{\sinh u} .
+\end{equation}
+With the monodromy order \cref{eq:aba-monodromy-definition}, the needed RTT
+relations are
+\begin{align}
+\label{eq:aba-BB-commutation}
+    B(u)B(v)&=B(v)B(u),\\
+\label{eq:aba-AB-commutation}
+    A(u)B(v)
+    &=
+    f(v-u)B(v)A(u)-g(v-u)B(u)A(v),\\
+\label{eq:aba-DB-commutation}
+    D(u)B(v)
+    &=
+    f(u-v)B(v)D(u)-g(u-v)B(u)D(v).
+\end{align}
+The first identity says that Bethe creation operators commute.  The second and
+third identities have two parts.  The first terms preserve the set of Bethe
+rapidities and will produce the transfer-matrix eigenvalue.  The second terms
+replace one rapidity $v$ by the spectral parameter $u$; these are the unwanted
+terms whose cancellation gives the Bethe equations.
+
+\begin{remark}[Convention dependence]
+If one reverses the monodromy ordering, changes $R(u-v)$ to $R(v-u)$, or shifts
+the spectral parameter by $\eta/2$, the displayed formulas may be inverted or
+shifted.  The invariant content is the same: the ratio of vacuum eigenvalues is
+balanced against the product of two-body scattering factors.
+\end{remark}
+
+\section{Bethe vectors}
+\label{sec:aba-bethe-vectors}
+
+For rapidities $\lambda_1,
+\ldots,\lambda_M$, define the Bethe vector
+\begin{equation}
+\label{eq:aba-bethe-vector}
+    \ket{\lambda_1,\ldots,\lambda_M}
+    =
+    B(\lambda_1)B(\lambda_2)\cdots B(\lambda_M)\ket{0} .
+\end{equation}
+Because the $B$'s commute, this vector is symmetric under permutations of the
+rapidities.  It lies in the sector with $M$ down spins:
+\begin{equation}
+\label{eq:aba-magnetization-sector}
+    S^z_{\rm tot}\ket{\lambda_1,\ldots,\lambda_M}
+    =
+    \left(\frac{L}{2}-M\right)
+    \ket{\lambda_1,\ldots,\lambda_M} .
+\end{equation}
+This matches the coordinate Bethe ansatz, where $M$ was the number of magnons.
+
+\begin{example}[One Bethe excitation]
+For $M=1$,
+\begin{equation}
+    \ket{\lambda}=B(\lambda)\ket{0} .
+\end{equation}
+Using \cref{eq:aba-AB-commutation,eq:aba-DB-commutation},
+\begin{equation}
+\label{eq:aba-one-particle-action}
+\begin{aligned}
+    \tau(u)B(\lambda)\ket{0}
+    ={}&
+    \left[
+        \alpha(u)f(\lambda-u)+\delta(u)f(u-\lambda)
+    \right]B(\lambda)\ket{0}
+    \\
+    &
+    +g(\lambda-u)
+    \left[
+        \delta(\lambda)-\alpha(\lambda)
+    \right]B(u)\ket{0} .
+\end{aligned}
+\end{equation}
+The first line is proportional to the original vector.  The second line is
+unwanted.  It vanishes exactly when
+\begin{equation}
+\label{eq:aba-one-particle-bethe-equation}
+    \alpha(\lambda)=\delta(\lambda),
+    \qquad
+    \left[\frac{\sinh(\lambda+\eta)}{\sinh\lambda}\right]^L=1 .
+\end{equation}
+This is the one-magnon momentum quantization condition in algebraic form.
+\end{example}
+
+The many-particle calculation is the repeated version of the same mechanism.
+Move $A(u)$ and $D(u)$ through the string of $B$'s until they reach the
+pseudovacuum.  The wanted part keeps all rapidities fixed.  Each unwanted term
+replaces one $\lambda_j$ by $u$.
+
+\section{Transfer-matrix eigenvalue and Bethe equations}
+\label{sec:aba-transfer-eigenvalue-bethe-equations}
+
+Acting with $\tau(u)=A(u)+D(u)$ on the Bethe vector gives the off-shell form
+\begin{equation}
+\label{eq:aba-off-shell-action}
+    \tau(u)\ket{\lambda_1,
+\ldots,\lambda_M}
+    =
+    \Lambda(u\mid\boldsymbol{\lambda})
+    \ket{\lambda_1,
+\ldots,\lambda_M}
+    +
+    \sum_{j=1}^{M}
+    \mathcal{F}_j(u\mid\boldsymbol{\lambda})
+    B(u)\prod_{\ell\neq j}B(\lambda_\ell)\ket{0} .
+\end{equation}
+Here the wanted coefficient is
+\begin{equation}
+\label{eq:aba-transfer-eigenvalue}
+\boxed{
+\begin{aligned}
+    \Lambda(u\mid\boldsymbol{\lambda})
+    ={}&
+    \alpha(u)
+    \prod_{j=1}^{M}f(\lambda_j-u)
+    +
+    \delta(u)
+    \prod_{j=1}^{M}f(u-\lambda_j)
+    \\
+    ={}&
+    \sinh^L(u+\eta)
+    \prod_{j=1}^{M}
+    \frac{\sinh(\lambda_j-u+\eta)}{\sinh(\lambda_j-u)}
+    \\
+    &+
+    \sinh^L u
+    \prod_{j=1}^{M}
+    \frac{\sinh(u-\lambda_j+\eta)}{\sinh(u-\lambda_j)} .
+\end{aligned}}
+\end{equation}
+Up to a nonzero scalar factor, the unwanted coefficient is
+\begin{equation}
+\label{eq:aba-unwanted-coefficient}
+    \mathcal{F}_j(u\mid\boldsymbol{\lambda})
+    \propto
+    \delta(\lambda_j)
+    \prod_{\ell\neq j}f(\lambda_j-\lambda_\ell)
+    -
+    \alpha(\lambda_j)
+    \prod_{\ell\neq j}f(\lambda_\ell-\lambda_j) .
+\end{equation}
+Therefore the Bethe vector is an eigenvector of $\tau(u)$ for all $u$ if
+\begin{equation}
+\label{eq:aba-bethe-equations-abstract}
+    \frac{\alpha(\lambda_j)}{\delta(\lambda_j)}
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{f(\lambda_j-\lambda_\ell)}{f(\lambda_\ell-\lambda_j)},
+    \qquad
+    j=1,
+\ldots,M .
+\end{equation}
+Substituting the six-vertex functions gives the algebraic Bethe equations
+\begin{equation}
+\label{eq:aba-xxz-bethe-equations}
+\boxed{
+    \left[
+    \frac{\sinh(\lambda_j+\eta)}{\sinh\lambda_j}
+    \right]^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\sinh(\lambda_j-\lambda_\ell+\eta)}
+         {\sinh(\lambda_j-\lambda_\ell-\eta)} ,
+    \qquad
+    j=1,
+\ldots,M .
+}
+\end{equation}
+When these equations hold, all unwanted terms in \cref{eq:aba-off-shell-action}
+vanish, and
+\begin{equation}
+\label{eq:aba-on-shell-transfer-action}
+    \tau(u)\ket{\lambda_1,
+\ldots,\lambda_M}
+    =
+    \Lambda(u\mid\boldsymbol{\lambda})
+    \ket{\lambda_1,
+\ldots,\lambda_M} .
+\end{equation}
+
+\begin{principle}[Bethe equations as analyticity conditions]
+The transfer-matrix eigenvalue \cref{eq:aba-transfer-eigenvalue} appears to have
+simple poles at $u=\lambda_j$.  The Bethe equations are exactly the conditions
+that the residues cancel.  Thus the same equations can be read either as
+cancellation of unwanted vectors or as analyticity of the transfer-matrix
+eigenvalue.
+\end{principle}
+
+\section{Hamiltonian eigenvalues}
+\label{sec:aba-hamiltonian-eigenvalues}
+
+The transfer-matrix eigenvalue contains the eigenvalues of all commuting charges.
+Using \cref{eq:aba-xxz-from-log-transfer}, the XXZ energy is
+\begin{equation}
+\label{eq:aba-energy-from-transfer-eigenvalue}
+    E(\boldsymbol{\lambda})
+    =
+    2J\sinh\eta
+    \left.
+    \frac{\dd}{\dd u}
+    \log\Lambda(u\mid\boldsymbol{\lambda})
+    \right|_{u=0}
+    -2J\cosh\eta\,L .
+\end{equation}
+For the eigenvalue \cref{eq:aba-transfer-eigenvalue}, this gives
+\begin{equation}
+\label{eq:aba-energy-rapidity-form}
+\boxed{
+    E(\boldsymbol{\lambda})
+    =
+    2J\sinh^2\eta
+    \sum_{j=1}^{M}
+    \frac{1}{\sinh\lambda_j\,\sinh(\lambda_j+\eta)} .
+}
+\end{equation}
+The empty Bethe state $M=0$ has $E=0$, as required by the constant chosen in
+\cref{eq:aba-xxz-hamiltonian}.
+
+The lattice momentum is obtained from the regular-point transfer matrix.  Since
+$R(0)=\sinh\eta\,P$, one has
+\begin{equation}
+\label{eq:aba-transfer-at-zero-translation}
+    \tau(0)=(\sinh\eta)^L U,
+\end{equation}
+where $U$ is the one-site translation operator, with the orientation determined
+by the monodromy ordering.  Therefore
+\begin{equation}
+\label{eq:aba-momentum-from-roots}
+    U\ket{\boldsymbol{\lambda}}
+    =
+    \left[
+    \prod_{j=1}^{M}
+    \frac{\sinh(\lambda_j+\eta)}{\sinh\lambda_j}
+    \right]
+    \ket{\boldsymbol{\lambda}} .
+\end{equation}
+Depending on whether one defines $U$ as a left or right shift, this eigenvalue is
+$\ee^{\ii P}$ or $\ee^{-\ii P}$.  This is only an orientation convention.
+
+If one introduces a one-particle momentum by
+\begin{equation}
+\label{eq:aba-momentum-rapidity-map}
+    \ee^{\ii k(\lambda)}
+    =
+    \frac{\sinh(\lambda+\eta)}{\sinh\lambda},
+\end{equation}
+then
+\begin{equation}
+\label{eq:aba-energy-momentum-form}
+    \frac{2J\sinh^2\eta}{\sinh\lambda\,\sinh(\lambda+\eta)}
+    =
+    4J\bigl(\cos k(\lambda)-\cosh\eta\bigr),
+\end{equation}
+so \cref{eq:aba-energy-rapidity-form} reproduces the coordinate Bethe-ansatz
+energy
+\begin{equation}
+\label{eq:aba-coordinate-energy-recovered}
+    E=4J\sum_{j=1}^{M}\bigl(\cos k_j-\Delta\bigr).
+\end{equation}
+If the opposite translation orientation is used, $k$ is replaced by $-k$ and the
+energy is unchanged.
+
+\section[Symmetric rapidities and CBA]{Symmetric rapidities and comparison with the coordinate Bethe ansatz}
+\label{sec:aba-comparison-coordinate-bethe-ansatz}
+
+The rapidity in \cref{eq:aba-xxz-bethe-equations} is tied to the unshifted
+six-vertex $R$-matrix.  A more symmetric variable is
+\begin{equation}
+\label{eq:aba-symmetric-rapidity}
+    \mu=\lambda+\frac{\eta}{2} .
+\end{equation}
+Then
+\begin{equation}
+\label{eq:aba-symmetric-momentum-map}
+    \ee^{\ii k(\mu)}
+    =
+    \frac{\sinh(\mu+\eta/2)}{\sinh(\mu-\eta/2)},
+\end{equation}
+and the Bethe equations become
+\begin{equation}
+\label{eq:aba-symmetric-bethe-equations}
+    \left[
+    \frac{\sinh(\mu_j+\eta/2)}{\sinh(\mu_j-\eta/2)}
+    \right]^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\sinh(\mu_j-\mu_\ell+\eta)}
+         {\sinh(\mu_j-\mu_\ell-\eta)} .
+\end{equation}
+After analytic continuation $\eta=\ii\gamma$, this is the standard critical XXZ
+form
+\begin{equation}
+\label{eq:aba-critical-xxz-bethe-equations}
+    \left[
+    \frac{\sinh(\mu_j+\ii\gamma/2)}{\sinh(\mu_j-\ii\gamma/2)}
+    \right]^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\sinh(\mu_j-\mu_\ell+\ii\gamma)}
+         {\sinh(\mu_j-\mu_\ell-\ii\gamma)} .
+\end{equation}
+This is the same equation obtained in the coordinate Bethe ansatz, up to the
+orientation convention for lattice momentum.
+
+The two approaches differ in what they make manifest:
+\begin{center}
+\begin{tabular}{@{}L{0.30\linewidth}L{0.30\linewidth}L{0.30\linewidth}@{}}
+\toprule
+Method & Main calculation & Output \\
+\midrule
+Coordinate Bethe ansatz & Solve contact conditions in real-space wave functions & Two-body scattering phase and momentum quantization \\
+Algebraic Bethe ansatz & Commute $A(u)$ and $D(u)$ through products of $B$'s & Transfer-matrix eigenvalue and Bethe equations \\
+\bottomrule
+\end{tabular}
+\end{center}
+The coordinate method emphasizes factorized scattering.  The algebraic method
+explains why factorized scattering exists: the RTT relation is the operator form
+of the Yang--Baxter equation.
+
+\section{Higher conserved charges}
+\label{sec:aba-higher-conserved-charges}
+
+Because the Bethe vector is an eigenvector of $\tau(u)$ for all $u$, it is also a
+simultaneous eigenvector of all charges generated by $\log\tau(u)$.  If
+\begin{equation}
+\label{eq:aba-log-transfer-charge-expansion}
+    \log\tau(u)=\sum_{n\geq0}u^n Q_n,
+\end{equation}
+then
+\begin{equation}
+\label{eq:aba-charge-eigenvalues}
+    Q_n\ket{\boldsymbol{\lambda}}
+    =q_n(\boldsymbol{\lambda})\ket{\boldsymbol{\lambda}},
+    \qquad
+    q_n(\boldsymbol{\lambda})
+    =
+    \left.
+    \frac{1}{n!}
+    \frac{\dd^n}{\dd u^n}
+    \log\Lambda(u\mid\boldsymbol{\lambda})
+    \right|_{u=0}
+\end{equation}
+up to the same normalization convention used in defining the charges.  The
+Hamiltonian is the first nontrivial local charge.  Higher $Q_n$ have larger
+spatial support and provide the extensive set of conservation laws characteristic
+of an integrable chain.
+
+\begin{remark}[Why this is stronger than diagonalizing one Hamiltonian]
+A generic many-body Hamiltonian may be diagonalized in principle, but its
+eigenvectors do not usually diagonalize a whole analytic family of local and
+quasilocal conserved charges.  The algebraic Bethe ansatz gives simultaneous
+eigenvectors of the transfer matrix for all spectral parameters.  This is the
+finite-size algebraic signature of integrability.
+\end{remark}
+
+\section{Trigonometric and rational limits}
+\label{sec:aba-trigonometric-rational-limits}
+
+For $\abs{\Delta}<1$, set
+\begin{equation}
+\label{eq:aba-eta-to-gamma}
+    \eta=\ii\gamma,
+    \qquad
+    0<\gamma<\pi,
+    \qquad
+    \Delta=\cos\gamma .
+\end{equation}
+The same algebraic derivation applies, with $\sinh$ functions analytically
+continued.  In the symmetric rapidity convention, the Bethe equations are exactly
+\cref{eq:aba-critical-xxz-bethe-equations}.
+
+The isotropic XXX chain is the rational degeneration.  Scaling the spectral
+parameter and anisotropy together produces the rational $R$-matrix
+\begin{equation}
+\label{eq:aba-rational-R-schematic}
+    R_{\rm XXX}(u)=u\,\id+\ii P,
+    \qquad
+    \text{up to an overall scalar normalization.}
+\end{equation}
+In the usual XXX rapidity variable, the Bethe equations become
+\begin{equation}
+\label{eq:aba-xxx-bethe-equations}
+    \left(
+    \frac{\lambda_j+\ii/2}{\lambda_j-\ii/2}
+    \right)^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\lambda_j-\lambda_\ell+\ii}
+         {\lambda_j-\lambda_\ell-\ii} .
+\end{equation}
+This rational limit will reappear when the XXX chain is discussed as a special
+case of the XXZ chain.
+
+\section{Common pitfalls}
+\label{sec:aba-common-pitfalls}
+
+\begin{remark}[The operators $A,B,C,D$ are nonlocal]
+Although $R_{aj}(u)$ is local in the quantum site $j$, the monodromy entries
+$A(u),B(u),C(u),D(u)$ are products over the whole chain.  The operator $B(u)$ is
+therefore not a local spin-lowering operator.  It is a spectral-parameter
+dependent, nonlocal creation operator for Bethe quasiparticles.
+\end{remark}
+
+\begin{remark}[Bethe roots cannot sit at generic poles]
+The formulas above contain denominators such as $\sinh\lambda_j$ and
+$\sinh(\lambda_j-\lambda_\ell)$.  Ordinary Bethe roots are assumed to avoid these
+poles.  Singular solutions can occur at special points and require a limiting
+procedure.  They are not part of the basic algebraic derivation.
+\end{remark}
+
+\begin{remark}[Completeness is a separate question]
+The algebraic Bethe ansatz constructs eigenvectors whenever the Bethe equations
+hold and the resulting vector is nonzero.  Showing that all eigenvectors are
+obtained requires a separate completeness analysis.  For the finite XXZ chain
+this is well understood, but it is conceptually distinct from deriving the Bethe
+equations.
+\end{remark}
+
+\section{Summary}
+\label{sec:aba-summary}
+
+The algebraic Bethe ansatz for the XXZ chain can be compressed into the following
+sequence:
+\begin{equation}
+\label{eq:aba-summary-chain}
+\boxed{
+\begin{gathered}
+    R(u)\text{ satisfies YBE}
+    \Longrightarrow
+    R_{ab}(u-v)M_a(u)M_b(v)=M_b(v)M_a(u)R_{ab}(u-v),
+    \\
+    M_a(u)=
+    \begin{pmatrix}A(u)&B(u)\\ C(u)&D(u)\end{pmatrix}_a,
+    \qquad
+    \tau(u)=A(u)+D(u),
+    \\
+    \ket{\boldsymbol{\lambda}}
+    =B(\lambda_1)\cdots B(\lambda_M)\ket{0},
+    \\
+    \tau(u)\ket{\boldsymbol{\lambda}}
+    =\Lambda(u\mid\boldsymbol{\lambda})\ket{\boldsymbol{\lambda}}
+    \quad
+    \text{if }\boldsymbol{\lambda}\text{ satisfies the Bethe equations},
+    \\
+    \left[
+    \frac{\sinh(\lambda_j+\eta)}{\sinh\lambda_j}
+    \right]^L
+    =
+    \prod_{\ell\neq j}
+    \frac{\sinh(\lambda_j-\lambda_\ell+\eta)}
+         {\sinh(\lambda_j-\lambda_\ell-\eta)} .
+\end{gathered}}
+\end{equation}
+The Bethe equations arise from cancellation of unwanted terms in the RTT algebra.
+The transfer-matrix eigenvalue then gives the complete set of commuting-charge
+eigenvalues, including the XXZ Hamiltonian energy.  This is the algebraic
+counterpart of the factorized scattering picture developed in the coordinate
+Bethe-ansatz chapter.

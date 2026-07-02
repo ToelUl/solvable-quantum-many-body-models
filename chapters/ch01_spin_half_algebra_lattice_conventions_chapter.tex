@@ -1,0 +1,808 @@
+\chapter{\texorpdfstring{Spin-$\frac12$ Algebra and Lattice Conventions}{Spin-1/2 Algebra and Lattice Conventions}}
+
+\section{Purpose of this chapter}
+
+Before discussing Jordan--Wigner transformations, Bogoliubov rotations, transfer
+matrices, or Bethe ansatz, we must fix a small number of elementary conventions.
+For spin chains, many sign errors do not come from difficult physics; they come
+from inconsistent choices of
+\begin{equation}
+    \sigma^\pm,
+    \qquad
+    |\uparrow\rangle, |\downarrow\rangle,
+    \qquad
+    \sigma^z \text{ versus } n,
+    \qquad
+    \text{open versus periodic boundary conditions}.
+\end{equation}
+This chapter fixes these conventions once and for all. The main convention used
+throughout the free-fermion part of the notes is
+\begin{equation}
+    |0\rangle_j\equiv |\uparrow\rangle_j,
+    \qquad
+    |1\rangle_j\equiv |\downarrow\rangle_j,
+    \qquad
+    n_j=\frac{1-\sigma_j^z}{2}.
+\end{equation}
+Thus the fermionic occupied state corresponds to a down spin. With this choice,
+the Jordan--Wigner convention in the next chapter is
+\begin{equation}
+    c_j=
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^+,
+    \qquad
+    c_j^\dagger=
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^- .
+\end{equation}
+The present chapter should therefore be read as the local algebraic dictionary on
+which all later fermionization formulae are based.
+
+\section{Local Hilbert space}
+
+A single spin-$1/2$ degree of freedom has local Hilbert space
+\begin{equation}
+    \calH_j\cong \CC^2.
+\end{equation}
+We use the ordered basis
+\begin{equation}
+    |\uparrow\rangle
+    =
+    \begin{pmatrix}1\\0\end{pmatrix},
+    \qquad
+    |\downarrow\rangle
+    =
+    \begin{pmatrix}0\\1\end{pmatrix}.
+\end{equation}
+The Pauli matrices are
+\begin{equation}
+    \sigma^x=
+    \begin{pmatrix}
+        0&1\\
+        1&0
+    \end{pmatrix},
+    \qquad
+    \sigma^y=
+    \begin{pmatrix}
+        0&-\ii\\
+        \ii&0
+    \end{pmatrix},
+    \qquad
+    \sigma^z=
+    \begin{pmatrix}
+        1&0\\
+        0&-1
+    \end{pmatrix}.
+\end{equation}
+They act on the basis states as
+\begin{equation}
+    \sigma^z|\uparrow\rangle=|\uparrow\rangle,
+    \qquad
+    \sigma^z|\downarrow\rangle=-|\downarrow\rangle.
+\end{equation}
+For a chain of length $L$, the many-body Hilbert space is the ordered tensor
+product
+\begin{equation}
+    \calH_L
+    =
+    \bigotimes_{j=1}^{L}\calH_j
+    \cong
+    (\CC^2)^{\otimes L}.
+\end{equation}
+A basis vector is written as
+\begin{equation}
+    |s_1,s_2,\ldots,s_L\rangle,
+    \qquad
+    s_j\in\{\uparrow,\downarrow\}.
+\end{equation}
+Equivalently, with the occupation convention introduced above,
+\begin{equation}
+    |s_1,s_2,\ldots,s_L\rangle
+    \equiv
+    |n_1,n_2,\ldots,n_L\rangle,
+    \qquad
+    n_j=\begin{cases}
+        0, & s_j=\uparrow,\\
+        1, & s_j=\downarrow.
+    \end{cases}
+\end{equation}
+
+The operator acting as $\sigma^\alpha$ on site $j$ and as the identity elsewhere is
+\begin{equation}
+    \sigma_j^\alpha
+    =
+    \id_1\otimes\cdots\otimes\id_{j-1}
+    \otimes\sigma^\alpha
+    \otimes\id_{j+1}\otimes\cdots\otimes\id_L,
+    \qquad
+    \alpha=x,y,z.
+\end{equation}
+Operators supported on distinct sites commute:
+\begin{equation}
+    [\sigma_i^\alpha,\sigma_j^\beta]=0,
+    \qquad
+    i\neq j.
+\end{equation}
+
+\section{Pauli algebra and spin operators}
+
+On one site, the Pauli matrices obey
+\begin{equation}
+\label{eq:pauli-product-algebra}
+    \sigma^\alpha\sigma^\beta
+    =
+    \delta_{\alpha\beta}\id
+    +
+    \ii\sum_{\gamma}\epsilon_{\alpha\beta\gamma}\sigma^\gamma,
+    \qquad
+    \alpha,\beta\in\{x,y,z\}.
+\end{equation}
+Equivalently,
+\begin{equation}
+    [\sigma^\alpha,\sigma^\beta]
+    =
+    2\ii\sum_\gamma\epsilon_{\alpha\beta\gamma}\sigma^\gamma,
+    \qquad
+    \{\sigma^\alpha,\sigma^\beta\}
+    =
+    2\delta_{\alpha\beta}\id .
+\end{equation}
+The physical spin operators are
+\begin{equation}
+    S^\alpha_j=\frac12\sigma^\alpha_j.
+\end{equation}
+Therefore
+\begin{equation}
+    [S_i^\alpha,S_j^\beta]
+    =
+    \ii\delta_{ij}
+    \sum_\gamma\epsilon_{\alpha\beta\gamma}S_j^\gamma.
+\end{equation}
+The total spin components are
+\begin{equation}
+    S_{\rm tot}^\alpha
+    =
+    \sum_{j=1}^{L}S_j^\alpha
+    =
+    \frac12\sum_{j=1}^{L}\sigma_j^\alpha.
+\end{equation}
+
+\begin{remark}[Pauli normalization versus spin normalization]
+Many condensed-matter texts write Heisenberg-type Hamiltonians using $S^\alpha$,
+whereas the free-fermion spin-chain literature often writes them using Pauli
+matrices. Since $S^\alpha=\sigma^\alpha/2$, one has
+\begin{equation}
+    \bm{S}_j\cdot\bm{S}_{j+1}
+    =
+    \frac14
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +
+        \sigma_j^y\sigma_{j+1}^y
+        +
+        \sigma_j^z\sigma_{j+1}^z
+    \right).
+\end{equation}
+Thus coupling constants differ by factors of $4$ when translating between the two
+normalizations. Unless explicitly stated otherwise, the spin-chain Hamiltonians in
+these notes are written in Pauli normalization.
+\end{remark}
+
+Useful trace identities are
+\begin{equation}
+    \Tr\,\sigma^\alpha=0,
+    \qquad
+    \Tr(\sigma^\alpha\sigma^\beta)=2\delta_{\alpha\beta},
+\end{equation}
+and
+\begin{equation}
+    \Tr(\sigma^\alpha\sigma^\beta\sigma^\gamma)
+    =
+    2\ii\epsilon_{\alpha\beta\gamma}.
+\end{equation}
+These identities are especially useful when deriving transfer matrices, density
+matrices, and two-band Bloch Hamiltonians.
+
+\section{Raising and lowering operators}
+
+We define
+\begin{equation}
+\label{eq:sigma-pm-definition}
+    \sigma^+
+    =
+    \frac{\sigma^x+\ii\sigma^y}{2}
+    =
+    \begin{pmatrix}
+        0&1\\
+        0&0
+    \end{pmatrix},
+    \qquad
+    \sigma^-
+    =
+    \frac{\sigma^x-\ii\sigma^y}{2}
+    =
+    \begin{pmatrix}
+        0&0\\
+        1&0
+    \end{pmatrix}.
+\end{equation}
+Hence
+\begin{equation}
+    \sigma^+|\downarrow\rangle=|\uparrow\rangle,
+    \qquad
+    \sigma^-|\uparrow\rangle=|\downarrow\rangle,
+\end{equation}
+while
+\begin{equation}
+    \sigma^+|\uparrow\rangle=0,
+    \qquad
+    \sigma^-|\downarrow\rangle=0.
+\end{equation}
+The inverse relations are
+\begin{equation}
+\label{eq:sigma-x-y-pm}
+    \sigma^x=\sigma^++\sigma^-,
+    \qquad
+    \sigma^y=\ii(\sigma^- -\sigma^+).
+\end{equation}
+The local algebra is
+\begin{equation}
+    (\sigma^+)^2=(\sigma^-)^2=0,
+    \qquad
+    \{\sigma^+,\sigma^-\}=\id,
+    \qquad
+    [\sigma^+,\sigma^-]=\sigma^z,
+\end{equation}
+and
+\begin{equation}
+    [\sigma^z,\sigma^+]=2\sigma^+,
+    \qquad
+    [\sigma^z,\sigma^-]=-2\sigma^-.
+\end{equation}
+The two local projectors are
+\begin{equation}
+\label{eq:spin-projectors}
+    \sigma^+\sigma^-=\frac{1+\sigma^z}{2}=|\uparrow\rangle\langle\uparrow|,
+    \qquad
+    \sigma^-\sigma^+=\frac{1-\sigma^z}{2}=|\downarrow\rangle\langle\downarrow|.
+\end{equation}
+
+\section{Occupation convention and hard-core bosons}
+
+The Jordan--Wigner transformation used later identifies the spin-down state with
+fermion occupation. We therefore define
+\begin{equation}
+\label{eq:spin-occupation-convention}
+    |0\rangle_j\equiv |\uparrow\rangle_j,
+    \qquad
+    |1\rangle_j\equiv |\downarrow\rangle_j.
+\end{equation}
+The local number operator is
+\begin{equation}
+\label{eq:number-spin-convention}
+    n_j
+    =
+    |\downarrow\rangle_j\langle\downarrow|
+    =
+    \sigma_j^-\sigma_j^+
+    =
+    \frac{1-\sigma_j^z}{2}.
+\end{equation}
+Thus
+\begin{equation}
+\label{eq:sigmaz-number-convention}
+    \sigma_j^z=1-2n_j.
+\end{equation}
+
+It is convenient to introduce local hard-core boson operators
+\begin{equation}
+\label{eq:hard-core-boson-convention}
+    b_j=\sigma_j^+,
+    \qquad
+    b_j^\dagger=\sigma_j^-.
+\end{equation}
+With the present convention, $b_j^\dagger$ creates a down spin, hence creates an
+occupied site:
+\begin{equation}
+    b_j^\dagger |0\rangle_j=|1\rangle_j,
+    \qquad
+    b_j |1\rangle_j=|0\rangle_j.
+\end{equation}
+The number operator is
+\begin{equation}
+    n_j=b_j^\dagger b_j.
+\end{equation}
+On the same site, hard-core bosons obey
+\begin{equation}
+    b_j^2=(b_j^\dagger)^2=0,
+    \qquad
+    \{b_j,b_j^\dagger\}=1,
+    \qquad
+    [b_j,b_j^\dagger]=1-2n_j=\sigma_j^z.
+\end{equation}
+On different sites, however, they commute rather than anticommute:
+\begin{equation}
+    [b_i,b_j]=0,
+    \qquad
+    [b_i,b_j^\dagger]=0,
+    \qquad
+    [b_i^\dagger,b_j^\dagger]=0,
+    \qquad
+    i\neq j.
+\end{equation}
+This mixed behavior is the reason a nonlocal Jordan--Wigner string is needed to
+convert hard-core bosons into canonical fermions.
+
+\begin{remark}[Why $b=\sigma^+$ but $b^\dagger=\sigma^-$]
+This convention may look reversed if one thinks of $\sigma^+$ as a creation
+operator. Here the created object is not spin-up, but an occupied fermionic site.
+Since occupation means spin down, the operator that creates occupation must send
+$|\uparrow\rangle$ to $|\downarrow\rangle$. Therefore $b^\dagger=\sigma^-$.
+\end{remark}
+
+\section{Useful two-site identities}
+
+The following identities are used repeatedly in the XY, XX, XXZ, and Kitaev-chain
+chapters. For nearest-neighbour sites $j$ and $j+1$,
+\begin{align}
+\label{eq:xy-raising-lowering-identity}
+    \sigma_j^x\sigma_{j+1}^x+
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    2\left(
+        \sigma_j^+\sigma_{j+1}^-
+        +
+        \sigma_j^-\sigma_{j+1}^+
+    \right),
+    \\
+\label{eq:pairing-raising-lowering-identity}
+    \sigma_j^x\sigma_{j+1}^x-
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    2\left(
+        \sigma_j^+\sigma_{j+1}^+
+        +
+        \sigma_j^-\sigma_{j+1}^-
+    \right).
+\end{align}
+Equivalently,
+\begin{align}
+    \sigma_j^x\sigma_{j+1}^x
+    &=
+    \sigma_j^+\sigma_{j+1}^+
+    +
+    \sigma_j^+\sigma_{j+1}^-
+    +
+    \sigma_j^-\sigma_{j+1}^+
+    +
+    \sigma_j^-\sigma_{j+1}^-,
+    \\
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    -\sigma_j^+\sigma_{j+1}^+
+    +
+    \sigma_j^+\sigma_{j+1}^-
+    +
+    \sigma_j^-\sigma_{j+1}^+
+    -
+    \sigma_j^-\sigma_{j+1}^- .
+\end{align}
+In terms of the occupation convention,
+\begin{equation}
+\label{eq:zz-number-identity}
+    \sigma_j^z\sigma_{j+1}^z
+    =
+    (1-2n_j)(1-2n_{j+1})
+    =
+    1-2n_j-2n_{j+1}+4n_jn_{j+1}.
+\end{equation}
+This last identity explains why an Ising interaction in the $z$ direction becomes a
+density--density interaction after fermionization, whereas the $xx$ and $yy$ terms
+of the XY chain become hopping and pairing terms.
+
+\section{Lattice conventions}
+
+Unless stated otherwise, a one-dimensional chain has sites
+\begin{equation}
+    j=1,2,\ldots,L,
+\end{equation}
+with lattice spacing set to
+\begin{equation}
+    a=1.
+\end{equation}
+A nearest-neighbour Hamiltonian is written using one of two bond sets:
+\begin{align}
+    \mathcal{B}_{\rm OBC}
+    &=
+    \{(j,j+1)\,|\,j=1,2,\ldots,L-1\},
+    \\
+    \mathcal{B}_{\rm PBC}
+    &=
+    \{(j,j+1)\,|\,j=1,2,\ldots,L\},
+    \qquad
+    L+1\equiv 1.
+\end{align}
+Thus
+\begin{equation}
+    \sum_{\langle j,j+1\rangle\in\mathcal{B}_{\rm OBC}}
+    \quad\text{means}\quad
+    \sum_{j=1}^{L-1},
+\end{equation}
+and
+\begin{equation}
+    \sum_{\langle j,j+1\rangle\in\mathcal{B}_{\rm PBC}}
+    \quad\text{means}\quad
+    \sum_{j=1}^{L}\quad\text{with}\quad L+1\equiv1.
+\end{equation}
+When no boundary condition is explicitly stated, formulae for local bulk
+Hamiltonian densities should be read as open-chain formulae first. Periodic
+boundary conditions must be treated with additional care after the Jordan--Wigner
+transformation because the boundary spin term carries a fermion-parity-dependent
+sign.
+
+For translation-invariant periodic chains, the one-site translation operator $T$
+is defined by
+\begin{equation}
+    T\sigma_j^\alpha T^{-1}=\sigma_{j+1}^\alpha,
+    \qquad
+    T^L=1.
+\end{equation}
+Momentum eigenstates satisfy
+\begin{equation}
+    T|\psi_k\rangle=\ee^{\ii k}|\psi_k\rangle,
+\end{equation}
+where the allowed values of $k$ depend on the boundary condition and, after the
+Jordan--Wigner transformation, on the fermion-parity sector. The detailed Fourier
+convention is fixed in the Fourier-transform chapter.
+
+\begin{remark}[Ordering convention]
+The Jordan--Wigner string depends on a one-dimensional ordering of sites. In these
+notes the ordering is always
+\begin{equation}
+    1<2<\cdots<L.
+\end{equation}
+This is natural for one-dimensional chains. In higher-dimensional spin models, a
+linear ordering can still be imposed, but it usually destroys locality. This is one
+reason why two-dimensional exact solvability often requires other structures, such
+as commuting projectors, transfer matrices, or Majorana fermions coupled to static
+$\ZZ_2$ gauge fields.
+\end{remark}
+
+\section{Common spin Hamiltonians}
+
+We now list the spin-chain Hamiltonians that will appear repeatedly in these
+notes. The purpose here is not to solve them, but to fix signs and normalizations.
+The default Pauli-normalized nearest-neighbour XYZ Hamiltonian is
+\begin{equation}
+\label{eq:xyz-general-convention}
+    H_{\rm XYZ}
+    =
+    -\sum_{\langle j,j+1\rangle}
+    \left(
+        J_x\sigma_j^x\sigma_{j+1}^x
+        +
+        J_y\sigma_j^y\sigma_{j+1}^y
+        +
+        J_z\sigma_j^z\sigma_{j+1}^z
+    \right)
+    -
+    h\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+With this convention, positive $J_\alpha$ favors ferromagnetic alignment in the
+$\alpha$ direction.
+
+\subsection{Ising and transverse-field Ising chains}
+
+The Ising interaction used in the free-fermion part of the notes is chosen along
+$x$, while the transverse field is along $z$:
+\begin{equation}
+\label{eq:tfim-convention-chapter}
+    H_{\rm TFIM}
+    =
+    -J\sum_{\langle j,j+1\rangle}\sigma_j^x\sigma_{j+1}^x
+    -
+    h\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+The choice of $x$ as the ordering direction and $z$ as the transverse-field
+direction is adapted to the occupation convention $n_j=(1-\sigma_j^z)/2$. It is
+unitarily equivalent to the alternative textbook convention
+$-J\sum_j\sigma_j^z\sigma_{j+1}^z-h\sum_j\sigma_j^x$ by a global spin rotation.
+
+The purely classical Ising interaction is recovered by setting $h=0$:
+\begin{equation}
+    H_{\rm Ising}^{x}
+    =
+    -J\sum_{\langle j,j+1\rangle}\sigma_j^x\sigma_{j+1}^x .
+\end{equation}
+A longitudinal field along the ordering direction,
+\begin{equation}
+    -h_x\sum_j\sigma_j^x,
+\end{equation}
+can be added, but it destroys the standard free-fermion solvability of the
+one-dimensional TFIM.
+
+\subsection{XY and XX chains}
+
+The transverse-field XY chain is the central free-fermion mother model of these
+notes:
+\begin{equation}
+\label{eq:xy-convention-chapter}
+    H_{\rm XY}
+    =
+    -\sum_{\langle j,j+1\rangle}
+    \left[
+        \frac{J(1+\gamma)}{2}\sigma_j^x\sigma_{j+1}^x
+        +
+        \frac{J(1-\gamma)}{2}\sigma_j^y\sigma_{j+1}^y
+    \right]
+    -
+    h\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+The parameter $\gamma$ is the XY anisotropy. Important limits are
+\begin{align}
+    \gamma=1
+    &\quad\Longrightarrow\quad
+    H_{\rm XY}=H_{\rm TFIM},
+    \\
+    \gamma=0
+    &\quad\Longrightarrow\quad
+    H_{\rm XX}
+    =
+    -\frac{J}{2}
+    \sum_{\langle j,j+1\rangle}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +
+        \sigma_j^y\sigma_{j+1}^y
+    \right)
+    -h\sum_j\sigma_j^z .
+\end{align}
+Using \cref{eq:xy-raising-lowering-identity}, the XX interaction can also be
+written as
+\begin{equation}
+    H_{\rm XX}
+    =
+    -J\sum_{\langle j,j+1\rangle}
+    \left(
+        \sigma_j^+\sigma_{j+1}^-
+        +
+        \sigma_j^-\sigma_{j+1}^+
+    \right)
+    -h\sum_j\sigma_j^z .
+\end{equation}
+This form makes the conservation of total $z$-magnetization manifest.
+
+\subsection{XXZ and Heisenberg chains}
+
+In the Pauli normalization compatible with the above XX convention, we write
+\begin{equation}
+\label{eq:xxz-pauli-convention}
+    H_{\rm XXZ}
+    =
+    -\frac{J}{2}
+    \sum_{\langle j,j+1\rangle}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +
+        \sigma_j^y\sigma_{j+1}^y
+        +
+        \Delta\sigma_j^z\sigma_{j+1}^z
+    \right)
+    -h\sum_j\sigma_j^z .
+\end{equation}
+The isotropic point $\Delta=1$ gives a Heisenberg chain in Pauli normalization:
+\begin{equation}
+    H_{\rm Heis}
+    =
+    -\frac{J}{2}
+    \sum_{\langle j,j+1\rangle}
+    \bm{\sigma}_j\cdot\bm{\sigma}_{j+1}
+    -h\sum_j\sigma_j^z .
+\end{equation}
+In spin-operator normalization, the same interaction is written as
+\begin{equation}
+    H_{\rm Heis}^{S}
+    =
+    \mathcal{J}\sum_{\langle j,j+1\rangle}
+    \bm{S}_j\cdot\bm{S}_{j+1}
+    -h_S\sum_j S_j^z.
+\end{equation}
+The conversion is
+\begin{equation}
+    \bm{S}_j\cdot\bm{S}_{j+1}
+    =
+    \frac14\bm{\sigma}_j\cdot\bm{\sigma}_{j+1},
+    \qquad
+    S_j^z=\frac12\sigma_j^z.
+\end{equation}
+The Bethe-ansatz chapters may use the conventional antiferromagnetic sign
+$\mathcal{J}>0$; when this happens, the sign and normalization will be stated
+explicitly.
+
+\subsection{Bond-dependent Kitaev-type spin Hamiltonians}
+
+In two dimensions, the Kitaev honeycomb model uses bond-dependent Ising
+interactions:
+\begin{equation}
+\label{eq:kitaev-honeycomb-convention}
+    H_{\rm Kitaev}
+    =
+    -J_x\sum_{\langle ij\rangle_x}\sigma_i^x\sigma_j^x
+    -J_y\sum_{\langle ij\rangle_y}\sigma_i^y\sigma_j^y
+    -J_z\sum_{\langle ij\rangle_z}\sigma_i^z\sigma_j^z.
+\end{equation}
+Here $\langle ij\rangle_\alpha$ denotes a nearest-neighbour bond of type $\alpha$.
+This model is not solved by the one-dimensional Jordan--Wigner transformation.
+Instead, it becomes exactly solvable through a Majorana representation and static
+$\ZZ_2$ gauge fields.
+
+\section{Symmetries and conserved quantities}
+
+Symmetry is one of the main tools for block diagonalization. We collect the most
+important symmetries here.
+
+\subsection{Translation symmetry}
+
+For periodic boundary conditions, a translation-invariant Hamiltonian satisfies
+\begin{equation}
+    [H,T]=0.
+\end{equation}
+The Hilbert space can then be decomposed into momentum sectors labelled by the
+eigenvalues $\ee^{\ii k}$ of $T$. Translation symmetry is essential for the Fourier
+transform and the reduction of quadratic Hamiltonians into independent momentum
+blocks.
+
+\subsection{Fermion parity and Ising spin flip}
+
+Define the global $z$-parity operator
+\begin{equation}
+\label{eq:global-z-parity}
+    P_z
+    =
+    \prod_{j=1}^{L}\sigma_j^z.
+\end{equation}
+It satisfies
+\begin{equation}
+    P_z^2=1,
+    \qquad
+    P_z\sigma_j^xP_z=-\sigma_j^x,
+    \qquad
+    P_z\sigma_j^yP_z=-\sigma_j^y,
+    \qquad
+    P_z\sigma_j^zP_z=\sigma_j^z.
+\end{equation}
+Therefore the TFIM and the XY chain commute with $P_z$:
+\begin{equation}
+    [H_{\rm TFIM},P_z]=0,
+    \qquad
+    [H_{\rm XY},P_z]=0.
+\end{equation}
+Under the occupation convention \cref{eq:number-spin-convention},
+\begin{equation}
+    P_z
+    =
+    \prod_{j=1}^{L}(1-2n_j)
+    =
+    (-1)^N,
+    \qquad
+    N=\sum_{j=1}^{L}n_j.
+\end{equation}
+Thus the global Ising spin-flip symmetry of the spin chain becomes fermion parity
+after the Jordan--Wigner transformation.
+
+\subsection{\texorpdfstring{$U(1)$}{U(1)} spin-rotation symmetry}
+
+The total $z$-magnetization is
+\begin{equation}
+    M_z=\sum_{j=1}^{L}\sigma_j^z=L-2N.
+\end{equation}
+A Hamiltonian has $U(1)$ spin-rotation symmetry about the $z$ axis if
+\begin{equation}
+    [H,M_z]=0.
+\end{equation}
+The XX, XXZ, and Heisenberg chains have this symmetry. Equivalently, they are
+invariant under
+\begin{equation}
+    U_z(\theta)
+    =
+    \exp\!\left(-\frac{\ii\theta}{2}\sum_j\sigma_j^z\right),
+\end{equation}
+which acts as
+\begin{equation}
+    U_z(\theta)\sigma_j^\pm U_z(\theta)^{-1}
+    =
+    \ee^{\mp\ii\theta}\sigma_j^\pm.
+\end{equation}
+The anisotropic XY chain with $\gamma\neq0$ does not conserve $M_z$ because
+\cref{eq:pairing-raising-lowering-identity} contains pair creation and pair
+annihilation terms. Nevertheless, it still conserves $P_z=(-1)^N$.
+
+\subsection{Full spin-rotation symmetry}
+
+The isotropic Heisenberg chain at zero field has full $SU(2)$ symmetry:
+\begin{equation}
+    [H_{\rm Heis},S_{\rm tot}^\alpha]=0,
+    \qquad
+    \alpha=x,y,z.
+\end{equation}
+An external field along $z$ breaks this to the $U(1)$ subgroup generated by
+$S_{\rm tot}^z$.
+
+\subsection{Boundary-sector subtlety after Jordan--Wigner}
+
+For an open chain, the Jordan--Wigner transformation maps local nearest-neighbour
+bulk terms to local fermion bilinears without any boundary ambiguity. For a
+periodic spin chain, the boundary term connecting $L$ and $1$ depends on the parity
+sector
+\begin{equation}
+    P_z=(-1)^N=p,
+    \qquad
+    p=\pm1.
+\end{equation}
+With the Jordan--Wigner convention used in these notes, the effective fermionic
+boundary condition in a fixed parity sector is
+\begin{equation}
+\label{eq:chapter-effective-boundary-condition}
+    c_{L+1}=-p\,c_1.
+\end{equation}
+Thus
+\begin{equation}
+    p=+1
+    \quad\Longrightarrow\quad
+    c_{L+1}=-c_1,
+    \qquad
+    p=-1
+    \quad\Longrightarrow\quad
+    c_{L+1}=c_1.
+\end{equation}
+That is, even fermion parity corresponds to anti-periodic fermions, while odd
+fermion parity corresponds to periodic fermions. The derivation is given in the
+Jordan--Wigner chapter.
+
+\section{Summary of conventions}
+
+The conventions fixed in this chapter are summarized as follows:
+\begin{equation}
+    |0\rangle_j=|\uparrow\rangle_j,
+    \qquad
+    |1\rangle_j=|\downarrow\rangle_j,
+    \qquad
+    n_j=\frac{1-\sigma_j^z}{2}.
+\end{equation}
+The raising and lowering operators are
+\begin{equation}
+    \sigma^+=\frac{\sigma^x+\ii\sigma^y}{2},
+    \qquad
+    \sigma^-=\frac{\sigma^x-\ii\sigma^y}{2},
+\end{equation}
+with
+\begin{equation}
+    \sigma^+|\downarrow\rangle=|\uparrow\rangle,
+    \qquad
+    \sigma^-|\uparrow\rangle=|\downarrow\rangle.
+\end{equation}
+The hard-core boson convention is
+\begin{equation}
+    b_j=\sigma_j^+,
+    \qquad
+    b_j^\dagger=\sigma_j^-,
+    \qquad
+    n_j=b_j^\dagger b_j.
+\end{equation}
+The principal free-fermion mother model is the transverse-field XY chain
+\begin{equation}
+    H_{\rm XY}
+    =
+    -\sum_{\langle j,j+1\rangle}
+    \left[
+        \frac{J(1+\gamma)}{2}\sigma_j^x\sigma_{j+1}^x
+        +
+        \frac{J(1-\gamma)}{2}\sigma_j^y\sigma_{j+1}^y
+    \right]
+    -h\sum_j\sigma_j^z,
+\end{equation}
+which contains the TFIM at $\gamma=1$ and the XX chain at $\gamma=0$. The global
+operator
+\begin{equation}
+    P_z=\prod_j\sigma_j^z=(-1)^N
+\end{equation}
+will become fermion parity in the Jordan--Wigner representation. These conventions
+are the reference point for all later equivalence maps.

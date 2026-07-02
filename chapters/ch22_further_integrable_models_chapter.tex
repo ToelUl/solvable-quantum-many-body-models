@@ -1,0 +1,612 @@
+\chapter{Further Integrable Models}
+\label{chap:further-integrable-models}
+
+The previous two chapters solved the XXZ chain by two complementary methods.
+The coordinate Bethe ansatz emphasized factorized scattering of magnons, while
+the algebraic Bethe ansatz emphasized the Yang--Baxter algebra of the six-vertex
+transfer matrix.  This chapter explains how the same ideas extend beyond the
+nearest-neighbor XXZ chain.  The goal is not to give a second complete solution
+of every model.  Instead, the purpose is to identify the structural data that
+make each model solvable and to locate it within the mother-model organization
+of these notes.
+
+We discuss three classes of examples:
+\begin{enumerate}[label=(\roman*)]
+    \item the isotropic XXX chain, obtained as the rational limit of the XXZ
+    chain;
+    \item the one-dimensional Hubbard model, whose exact solution requires a
+    nested Bethe ansatz because particles carry both charge and spin;
+    \item long-range integrable models, represented by the Haldane--Shastry spin
+    chain and the Calogero--Sutherland model.
+\end{enumerate}
+The recurring theme is that integrability is not synonymous with free
+fermions.  In these models the many-body spectrum is controlled by nontrivial
+quantization conditions, hidden symmetries, or special long-range interactions.
+The excitations are still strongly constrained, but they need not be free
+Bogoliubov quasiparticles.
+
+\section{The XXX limit}
+\label{sec:further-xxx-limit}
+
+The XXZ Hamiltonian used in \cref{chap:coordinate-bethe-ansatz-xxz,chap:algebraic-bethe-ansatz}
+was
+\begin{equation}
+\label{eq:further-xxz-hamiltonian-recall}
+    H_{\rm XXZ}^{(+)}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +\sigma_j^y\sigma_{j+1}^y
+        +\Delta(\sigma_j^z\sigma_{j+1}^z-1)
+    \right),
+\end{equation}
+with periodic boundary conditions.  The isotropic XXX chain is the special point
+\begin{equation}
+\label{eq:further-xxx-limit}
+    \Delta\to1,
+    \qquad
+    H_{\rm XXX}^{(+)}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+        \bm{\sigma}_j\cdot\bm{\sigma}_{j+1}-1
+    \right).
+\end{equation}
+Equivalently, in terms of spin operators $\bm{S}_j=\bm{\sigma}_j/2$,
+\begin{equation}
+\label{eq:further-xxx-spin-form}
+    H_{\rm XXX}^{(+)}
+    =
+    4J\sum_{j=1}^{L}
+    \left(
+        \bm{S}_j\cdot\bm{S}_{j+1}-\frac14
+    \right).
+\end{equation}
+The constant is chosen so that the fully polarized reference state has zero
+energy, as in the XXZ Bethe ansatz chapters.
+
+\begin{remark}[Sign convention]
+With $J>0$ in \cref{eq:further-xxx-limit}, a one-magnon state has
+$\varepsilon(k)=4J(\cos k-1)\leq0$ relative to the ferromagnetic reference
+state.  Many condensed-matter texts instead write the antiferromagnetic XXX
+Hamiltonian as
+$J_{\rm AF}\sum_j\bm{S}_j\cdot\bm{S}_{j+1}$ with $J_{\rm AF}>0$.
+The two conventions differ by an overall sign and an additive constant.  The
+Bethe equations are convention-independent; only the energy formula changes by
+this normalization.
+\end{remark}
+
+\subsection{Rational R-matrix}
+\label{subsec:further-rational-r-matrix}
+
+The XXX chain is also obtained from the six-vertex $R$-matrix by taking the
+rational limit.  In the hyperbolic convention of the algebraic Bethe ansatz
+chapter,
+\begin{equation}
+    R_{\rm XXZ}(u)
+    =
+    \begin{pmatrix}
+        \sinh(u+\eta)&0&0&0\\
+        0&\sinh u&\sinh\eta&0\\
+        0&\sinh\eta&\sinh u&0\\
+        0&0&0&\sinh(u+\eta)
+    \end{pmatrix},
+    \qquad
+    \Delta=\cosh\eta .
+\end{equation}
+Sending $u\mapsto\eta u$ and then taking $\eta\to0$ gives, up to an irrelevant
+scalar normalization,
+\begin{equation}
+\label{eq:further-rational-R-matrix}
+    R_{\rm XXX}(u)
+    =u\,\id+P,
+\end{equation}
+where $P$ permutes the two spin-$1/2$ spaces:
+\begin{equation}
+\label{eq:further-permutation-operator}
+    P\ket{\alpha}\otimes\ket{\beta}
+    =
+    \ket{\beta}\otimes\ket{\alpha}.
+\end{equation}
+This rational $R$-matrix satisfies the Yang--Baxter equation
+\begin{equation}
+\label{eq:further-rational-ybe}
+    R_{12}(u-v)R_{13}(u-w)R_{23}(v-w)
+    =
+    R_{23}(v-w)R_{13}(u-w)R_{12}(u-v).
+\end{equation}
+It is regular because
+\begin{equation}
+\label{eq:further-rational-regularity}
+    R_{\rm XXX}(0)=P.
+\end{equation}
+Therefore the logarithmic derivative of the rational transfer matrix gives a
+nearest-neighbor Hamiltonian.  Using
+\begin{equation}
+    P_{j,j+1}=\frac12\left(\id+\bm{\sigma}_j\cdot\bm{\sigma}_{j+1}\right),
+\end{equation}
+one obtains the isotropic exchange interaction.
+
+\begin{principle}[Trigonometric versus rational integrability]
+The XXZ chain is controlled by the trigonometric six-vertex $R$-matrix.  The
+XXX chain is controlled by its rational degeneration.  The solution method is
+unchanged: monodromy matrix, transfer matrix, RTT algebra, Bethe vectors, Bethe
+equations.  What changes is the analytic form of the scattering phase.
+\end{principle}
+
+\subsection{Bethe equations in rapidity form}
+\label{subsec:further-xxx-bethe-equations}
+
+The rational rapidity variable $\lambda$ is related to the one-magnon momentum
+by
+\begin{equation}
+\label{eq:further-xxx-momentum-rapidity}
+    \ee^{\ii k}
+    =
+    \frac{\lambda+\frac{\ii}{2}}{\lambda-\frac{\ii}{2}}.
+\end{equation}
+For $M$ magnons, the XXX Bethe equations are
+\begin{equation}
+\label{eq:further-xxx-bethe-equations}
+    \left(
+        \frac{\lambda_j+\frac{\ii}{2}}
+             {\lambda_j-\frac{\ii}{2}}
+    \right)^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\lambda_j-\lambda_\ell+\ii}
+         {\lambda_j-\lambda_\ell-\ii},
+    \qquad
+    j=1,\ldots,M .
+\end{equation}
+The corresponding two-body scattering amplitude is
+\begin{equation}
+\label{eq:further-xxx-two-body-S}
+    S_{\rm XXX}(\lambda_j-\lambda_\ell)
+    =
+    \frac{\lambda_j-\lambda_\ell+\ii}
+         {\lambda_j-\lambda_\ell-\ii}.
+\end{equation}
+Thus the many-body quantization condition still has the universal Bethe form
+\begin{equation}
+\label{eq:further-general-bethe-quantization}
+    \ee^{\ii k_jL}
+    =
+    \prod_{\ell\neq j}S(k_j,k_\ell),
+\end{equation}
+but the scattering phase has become rational rather than trigonometric.
+
+Using \cref{eq:further-xxx-momentum-rapidity}, one finds
+\begin{equation}
+\label{eq:further-xxx-cos-rapidity}
+    \cos k
+    =
+    \frac{\lambda^2-\frac14}{\lambda^2+\frac14}.
+\end{equation}
+Therefore the energy in the normalization of \cref{eq:further-xxx-limit} is
+\begin{equation}
+\label{eq:further-xxx-energy}
+    E
+    =
+    4J\sum_{j=1}^{M}(\cos k_j-1)
+    =
+    -2J\sum_{j=1}^{M}
+    \frac{1}{\lambda_j^2+\frac14}.
+\end{equation}
+The total lattice momentum is
+\begin{equation}
+\label{eq:further-xxx-total-momentum}
+    \ee^{\ii P}
+    =
+    \prod_{j=1}^{M}
+    \frac{\lambda_j+\frac{\ii}{2}}
+         {\lambda_j-\frac{\ii}{2}}.
+\end{equation}
+
+\subsection{Enhanced SU(2) symmetry}
+\label{subsec:further-xxx-su2}
+
+For generic $\Delta$, the XXZ chain conserves only the $U(1)$ charge
+$S^z_{\rm tot}$.  At $\Delta=1$, the symmetry is enhanced to full spin
+rotation symmetry:
+\begin{equation}
+\label{eq:further-xxx-su2-commutator}
+    [H_{\rm XXX}^{(+)},S^\alpha_{\rm tot}]=0,
+    \qquad
+    S^\alpha_{\rm tot}=\frac12\sum_{j=1}^{L}\sigma_j^\alpha,
+    \qquad
+    \alpha=x,y,z .
+\end{equation}
+This enhancement has an important consequence.  Bethe states constructed above
+the all-up pseudovacuum are usually highest-weight states of $SU(2)$ multiplets.
+The remaining members of the multiplet are obtained by acting with
+$S^-_{\rm tot}$.  This is why completeness questions in the XXX chain are
+slightly more delicate than merely counting finite rapidity solutions of
+\cref{eq:further-xxx-bethe-equations}.
+
+\begin{remark}[Infinite rapidities]
+In the XXX chain, acting with the global spin-lowering operator can be viewed as
+adding a Bethe root at infinity.  This is a useful algebraic way to understand
+how $SU(2)$ descendants fit into the Bethe-ansatz framework.
+\end{remark}
+
+\section{Hubbard model and nested Bethe ansatz}
+\label{sec:further-hubbard-model}
+
+The one-dimensional Hubbard model is the canonical example of an interacting
+fermion model that is exactly solvable but not reducible to a single-species
+magnon Bethe ansatz.  Its local degrees of freedom are
+\begin{equation}
+\label{eq:further-hubbard-local-space}
+    \ket{0},
+    \qquad
+    \ket{\uparrow},
+    \qquad
+    \ket{\downarrow},
+    \qquad
+    \ket{\uparrow\downarrow},
+\end{equation}
+so each site carries both charge and spin.  The Hamiltonian on a periodic chain
+is
+\begin{equation}
+\label{eq:further-hubbard-hamiltonian}
+    H_{\rm Hub}
+    =
+    -t\sum_{j=1}^{L}\sum_{\sigma=\uparrow,\downarrow}
+    \left(
+        c_{j\sigma}^\dagger c_{j+1,\sigma}
+        +c_{j+1,\sigma}^\dagger c_{j\sigma}
+    \right)
+    +U\sum_{j=1}^{L}n_{j\uparrow}n_{j\downarrow} .
+\end{equation}
+Here
+\begin{equation}
+    n_{j\sigma}=c_{j\sigma}^\dagger c_{j\sigma},
+    \qquad
+    c_{L+1,\sigma}=c_{1\sigma}.
+\end{equation}
+The hopping amplitude is $t$, and $U$ is the on-site interaction.
+
+\subsection{Why a nested ansatz is needed}
+\label{subsec:further-why-nested}
+
+In the XXZ chain, the Bethe particles are down spins moving in an all-up
+reference state.  There is only one species of quasiparticle, so every collision
+is described by a scalar two-body phase.  In the Hubbard model, a particle
+carries charge momentum and spin.  When two fermions scatter, their spin labels
+can be rearranged.  The two-body scattering matrix therefore acts on an internal
+spin space.  Diagonalizing the charge problem leaves a second spin problem to be
+solved.  This second step is the nested Bethe ansatz.
+
+The exact solution is parametrized by two sets of variables:
+\begin{equation}
+\label{eq:further-hubbard-variables}
+    \{k_j\}_{j=1}^{N},
+    \qquad
+    \{\lambda_\alpha\}_{\alpha=1}^{M},
+\end{equation}
+where $N$ is the total number of electrons and $M$ is the number of down-spin
+electrons.  The $k_j$ are charge momenta, while the $\lambda_\alpha$ are spin
+rapidities.
+
+\begin{principle}[Nested Bethe ansatz]
+When the two-body scattering matrix carries an internal index, Bethe ansatz
+becomes a two-level problem.  First one writes a coordinate Bethe ansatz for
+charge motion.  Then one diagonalizes the internal spin scattering problem by a
+second Bethe ansatz.  The final answer contains coupled Bethe equations for
+charge and spin rapidities.
+\end{principle}
+
+\subsection{Lieb--Wu equations}
+\label{subsec:further-lieb-wu-equations}
+
+Introduce the dimensionless interaction parameter
+\begin{equation}
+\label{eq:further-hubbard-u-parameter}
+    u=\frac{U}{4t}.
+\end{equation}
+For the Hamiltonian \cref{eq:further-hubbard-hamiltonian}, the Lieb--Wu Bethe
+equations are
+\begin{align}
+\label{eq:further-lieb-wu-charge}
+    \ee^{\ii k_j L}
+    &=
+    \prod_{\alpha=1}^{M}
+    \frac{\sin k_j-\lambda_\alpha+\ii u}
+         {\sin k_j-\lambda_\alpha-\ii u},
+    \qquad
+    j=1,\ldots,N,\\
+\label{eq:further-lieb-wu-spin}
+    \prod_{j=1}^{N}
+    \frac{\lambda_\alpha-\sin k_j+\ii u}
+         {\lambda_\alpha-\sin k_j-\ii u}
+    &=
+    \prod_{\substack{\beta=1\\ \beta\neq\alpha}}^{M}
+    \frac{\lambda_\alpha-\lambda_\beta+2\ii u}
+         {\lambda_\alpha-\lambda_\beta-2\ii u},
+    \qquad
+    \alpha=1,\ldots,M .
+\end{align}
+The energy and total momentum are
+\begin{equation}
+\label{eq:further-hubbard-energy-momentum}
+    E=-2t\sum_{j=1}^{N}\cos k_j,
+    \qquad
+    P=\sum_{j=1}^{N}k_j
+    \quad (\mathrm{mod}\ 2\pi),
+\end{equation}
+for the unshifted convention in \cref{eq:further-hubbard-hamiltonian}.  If one
+uses the particle-hole symmetric Hamiltonian
+\begin{equation}
+\label{eq:further-shifted-hubbard}
+    H'_{\rm Hub}
+    =
+    -t\sum_{j,\sigma}
+    \left(
+        c_{j\sigma}^\dagger c_{j+1,\sigma}
+        +c_{j+1,\sigma}^\dagger c_{j\sigma}
+    \right)
+    +U\sum_j
+    \left(n_{j\uparrow}-\frac12\right)
+    \left(n_{j\downarrow}-\frac12\right),
+\end{equation}
+then the same Bethe roots give the shifted energy
+\begin{equation}
+\label{eq:further-shifted-hubbard-energy}
+    E'=E-\frac{U}{2}N+\frac{U}{4}L .
+\end{equation}
+
+\begin{remark}[Why $\sin k$ appears]
+The Hubbard equations are not obtained by simply replacing the XXZ rapidity by
+$k$.  The charge dispersion is that of a tight-binding lattice fermion,
+$-2t\cos k$, while the spin scattering depends on $\sin k$.  This mixture is a
+characteristic feature of the Hubbard nested solution.
+\end{remark}
+
+\subsection{Half filling and the Mott gap}
+\label{subsec:further-hubbard-half-filling}
+
+At half filling, $N=L$.  For repulsive interaction $U>0$, the exact solution
+shows that the charge sector is gapped while the spin sector remains gapless.
+This is the one-dimensional Mott-insulating mechanism in its cleanest exact
+form.  The Hilbert space still allows charge fluctuations, but the low-energy
+sector separates into
+\begin{equation}
+\label{eq:further-hubbard-spin-charge-structure}
+    \text{gapped charge excitations}
+    \qquad\text{and}\qquad
+    \text{gapless spin excitations}.
+\end{equation}
+For large positive $U/t$, virtual hopping produces the effective antiferromagnetic
+Heisenberg chain
+\begin{equation}
+\label{eq:further-hubbard-large-U-heisenberg}
+    H_{\rm eff}
+    =
+    J_{\rm ex}\sum_{j=1}^{L}
+    \left(
+        \bm{S}_j\cdot\bm{S}_{j+1}-\frac14
+    \right),
+    \qquad
+    J_{\rm ex}=\frac{4t^2}{U},
+\end{equation}
+inside the subspace with one electron per site.  Thus the XXX chain appears as
+the spin-sector low-energy limit of the repulsive half-filled Hubbard model.
+
+\begin{example}[From Hubbard to Heisenberg]
+Consider two neighboring sites with one electron on each site.  A hopping event
+creates a virtual doubly occupied site and costs energy $U$.  A second hopping
+event returns to the singly occupied subspace.  Second-order perturbation theory
+therefore gives an exchange scale $t^2/U$.  Fermionic statistics select the
+antiferromagnetic exchange, producing $J_{\rm ex}=4t^2/U$.
+\end{example}
+
+\subsection{Integrability structure}
+\label{subsec:further-hubbard-integrability}
+
+The Hubbard model is integrable, but its integrability is more subtle than that
+of the six-vertex model.  The relevant $R$-matrix is not the elementary
+six-vertex $R$-matrix; it is a higher structure compatible with two coupled
+spin species.  Equivalently, one may view the model as having two intertwined
+XX-type hopping problems connected by the on-site interaction.  The important
+lesson for these notes is the following:
+\boxedpar{%
+The Hubbard model is solvable not because it is quadratic, but because its
+many-body scattering is still factorized after accounting for the nested charge
+and spin structure.}
+
+\section{Long-range integrable models}
+\label{sec:further-long-range-integrable-models}
+
+The nearest-neighbor XXX, XXZ, and XYZ chains teach that local Hamiltonians can
+be integrable when they arise from logarithmic derivatives of commuting transfer
+matrices.  There is another important class of integrable models whose defining
+feature is not nearest-neighbor locality, but a very special long-range
+interaction.  The two standard examples are the Haldane--Shastry spin chain and
+the Calogero--Sutherland particle model.
+
+\subsection{Haldane--Shastry chain}
+\label{subsec:further-haldane-shastry}
+
+Place $L$ spin-$1/2$ degrees of freedom at equally spaced points on the unit
+circle,
+\begin{equation}
+\label{eq:further-hs-roots-of-unity}
+    z_j=\ee^{2\pi\ii j/L},
+    \qquad
+    j=1,\ldots,L .
+\end{equation}
+The Haldane--Shastry Hamiltonian is
+\begin{equation}
+\label{eq:further-haldane-shastry-hamiltonian}
+    H_{\rm HS}
+    =
+    J\left(\frac{\pi}{L}\right)^2
+    \sum_{1\leq j<\ell\leq L}
+    \frac{\bm{S}_j\cdot\bm{S}_\ell-\frac14}
+         {\sin^2\left(\frac{\pi(j-\ell)}{L}\right)} .
+\end{equation}
+The interaction decays as the inverse square of the chord distance.  Although
+this Hamiltonian is long-ranged, it is more exactly solvable than a generic
+nearest-neighbor interacting spin chain.
+
+At half filling of down spins, an exact ground-state wave function can be written
+in terms of the down-spin coordinates $z_1,\ldots,z_{L/2}$ as a lattice Jastrow
+state,
+\begin{equation}
+\label{eq:further-hs-ground-state}
+    \Psi_{\rm HS}(z_1,\ldots,z_{L/2})
+    =
+    \prod_{a<b}(z_a-z_b)^2
+    \prod_{a=1}^{L/2} z_a .
+\end{equation}
+This is the spin-chain analogue of a Laughlin-type wave function.  The square
+Jastrow factor enforces strong correlations between spin flips.
+
+The elementary excitations are spinons.  They carry spin $1/2$ rather than spin
+$1$, and they obey fractional exclusion statistics.  This is qualitatively
+different from the magnons of the ferromagnetic Bethe ansatz, which are spin-flip
+particles above a polarized vacuum.
+
+\begin{remark}[Yangian symmetry]
+The hidden symmetry of the Haldane--Shastry chain is a Yangian extension of
+$SU(2)$.  This enlarged symmetry is responsible for large spectral degeneracies
+and for the unusually simple spinon structure.  It is the long-range analogue of
+the algebraic constraints imposed by the Yang--Baxter equation in nearest-neighbor
+chains.
+\end{remark}
+
+\subsection{Calogero--Sutherland model}
+\label{subsec:further-calogero-sutherland}
+
+The Calogero--Sutherland model is a continuum many-body system on a circle with
+inverse-square interactions.  A common normalization is
+\begin{equation}
+\label{eq:further-calogero-sutherland-hamiltonian}
+    H_{\rm CS}
+    =
+    -\sum_{j=1}^{N}\frac{\partial^2}{\partial x_j^2}
+    +
+    g(g-1)\left(\frac{\pi}{L}\right)^2
+    \sum_{1\leq j<\ell\leq N}
+    \frac{1}
+         {\sin^2\left(\frac{\pi(x_j-x_\ell)}{L}\right)} .
+\end{equation}
+The exact ground state has the Jastrow form
+\begin{equation}
+\label{eq:further-cs-ground-state}
+    \Psi_0(x_1,\ldots,x_N)
+    =
+    \prod_{j<\ell}
+    \left|
+        \sin\frac{\pi(x_j-x_\ell)}{L}
+    \right|^{g}.
+\end{equation}
+The excited states are obtained by multiplying this ground state by symmetric
+polynomials.  More precisely, Jack polynomials provide the natural eigenbasis.
+Thus the Calogero--Sutherland model is solvable by special-function and
+representation-theoretic methods rather than by a nearest-neighbor coordinate
+Bethe ansatz.
+
+The coupling $g$ controls the statistical interaction between particles.  At
+$g=0$ or $g=1$, the inverse-square potential vanishes, corresponding to free
+bosonic or fermionic endpoints depending on the imposed symmetry.  For general
+$g$, the model realizes fractional exclusion statistics in a continuum setting.
+
+\subsection{Freezing trick and relation to spin chains}
+\label{subsec:further-freezing-trick}
+
+The Haldane--Shastry chain and the Calogero--Sutherland model are not unrelated.
+In the strong-coupling limit of spin Calogero--Sutherland-type models, the
+particle coordinates freeze near equally spaced classical equilibrium positions
+on the circle.  The remaining low-energy dynamics is carried by the internal
+spin variables.  This limiting procedure produces inverse-square spin-chain
+Hamiltonians of Haldane--Shastry type.
+
+Schematically,
+\begin{equation}
+\label{eq:further-freezing-trick-schematic}
+    \text{spin Calogero--Sutherland particles}
+    \xrightarrow[\text{coordinates freeze}]{\text{large coupling}}
+    \text{Haldane--Shastry spin chain}.
+\end{equation}
+This relation is called the freezing trick.  It is another example of the
+mother-model principle: a continuum integrable particle model contains a lattice
+integrable spin chain as a controlled limit.
+
+\section{Comparison of integrable structures}
+\label{sec:further-comparison-integrable-structures}
+
+The examples in this chapter illustrate several distinct meanings of exact
+solvability.  They are summarized in \cref{tab:further-integrability-comparison}.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\linewidth}{@{}L{0.22\linewidth}L{0.25\linewidth}Y@{}}
+\toprule
+Model & Solvability mechanism & Main spectral data \\
+\midrule
+XXX chain & Rational $R$-matrix; Bethe ansatz; enhanced $SU(2)$ symmetry & Rapidities satisfying rational Bethe equations \\
+XXZ chain & Trigonometric six-vertex $R$-matrix; coordinate/algebraic Bethe ansatz & Rapidities satisfying trigonometric Bethe equations \\
+XYZ chain & Elliptic eight-vertex $R$-matrix; Baxter $TQ$ relation & Elliptic spectral parameter and functional equations \\
+Hubbard chain & Nested Bethe ansatz; factorized scattering with charge and spin variables & Charge momenta $k_j$ and spin rapidities $\lambda_\alpha$ satisfying Lieb--Wu equations \\
+Haldane--Shastry chain & Inverse-square interaction; Yangian symmetry; spinon basis & Fractional-statistics spinons and exact Jastrow ground state \\
+Calogero--Sutherland model & Inverse-square continuum interaction; Jack-polynomial eigenfunctions & Pseudomomenta and Jack-polynomial labels \\
+\bottomrule
+\end{tabularx}
+\caption{Representative integrable models beyond the basic XXZ coordinate
+Bethe ansatz.  The word ``integrable'' refers to different but related
+structures: rational, trigonometric, or elliptic $R$-matrices; nested Bethe
+ansatz; Yangian symmetry; or inverse-square special-function solvability.}
+\label{tab:further-integrability-comparison}
+\end{table}
+
+The following hierarchy is useful:
+\begin{equation}
+\label{eq:further-integrability-hierarchy}
+\begin{gathered}
+    \text{free fermion solvability}
+    \subset
+    \text{Bethe/Yang--Baxter integrability}
+    \subset
+    \text{broader exact solvability},\\
+    \text{but none of these inclusions should be interpreted as equality.}
+\end{gathered}
+\end{equation}
+Free-fermion models are solvable because the Hamiltonian becomes quadratic.
+Bethe-ansatz models are solvable because many-body scattering factorizes.
+Long-range inverse-square models are solvable because the interaction is tuned
+to special symmetry and polynomial structures.  Commuting-projector models,
+which appear in the next part of the notes, are solvable for yet another reason:
+the Hamiltonian decomposes into mutually compatible local constraints.
+
+\section{What should be remembered}
+\label{sec:further-what-to-remember}
+
+The main points of this chapter are:
+\begin{enumerate}[label=(\roman*)]
+    \item The XXX chain is the rational limit of the XXZ chain.  Its Bethe
+    equations are obtained by replacing trigonometric scattering data by rational
+    scattering data.
+    \item The XXX point has enhanced $SU(2)$ symmetry.  Bethe roots at infinity
+    and highest-weight multiplets are natural consequences of this symmetry.
+    \item The Hubbard model requires a nested Bethe ansatz because the particles
+    carry both charge and spin.  Its solution is encoded in the coupled
+    Lieb--Wu equations.
+    \item At half filling and repulsive interaction, the Hubbard model has a
+    gapped charge sector and a gapless spin sector.  In the large-$U$ limit, the
+    low-energy spin dynamics reduces to an antiferromagnetic Heisenberg chain.
+    \item Long-range inverse-square models such as the Haldane--Shastry and
+    Calogero--Sutherland models are integrable for reasons different from the
+    nearest-neighbor transfer-matrix construction.  Their exact wave functions
+    and spectra are governed by Jastrow factors, Yangian symmetry, and special
+    polynomials.
+\end{enumerate}
+
+\boxedpar{%
+The common lesson is that exact solvability is a structural property.  Quadratic
+fermions, Yang--Baxter algebras, nested scattering, inverse-square interactions,
+and commuting projectors are different mechanisms, but each replaces the generic
+many-body problem by a constrained algebraic or analytic problem.}

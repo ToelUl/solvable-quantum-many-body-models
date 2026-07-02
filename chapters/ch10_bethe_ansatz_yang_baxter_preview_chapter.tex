@@ -1,0 +1,605 @@
+\chapter[Bethe Ansatz and Yang--Baxter Integrability]{Preview of Bethe Ansatz and Yang--Baxter Integrability}
+\label{chap:bethe-yang-baxter-preview}
+
+The preceding chapters developed two main solution mechanisms.  First, transfer
+matrices convert a classical statistical model into a spectral problem.  Second,
+Jordan--Wigner and Bogoliubov transformations solve a large class of spin chains
+because their fermionic images are quadratic.  The next integrability mechanism
+is different.  Bethe-ansatz integrability solves genuinely interacting models,
+not by reducing them to independent one-particle modes, but by exploiting the
+factorization of many-body scattering and the existence of an infinite commuting
+family of transfer matrices.
+
+This chapter is a conceptual and notational preview.  Its purpose is to explain
+what the Bethe ansatz solves, why the Yang--Baxter equation appears, and how the
+row-to-row transfer matrices of vertex models become quantum Hamiltonians such as
+the XXZ chain.  The complete coordinate and algebraic Bethe-ansatz derivations
+are postponed to later chapters.
+
+\section{From free particles to factorized scattering}
+\label{sec:ba-factorized-scattering}
+
+A free-fermion Hamiltonian is solvable because it can be diagonalized into
+independent quasiparticles,
+\begin{equation}
+    H=E_0+\sum_k E_k\gamma_k^\dagger\gamma_k .
+\end{equation}
+The many-body spectrum is then obtained by filling one-particle levels.  Bethe
+ansatz uses a weaker but still powerful property: particles interact, but the
+scattering is elastic and factorized.
+
+\begin{definition}[Factorized scattering]
+Consider a one-dimensional many-body system with stable asymptotic quasiparticles
+labelled by momenta or rapidities.  The scattering is called \emph{factorized} if
+an $M$-body collision can be decomposed into an ordered product of two-body
+scattering processes, with no particle production and no diffraction.
+\end{definition}
+
+In one spatial dimension the ordering of particles is meaningful.  For
+coordinates
+\begin{equation}
+    x_1<x_2<\cdots<x_M,
+\end{equation}
+a coordinate Bethe wave function takes the form
+\begin{equation}
+\label{eq:coordinate-ba-wavefunction-preview}
+    \Psi(x_1,\ldots,x_M)
+    =
+    \sum_{P\in S_M} A(P)
+    \exp\left(\ii\sum_{a=1}^{M}k_{P_a}x_a\right),
+\end{equation}
+where $P$ permutes the momenta among the ordered particles.  Interactions do not
+change the set of momenta.  They only relate amplitudes associated with different
+permutations.  For neighboring exchanges one writes schematically
+\begin{equation}
+\label{eq:two-body-scattering-amplitude-preview}
+    A(P\circ s_a)
+    =S(k_{P_a},k_{P_{a+1}})A(P),
+\end{equation}
+where $s_a$ exchanges the $a$th and $(a+1)$st momenta.  For a scalar scattering
+phase, factorization is almost automatic because complex numbers commute.  For
+particles with internal spin, color, or auxiliary indices, $S$ becomes a matrix,
+and consistency is highly nontrivial.
+
+The basic physical meaning is the following.  In a generic interacting model, a
+many-particle collision can redistribute momenta in ways that cannot be described
+as a sequence of independent two-body events.  In an integrable one-dimensional
+model, the infinite family of conservation laws is strong enough to forbid such
+diffraction.  The only allowed effect of scattering is to permute the rapidities
+and multiply the wave function by two-body scattering matrices.
+
+\begin{principle}[Bethe-ansatz solvability]
+A one-dimensional interacting model is Bethe-ansatz solvable when its eigenstates
+can be assembled from plane waves whose amplitudes are related by consistent
+factorized two-body scattering.
+\end{principle}
+
+\section{A two-magnon preview}
+\label{sec:two-magnon-preview}
+
+The simplest way to see the Bethe idea is to consider a spin chain above a
+ferromagnetic reference state.  Let
+\begin{equation}
+    \ket{0}=\ket{\uparrow\uparrow\cdots\uparrow}
+\end{equation}
+and let a down spin be interpreted as a magnon.  A one-magnon state is
+\begin{equation}
+    \ket{k}=\sum_{x=1}^{L}\ee^{\ii kx}\sigma_x^-\ket{0} .
+\end{equation}
+For a translation-invariant chain, it is an eigenstate in the one-magnon sector.
+The nontrivial part begins in the two-magnon sector, where the wave function has
+one expression for $x_1<x_2$:
+\begin{equation}
+\label{eq:two-magnon-wavefunction-preview}
+    \Psi(x_1,x_2)
+    =A_{12}\ee^{\ii(k_1x_1+k_2x_2)}
+    +A_{21}\ee^{\ii(k_2x_1+k_1x_2)} .
+\end{equation}
+The interaction only matters when the two magnons approach each other.  The
+Schrodinger equation at contact fixes the ratio
+\begin{equation}
+\label{eq:two-magnon-S-preview}
+    A_{21}=S(k_1,k_2)A_{12} .
+\end{equation}
+For a periodic chain, moving one magnon around the ring makes it scatter once
+with every other magnon.  This gives the schematic Bethe equations
+\begin{equation}
+\label{eq:schematic-bethe-equations-preview}
+    \ee^{\ii k_j L}
+    =
+    \prod_{\ell\neq j}S(k_j,k_\ell),
+    \qquad j=1,\ldots,M .
+\end{equation}
+Thus periodic boundary conditions quantize the momenta in an interaction-dependent
+way.  Free particles would have $S=\pm1$ and hence ordinary integer or
+half-integer momenta.  Interacting Bethe-ansatz particles acquire phase shifts
+from all other particles.
+
+\begin{example}[The XXZ two-body scattering phase]
+For one common Pauli-matrix convention, the XXZ chain may be written as
+\begin{equation}
+\label{eq:xxz-preview-pauli-convention}
+    H_{\rm XXZ}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+    \sigma_j^x\sigma_{j+1}^x
+    +\sigma_j^y\sigma_{j+1}^y
+    +\Delta(\sigma_j^z\sigma_{j+1}^z-1)
+    \right).
+\end{equation}
+In the two-magnon coordinate Bethe ansatz, the contact equation gives a scattering
+phase of the form
+\begin{equation}
+\label{eq:xxz-momentum-S-preview}
+    S(k_1,k_2)
+    =-
+    \frac{1+\ee^{\ii(k_1+k_2)}-2\Delta\ee^{\ii k_1}}
+         {1+\ee^{\ii(k_1+k_2)}-2\Delta\ee^{\ii k_2}} .
+\end{equation}
+The precise overall sign and energy convention depend on the normalization of
+\cref{eq:xxz-preview-pauli-convention}, but the structural message is universal:
+the interaction is encoded in a two-body phase shift, and the many-body momenta
+are fixed by \cref{eq:schematic-bethe-equations-preview}.
+\end{example}
+
+It is often more convenient to replace momenta by rapidities.  In the XXX limit,
+the Bethe equations are commonly written as
+\begin{equation}
+\label{eq:xxx-bethe-equations-preview}
+    \left(
+    \frac{\lambda_j+\ii/2}{\lambda_j-\ii/2}
+    \right)^L
+    =
+    \prod_{\ell\neq j}
+    \frac{\lambda_j-\lambda_\ell+\ii}
+         {\lambda_j-\lambda_\ell-\ii} .
+\end{equation}
+For the gapless XXZ chain with $\Delta=\cos\gamma$, a standard rapidity form is
+\begin{equation}
+\label{eq:xxz-bethe-equations-preview}
+    \left[
+    \frac{\sinh(\lambda_j+\ii\gamma/2)}
+         {\sinh(\lambda_j-\ii\gamma/2)}
+    \right]^L
+    =
+    \prod_{\ell\neq j}
+    \frac{\sinh(\lambda_j-\lambda_\ell+\ii\gamma)}
+         {\sinh(\lambda_j-\lambda_\ell-\ii\gamma)} .
+\end{equation}
+The left-hand side is free propagation around the ring.  The right-hand side is
+the accumulated product of two-body scattering phases.
+
+\section{Why a three-body consistency condition is needed}
+\label{sec:three-body-consistency-preview}
+
+For three particles there are multiple ways to exchange the same initial and
+final orderings.  For instance, the permutation reversing $(1,2,3)$ to $(3,2,1)$
+can be decomposed as
+\begin{equation}
+    s_1s_2s_1=s_2s_1s_2 .
+\end{equation}
+If the scattering amplitudes are scalar phases, this identity causes no serious
+constraint.  If the two-body scatterings are matrices acting on internal degrees
+of freedom, the two possible sequences must give the same operator.  This is the
+origin of the Yang--Baxter equation.
+
+Let $R_{ab}(u)$ denote a two-body scattering or vertex operator acting nontrivially
+on spaces $a$ and $b$, with spectral parameter difference $u$.  The Yang--Baxter
+equation is
+\begin{equation}
+\label{eq:yang-baxter-equation-preview}
+    R_{12}(u-v)R_{13}(u-w)R_{23}(v-w)
+    =
+    R_{23}(v-w)R_{13}(u-w)R_{12}(u-v) .
+\end{equation}
+It is an equality of operators on a triple tensor product.  Diagrammatically it
+states that two different orders of resolving a three-line crossing are
+equivalent.  Algebraically it is precisely the consistency condition required for
+factorized scattering with internal degrees of freedom.
+
+\begin{remark}[Yang--Baxter versus ordinary commutativity]
+The Yang--Baxter equation is not the statement that two matrices commute.  It is
+a cubic relation among three two-body operators acting on three tensor factors.
+Its consequence, after constructing a monodromy matrix and tracing over an
+auxiliary space, is the commutativity of transfer matrices.
+\end{remark}
+
+\section{R-matrix as vertex weight and as scattering matrix}
+\label{sec:r-matrix-two-interpretations}
+
+The same $R$-matrix has two complementary meanings.
+
+First, in a two-dimensional classical vertex model, $R$ assigns a local Boltzmann
+weight to a vertex.  The two tensor indices may be viewed as spin or arrow states
+living on the lines entering and leaving the vertex.  The partition function is
+built by multiplying local $R$-matrix weights and summing over internal indices.
+
+Second, in a one-dimensional quantum chain, $R$ is the algebraic object that
+controls two-body scattering and the commuting transfer matrices.  The spectral
+parameter $u$ plays the role of an auxiliary rapidity.  Taking a logarithmic
+derivative of the transfer matrix produces a quantum Hamiltonian.
+
+For the six-vertex model, a standard trigonometric or hyperbolic $R$-matrix is
+\begin{equation}
+\label{eq:six-vertex-R-preview}
+    R(u)=
+    \begin{pmatrix}
+    a(u)&0&0&0\\
+    0&b(u)&c(u)&0\\
+    0&c(u)&b(u)&0\\
+    0&0&0&a(u)
+    \end{pmatrix},
+\end{equation}
+where, for the hyperbolic parametrization,
+\begin{equation}
+\label{eq:six-vertex-weights-hyperbolic-preview}
+    a(u)=\sinh(u+\eta),
+    \qquad
+    b(u)=\sinh u,
+    \qquad
+    c(u)=\sinh\eta .
+\end{equation}
+The nonzero entries encode the ice rule: the number of incoming arrows equals the
+number of outgoing arrows at each vertex.  In the associated XXZ chain, the
+anisotropy parameter is controlled by
+\begin{equation}
+\label{eq:xxz-anisotropy-preview}
+    \Delta=\cosh\eta
+\end{equation}
+for this hyperbolic convention.  In the gapless convention one uses sines instead
+of hyperbolic sines and obtains $\Delta=\cos\gamma$.
+
+\section{Monodromy matrix and commuting transfer matrices}
+\label{sec:monodromy-transfer-preview}
+
+To build a length-$L$ quantum chain, introduce an auxiliary space $a$ and quantum
+spaces $1,\ldots,L$.  The monodromy matrix is the ordered product
+\begin{equation}
+\label{eq:monodromy-matrix-preview}
+    M_a(u)
+    =
+    R_{aL}(u-\xi_L)R_{a,L-1}(u-\xi_{L-1})\cdots R_{a1}(u-\xi_1),
+\end{equation}
+where $\xi_j$ are inhomogeneity parameters.  The homogeneous chain is obtained by
+setting all $\xi_j=0$.  The transfer matrix is the auxiliary trace
+\begin{equation}
+\label{eq:transfer-matrix-from-monodromy-preview}
+    \tau(u)=\Tr_a M_a(u).
+\end{equation}
+
+The Yang--Baxter equation implies the RTT relation
+\begin{equation}
+\label{eq:rtt-relation-preview}
+    R_{ab}(u-v)M_a(u)M_b(v)
+    =
+    M_b(v)M_a(u)R_{ab}(u-v) .
+\end{equation}
+Taking the trace over the two auxiliary spaces $a$ and $b$ gives
+\begin{equation}
+\label{eq:commuting-transfer-matrices-preview}
+    [\tau(u),\tau(v)]=0,
+    \qquad
+    \text{for all }u,v .
+\end{equation}
+This is the central algebraic output of Yang--Baxter integrability.
+
+\begin{theorem}[Commuting transfer matrices]
+If the $R$-matrix satisfies the Yang--Baxter equation and the monodromy matrix is
+constructed as in \cref{eq:monodromy-matrix-preview}, then the transfer matrices
+\cref{eq:transfer-matrix-from-monodromy-preview} commute for all values of the
+spectral parameter:
+\begin{equation}
+    [\tau(u),\tau(v)]=0 .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The Yang--Baxter equation implies the RTT relation
+\cref{eq:rtt-relation-preview}.  Taking $\Tr_a\Tr_b$ of both sides and using
+cyclicity of the trace in the auxiliary spaces gives
+\begin{equation}
+    \Tr_a\Tr_b\left[R_{ab}(u-v)M_a(u)M_b(v)\right]
+    =
+    \Tr_a\Tr_b\left[M_b(v)M_a(u)R_{ab}(u-v)\right].
+\end{equation}
+Cyclicity moves $R_{ab}(u-v)$ through the auxiliary trace, leaving
+\begin{equation}
+    \Tr_a M_a(u)\,\Tr_b M_b(v)
+    =
+    \Tr_b M_b(v)\,\Tr_a M_a(u).
+\end{equation}
+This is exactly $\tau(u)\tau(v)=\tau(v)\tau(u)$.
+\end{proof}
+
+The physical meaning of \cref{eq:commuting-transfer-matrices-preview} is that
+$\tau(u)$ is a generating function for conserved quantities.  Expanding the
+logarithm around a regular point gives
+\begin{equation}
+\label{eq:charges-from-log-transfer-preview}
+    \log\tau(u)
+    =
+    \sum_{n=0}^{\infty} (u-u_0)^n Q_n,
+    \qquad
+    [Q_m,Q_n]=0 .
+\end{equation}
+One of these charges is the Hamiltonian; the rest are higher conserved charges.
+This is the transfer-matrix form of quantum integrability.
+
+\section{Hamiltonian limit}
+\label{sec:hamiltonian-limit-preview}
+
+A local quantum Hamiltonian is obtained from a regular transfer matrix.  The key
+regularity property is
+\begin{equation}
+\label{eq:R-regularity-preview}
+    R(0)=\rho P,
+\end{equation}
+where $P$ is the permutation operator on two neighboring spin spaces and $\rho$ is
+a scalar normalization.  Then the logarithmic derivative of the transfer matrix
+at $u=0$ produces a sum of local nearest-neighbor terms:
+\begin{equation}
+\label{eq:hamiltonian-log-transfer-preview}
+    H
+    =
+    C\left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}
+    +C_0
+    =
+    \sum_{j=1}^{L}h_{j,j+1}+C_0 .
+\end{equation}
+For the six-vertex $R$-matrix, this Hamiltonian is the spin-$1/2$ XXZ chain,
+up to normalization, additive constants, and boundary conventions:
+\begin{equation}
+\label{eq:xxz-from-six-vertex-preview}
+    H_{\rm XXZ}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+    S_j^xS_{j+1}^x
+    +S_j^yS_{j+1}^y
+    +\Delta S_j^zS_{j+1}^z
+    \right)
+    +\text{constant} .
+\end{equation}
+This is the basic bridge between the six-vertex model and the XXZ quantum chain.
+It is the interacting analogue of the quantum--classical correspondence discussed
+in the transfer-matrix chapter.
+
+\section{Why commuting transfer matrices imply many conserved quantities}
+\label{sec:commuting-transfer-conserved-quantities}
+
+Suppose $\tau(u)$ is analytic near $u_0$ and $[\tau(u),\tau(v)]=0$ for all $u,v$.
+Then every coefficient in the expansion of $\log\tau(u)$ commutes with every other
+coefficient.  More explicitly, define
+\begin{equation}
+    Q_n
+    =
+    \left.
+    \frac{\dd^n}{\dd u^n}\log\tau(u)
+    \right|_{u=u_0} .
+\end{equation}
+Since the whole family $\tau(u)$ commutes, one obtains
+\begin{equation}
+    [Q_m,Q_n]=0,
+    \qquad
+    [Q_n,H]=0 .
+\end{equation}
+The first nontrivial local charge is usually the Hamiltonian.  Higher charges
+have increasing spatial range.  In a local integrable chain one may schematically
+write
+\begin{equation}
+    Q_2=H,
+    \qquad
+    Q_3=\sum_j q_{j,j+1,j+2},
+    \qquad
+    Q_4=\sum_j q_{j,j+1,j+2,j+3},
+    \quad \ldots
+\end{equation}
+The existence of these charges is the algebraic reason why scattering is
+elastic and factorized.
+
+\begin{remark}[Integrability is stronger than one conservation law]
+Translation invariance gives momentum conservation, and time-translation
+invariance gives energy conservation.  These two conservation laws are not enough
+to solve an interacting many-body problem.  Bethe-ansatz integrability requires an
+infinite tower of mutually commuting charges, generated by a commuting family of
+transfer matrices.
+\end{remark}
+
+\section{Coordinate Bethe ansatz versus algebraic Bethe ansatz}
+\label{sec:coordinate-vs-algebraic-ba-preview}
+
+There are two complementary ways to use this structure.
+
+\subsection{Coordinate Bethe ansatz}
+
+The coordinate Bethe ansatz works directly with wave functions such as
+\cref{eq:coordinate-ba-wavefunction-preview}.  Its main steps are:
+\begin{enumerate}[label=(\roman*)]
+    \item choose a simple reference state;
+    \item construct $M$-particle wave functions in ordered coordinate sectors;
+    \item impose contact conditions when particles become adjacent;
+    \item extract two-body scattering phases;
+    \item impose periodic boundary conditions to obtain Bethe equations.
+\end{enumerate}
+This method is concrete and physically transparent.  It is especially useful for
+the XXX and XXZ chains and will be developed in the coordinate Bethe-ansatz
+chapter.
+
+\subsection{Algebraic Bethe ansatz}
+
+The algebraic Bethe ansatz starts from the monodromy matrix.  For a spin-$1/2$
+chain the monodromy matrix is a $2\times2$ matrix in the auxiliary space,
+\begin{equation}
+\label{eq:monodromy-ABCD-preview}
+    M_a(u)
+    =
+    \begin{pmatrix}
+    A(u)&B(u)\\
+    C(u)&D(u)
+    \end{pmatrix}_a,
+\end{equation}
+where $A,B,C,D$ are operators acting on the quantum spin chain.  The transfer
+matrix is
+\begin{equation}
+    \tau(u)=A(u)+D(u).
+\end{equation}
+One chooses a reference state $\ket{0}$ such that
+\begin{equation}
+    C(u)\ket{0}=0,
+    \qquad
+    A(u)\ket{0}=a(u)\ket{0},
+    \qquad
+    D(u)\ket{0}=d(u)\ket{0} .
+\end{equation}
+The operator $B(u)$ creates Bethe excitations:
+\begin{equation}
+\label{eq:algebraic-bethe-state-preview}
+    \ket{\lambda_1,\ldots,\lambda_M}
+    =B(\lambda_1)\cdots B(\lambda_M)\ket{0} .
+\end{equation}
+The RTT relation determines how $A(u)$ and $D(u)$ commute through the $B$'s.  The
+unwanted terms vanish exactly when the rapidities satisfy the Bethe equations.
+Then \cref{eq:algebraic-bethe-state-preview} is an eigenstate of $\tau(u)$ and
+therefore also of the Hamiltonian extracted from $\log\tau(u)$.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L{0.28\textwidth}Y Y}
+\toprule
+Approach & Main object & Best use \\
+\midrule
+Coordinate Bethe ansatz & Piecewise plane-wave many-body wave function & Direct derivation of scattering phases and Bethe equations \\
+Algebraic Bethe ansatz & Monodromy matrix and RTT algebra & Systematic construction of eigenstates from $B(u)$ operators \\
+Transfer-matrix method & Commuting family $\tau(u)$ & Conserved charges and Hamiltonian limits of vertex models \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Relation to free-fermion solvability}
+\label{sec:bethe-vs-free-fermion-preview}
+
+It is useful to compare the free-fermion and Bethe-ansatz mechanisms.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L{0.26\textwidth}Y Y}
+\toprule
+Feature & Free-fermion/BdG solvability & Bethe/Yang--Baxter integrability \\
+\midrule
+Elementary objects & Independent fermionic modes or quasiparticles & Interacting Bethe quasiparticles with rapidities \\
+Many-body construction & Fill independent modes & Solve coupled Bethe equations \\
+Scattering & Trivial exchange signs or BdG mixing & Nontrivial two-body phase or matrix scattering \\
+Conserved quantities & Quadratic mode occupations & Infinite tower from $\log\tau(u)$ \\
+Representative models & XY, TFIM, Kitaev, SSH & XXX, XXZ, XYZ, six-vertex, Hubbard \\
+Core algebra & Canonical anticommutation and Bogoliubov rotation & Yang--Baxter equation and RTT relation \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The XX chain sits at the overlap between these viewpoints.  It is the
+$\Delta=0$ limit of the XXZ chain and is also free after the Jordan--Wigner
+transformation.  From the Bethe-ansatz perspective, its scattering phase reduces
+to the fermionic exchange sign.  From the free-fermion perspective, it is simply a
+number-conserving tight-binding chain.  This overlap is a useful consistency
+check between the two solution languages.
+
+\section{Physical interpretation of rapidities}
+\label{sec:rapidities-preview}
+
+In relativistic field theory a rapidity directly parametrizes energy and momentum.
+In lattice Bethe ansatz, the word is used more broadly: a rapidity is a spectral
+parameter that uniformizes the dispersion and scattering.  The physical momentum
+is a function of rapidity,
+\begin{equation}
+    p=p(\lambda),
+\end{equation}
+and the two-body scattering depends only on rapidity differences in many
+homogeneous integrable models,
+\begin{equation}
+    S(\lambda_i,\lambda_j)=S(\lambda_i-\lambda_j).
+\end{equation}
+This difference property is one reason why the Yang--Baxter equation becomes a
+tractable functional equation for $R(u)$.
+
+For the XXX chain one often uses
+\begin{equation}
+\label{eq:xxx-momentum-rapidity-preview}
+    \ee^{\ii p(\lambda)}
+    =
+    \frac{\lambda+\ii/2}{\lambda-\ii/2} .
+\end{equation}
+Then \cref{eq:xxx-bethe-equations-preview} has the direct interpretation
+\begin{equation}
+    \ee^{\ii p(\lambda_j)L}
+    =
+    \prod_{\ell\neq j}S(\lambda_j-\lambda_\ell),
+    \qquad
+    S(\lambda)=\frac{\lambda+\ii}{\lambda-\ii} .
+\end{equation}
+
+\section{What Yang--Baxter integrability does not mean}
+\label{sec:what-integrability-does-not-mean}
+
+The term ``integrable'' is used in several related but distinct senses.  In these
+notes, Yang--Baxter integrability will mean the existence of an $R$-matrix
+satisfying the Yang--Baxter equation, a commuting transfer-matrix family, and a
+Hamiltonian obtained from a logarithmic derivative.  This is stronger than merely
+knowing many exact eigenstates or finding one special solvable point.
+
+There are several useful cautions.
+\begin{enumerate}[label=(\roman*)]
+    \item A model may be exactly solvable by free fermions without requiring a
+    nontrivial Yang--Baxter structure.
+    \item A model may have a transfer matrix but not a commuting family
+    $\tau(u)$ for all spectral parameters.
+    \item Self-duality may identify a candidate critical point, but it is not the
+    same as Bethe-ansatz integrability.
+    \item Topological two-band classification concerns eigenvector winding or
+    Chern structure; Yang--Baxter integrability concerns factorized scattering
+    and commuting transfer matrices.
+\end{enumerate}
+The value of the mother-model perspective is that these solution mechanisms can
+be compared without conflating them.
+
+\section{Roadmap to the later integrable chapters}
+\label{sec:integrability-roadmap-preview}
+
+The material in this preview will be used later in three directions.
+
+\begin{enumerate}[label=(\roman*)]
+    \item The six-vertex model will provide the canonical example of an
+    $R$-matrix satisfying the Yang--Baxter equation.
+    \item The Hamiltonian limit of the six-vertex transfer matrix will give the
+    XXZ spin chain.
+    \item The coordinate Bethe ansatz will solve the XXZ chain by deriving the
+    many-body Bethe equations from factorized scattering.
+    \item The algebraic Bethe ansatz will solve the same chain from the RTT
+    relation and the operator algebra of $A(u),B(u),C(u),D(u)$.
+    \item The Hubbard chain will require a nested Bethe ansatz because its
+    quasiparticles carry more than one kind of internal degree of freedom.
+\end{enumerate}
+
+\section{Summary}
+\label{sec:bethe-yang-baxter-summary}
+
+The essential ideas are:
+\begin{enumerate}[label=(\roman*)]
+    \item Bethe ansatz replaces independent free modes by interacting rapidities
+    whose many-body scattering factorizes into two-body scattering.
+    \item The coordinate Bethe wave function is a sum of plane waves over
+    momentum permutations, with amplitudes related by two-body scattering
+    matrices or phases.
+    \item Periodic boundary conditions give Bethe equations of the form
+    $\ee^{\ii k_jL}=\prod_{\ell\neq j}S(k_j,k_\ell)$.
+    \item For matrix-valued scattering, three-body consistency is the
+    Yang--Baxter equation.
+    \item The $R$-matrix is both a local vertex weight in a two-dimensional
+    classical model and the algebraic scattering/intertwining object of a quantum
+    chain.
+    \item The Yang--Baxter equation implies the RTT relation, which implies
+    $[\tau(u),\tau(v)]=0$.
+    \item Expanding $\log\tau(u)$ produces mutually commuting conserved charges;
+    the quantum Hamiltonian appears as one of these charges.
+    \item The six-vertex model and the XXZ chain are the basic interacting
+    examples connecting transfer matrices, Bethe ansatz, and Yang--Baxter
+    integrability.
+\end{enumerate}

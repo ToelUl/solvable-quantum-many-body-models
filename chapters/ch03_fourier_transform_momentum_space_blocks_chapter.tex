@@ -1,0 +1,562 @@
+\chapter{Fourier Transform and Momentum-Space Blocks}
+\label{ch:fourier-transform-momentum-blocks}
+
+\section{Purpose of this chapter}
+
+After the Jordan--Wigner transformation, the spin chains of interest become
+fermionic lattice Hamiltonians.  For open chains, the resulting quadratic
+Hamiltonians can be diagonalized directly in real space.  For periodic and
+translation-invariant chains, however, the natural variables are momentum modes.
+The purpose of this chapter is to fix the Fourier-transform convention used in
+these notes and to explain why quadratic Hamiltonians decompose into independent
+momentum-space blocks.
+
+There are three convention-dependent points that must be fixed carefully:
+\begin{enumerate}[label=(\roman*)]
+    \item the sign convention in the Fourier transform;
+    \item the allowed momenta, which depend on the fermionic boundary condition;
+    \item the harmless but useful global phase that may be included in the
+    Fourier transform.
+\end{enumerate}
+The third point is especially convenient in superconducting chains, where the
+pairing gap may be complex.  A uniform phase of the pairing gap can often be moved
+between the Hamiltonian and the definition of the momentum-space fermions by a
+constant gauge rotation.
+
+\section{Discrete Fourier transform with a boundary twist}
+
+Consider a chain of length $L$ with fermionic operators $c_j,c_j^\dagger$,
+$j=1,\ldots,L$, satisfying
+\begin{equation}
+    \{c_i,c_j^\dagger\}=\delta_{ij},
+    \qquad
+    \{c_i,c_j\}=\{c_i^\dagger,c_j^\dagger\}=0.
+\end{equation}
+We impose the general boundary condition
+\begin{equation}
+\label{eq:general-fermion-boundary-condition}
+    c_{j+L}=\ee^{\ii\vartheta}c_j,
+    \qquad
+    \vartheta\in[0,2\pi).
+\end{equation}
+The phase $\vartheta$ is a boundary twist.  Periodic boundary conditions
+correspond to $\vartheta=0$, while anti-periodic boundary conditions correspond
+to $\vartheta=\pi$.
+
+The allowed momenta are the solutions of
+\begin{equation}
+    \ee^{\ii k L}=\ee^{\ii\vartheta}.
+\end{equation}
+Thus
+\begin{equation}
+\label{eq:allowed-momenta-with-twist}
+    k_m
+    =
+    \frac{2\pi m+\vartheta}{L},
+    \qquad
+    m=0,1,\ldots,L-1,
+\end{equation}
+where momenta are understood modulo $2\pi$.  We denote this finite set by
+\begin{equation}
+    \mathcal{K}_\vartheta
+    =
+    \left\{
+    \frac{2\pi m+\vartheta}{L}\;\middle|\;m=0,1,\ldots,L-1
+    \right\}.
+\end{equation}
+
+\begin{definition}[Fourier transform used in these notes]
+\label{def:fourier-transform-with-phase}
+For $k\in\mathcal{K}_\vartheta$, we define
+\begin{equation}
+\label{eq:fourier-transform-with-phase}
+    c_k
+    =
+    \frac{\ee^{-\ii\phi}}{\sqrt{L}}
+    \sum_{j=1}^{L}\ee^{-\ii k j}c_j,
+    \qquad
+    c_j
+    =
+    \frac{\ee^{\ii\phi}}{\sqrt{L}}
+    \sum_{k\in\mathcal{K}_\vartheta}\ee^{\ii k j}c_k.
+\end{equation}
+Here $\phi$ is a constant Fourier-gauge phase.  Unless otherwise stated, the
+default convention is $\phi=0$.
+\end{definition}
+
+The phase $\phi$ in \cref{eq:fourier-transform-with-phase} is the phase shown in
+the convention
+\begin{equation}
+    c_k
+    =
+    \frac{\ee^{-\ii\phi}}{\sqrt{L}}
+    \sum_{j=1}^{L}\ee^{-\ii k j}c_j,
+    \qquad
+    c_j
+    =
+    \frac{\ee^{\ii\phi}}{\sqrt{L}}
+    \sum_{k}\ee^{\ii k j}c_k.
+\end{equation}
+It is not a boundary twist.  The boundary twist is $\vartheta$, which changes the
+allowed values of $k$.  The constant phase $\phi$ only redefines every momentum
+operator by the same $U(1)$ phase.
+
+The inverse transform follows from the finite orthogonality relations
+\begin{equation}
+\label{eq:finite-fourier-orthogonality}
+    \frac{1}{L}\sum_{j=1}^{L}\ee^{\ii(k-k')j}
+    =
+    \delta_{k,k'},
+    \qquad
+    \frac{1}{L}\sum_{k\in\mathcal{K}_\vartheta}\ee^{\ii k(j-j')}
+    =
+    \delta_{j,j'} .
+\end{equation}
+The second identity is valid for $j,j'=1,\ldots,L$.  The common phase $\phi$ drops
+out of the orthogonality relations.
+
+\begin{proposition}[Canonical algebra in momentum space]
+The operators defined in \cref{eq:fourier-transform-with-phase} obey
+\begin{equation}
+    \{c_k,c_{k'}^\dagger\}=\delta_{k,k'},
+    \qquad
+    \{c_k,c_{k'}\}=\{c_k^\dagger,c_{k'}^\dagger\}=0 .
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Using the real-space canonical anticommutation relations,
+\begin{align}
+    \{c_k,c_{k'}^\dagger\}
+    &=
+    \frac{1}{L}
+    \sum_{j,j'=1}^{L}
+    \ee^{-\ii k j}\ee^{\ii k'j'}
+    \{c_j,c_{j'}^\dagger\}
+    \nonumber\\
+    &=
+    \frac{1}{L}\sum_{j=1}^{L}\ee^{\ii(k'-k)j}
+    =
+    \delta_{k,k'}.
+\end{align}
+The phases $\ee^{-\ii\phi}$ and $\ee^{\ii\phi}$ cancel.  The other
+anticommutators vanish in the same way.
+\end{proof}
+
+\begin{remark}[Choice of lattice origin]
+The transform above uses $\ee^{\ii k j}$ with $j=1,\ldots,L$.  Some books use
+$\ee^{\ii k(j-1)}$ instead.  This is only a $k$-dependent redefinition
+$c_k\mapsto \ee^{\ii k}c_k$.  It can shift phase factors between the Fourier
+transform and the momentum-space Hamiltonian, but it cannot change spectra,
+correlation functions, or topological invariants.  In these notes we keep the
+$j=1,\ldots,L$ convention to match the Jordan--Wigner chapters.
+\end{remark}
+
+\section{Allowed momenta in Jordan--Wigner parity sectors}
+
+For a periodic spin chain, the Jordan--Wigner transformation does not produce one
+single fermionic boundary condition.  Instead, the effective boundary condition
+depends on the fermion-parity sector.  With the convention used in these notes,
+\cref{eq:effective-jw-boundary-condition} gives
+\begin{equation}
+    c_{L+1}=-p\,c_1,
+    \qquad
+    p=(-1)^N=\pm1.
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:jw-parity-momentum-sectors}
+\begin{array}{c|c|c|c}
+    \text{fermion parity} & p & \text{boundary condition} & \text{allowed momenta} \\
+    \hline
+    \text{even} & +1 & c_{L+1}=-c_1
+    & k_m=\dfrac{(2m+1)\pi}{L} \\
+    \text{odd} & -1 & c_{L+1}=c_1
+    & k_m=\dfrac{2\pi m}{L}
+\end{array}
+\end{equation}
+with $m=0,1,\ldots,L-1$.
+
+This distinction is negligible for many bulk thermodynamic quantities in the
+limit $L\to\infty$, but it is essential for finite-size spectra, exact diagonal
+forms, and parity-sensitive ground-state questions.  In particular, periodic
+fermions may contain self-conjugate momenta satisfying
+\begin{equation}
+    k\equiv -k\pmod{2\pi}.
+\end{equation}
+For even $L$ and periodic boundary conditions, these are $k=0$ and $k=\pi$.  Such
+modes must be treated separately in a BdG decomposition because they are not paired
+with a distinct momentum $-k$.
+
+In the thermodynamic limit, for a smooth function $f(k)$,
+\begin{equation}
+\label{eq:thermodynamic-limit-momentum-sum}
+    \frac{1}{L}\sum_{k\in\mathcal{K}_\vartheta}f(k)
+    \longrightarrow
+    \int_{-\pi}^{\pi}\frac{\dd k}{2\pi}\,f(k).
+\end{equation}
+The boundary angle $\vartheta$ only shifts the mesh by an amount of order $1/L$.
+
+\section{Translation-invariant hopping terms}
+
+The main reason for using Fourier modes is that translation-invariant hopping
+terms are diagonal in momentum.  Consider
+\begin{equation}
+\label{eq:translation-invariant-hopping-real-space}
+    H_t
+    =
+    \sum_{j=1}^{L}\sum_{r}t_r\,c_j^\dagger c_{j+r},
+\end{equation}
+where the boundary condition is understood and the hopping amplitudes satisfy
+\begin{equation}
+    t_{-r}=t_r^*
+\end{equation}
+so that $H_t$ is Hermitian.  Substituting the Fourier transform gives
+\begin{align}
+    \sum_{j=1}^{L}c_j^\dagger c_{j+r}
+    &=
+    \sum_{k\in\mathcal{K}_\vartheta}
+    \ee^{\ii k r}c_k^\dagger c_k.
+\end{align}
+Therefore
+\begin{equation}
+\label{eq:hopping-dispersion-general}
+    H_t
+    =
+    \sum_{k\in\mathcal{K}_\vartheta}\xi(k)c_k^\dagger c_k,
+    \qquad
+    \xi(k)=\sum_{r}t_r\ee^{\ii k r}.
+\end{equation}
+The Fourier-gauge phase $\phi$ cancels from all number-conserving bilinears.
+
+\begin{example}[Nearest-neighbour tight-binding chain]
+For
+\begin{equation}
+    H_t=-t\sum_j\left(c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j\right)
+    -\mu\sum_j c_j^\dagger c_j,
+\end{equation}
+we obtain
+\begin{equation}
+    H_t=
+    \sum_k\xi(k)c_k^\dagger c_k,
+    \qquad
+    \xi(k)=-\mu-2t\cos k.
+\end{equation}
+This is the normal-state dispersion that appears in the Kitaev chain and in the
+fermionic image of the transverse-field XY chain.
+\end{example}
+
+\section{Translation-invariant pairing terms}
+
+Superconducting or Jordan--Wigner-transformed anisotropic spin chains contain
+terms that do not conserve fermion number but do conserve fermion parity.  A
+convenient translation-invariant pairing Hamiltonian is
+\begin{equation}
+\label{eq:general-pairing-creation-form}
+    H_\Delta
+    =
+    \frac{1}{2}\sum_{j=1}^{L}\sum_r
+    \left(
+    \Delta_r c_j^\dagger c_{j+r}^\dagger
+    +
+    \Delta_r^* c_{j+r}c_j
+    \right).
+\end{equation}
+For spinless fermions, only the antisymmetric part of the pairing is physical,
+so one may take
+\begin{equation}
+    \Delta_{-r}=-\Delta_r.
+\end{equation}
+The Fourier transform gives
+\begin{equation}
+\label{eq:momentum-space-pairing-gap-general}
+    H_\Delta
+    =
+    \frac{1}{2}\sum_{k\in\mathcal{K}_\vartheta}
+    \left[
+    \Delta_\phi(k)c_k^\dagger c_{-k}^\dagger
+    +
+    \Delta_\phi(k)^*c_{-k}c_k
+    \right],
+\end{equation}
+where
+\begin{equation}
+\label{eq:gap-function-with-fourier-phase}
+    \Delta_\phi(k)
+    =
+    \ee^{-2\ii\phi}
+    \sum_r\Delta_r\ee^{\ii k r}.
+\end{equation}
+Thus the additional Fourier phase does not affect hopping terms, but it rotates
+the superconducting gap by twice the phase.  This factor of two is simply the
+charge-two nature of a Cooper-pair operator: a pair creation operator contains two
+fermion creation operators.
+
+If the pairing is written instead in the annihilation form
+\begin{equation}
+    \sum_{j,r}\left(\widetilde{\Delta}_r c_jc_{j+r}
+    +\widetilde{\Delta}_r^*c_{j+r}^\dagger c_j^\dagger\right),
+\end{equation}
+then the coefficient of the annihilation term transforms with $\ee^{+2\ii\phi}$.
+The two statements are the same convention expressed from opposite sides of the
+Hermitian conjugate pair.
+
+\section{BdG blocks for spinless superconducting chains}
+
+Combining the hopping and pairing terms, define the Nambu spinor
+\begin{equation}
+\label{eq:nambu-spinor-fourier-chapter}
+    \Psi_k
+    =
+    \begin{pmatrix}
+        c_k\\
+        c_{-k}^\dagger
+    \end{pmatrix}.
+\end{equation}
+Then a general spinless quadratic Hamiltonian can be written as
+\begin{equation}
+\label{eq:general-bdg-momentum-form-fourier-chapter}
+    H
+    =
+    \frac{1}{2}\sum_{k\in\mathcal{K}_\vartheta}
+    \Psi_k^\dagger\calH_{\rm BdG}(k)\Psi_k
+    +E_0,
+\end{equation}
+with
+\begin{equation}
+\label{eq:bdg-block-general-fourier-chapter}
+    \calH_{\rm BdG}(k)
+    =
+    \begin{pmatrix}
+        \xi(k) & \Delta_\phi(k)\\
+        \Delta_\phi(k)^* & -\xi(-k)
+    \end{pmatrix}.
+\end{equation}
+For most nearest-neighbour chains considered in these notes, $\xi(-k)=\xi(k)$ and
+$\Delta_\phi(-k)=-\Delta_\phi(k)$.
+
+Equivalently, after dropping any term proportional to the identity matrix, the BdG block can be
+written as
+\begin{equation}
+\label{eq:bdg-d-vector-fourier-chapter}
+    \calH_{\rm BdG}(k)
+    =
+    d_x(k)\tau_x+d_y(k)\tau_y+d_z(k)\tau_z,
+\end{equation}
+with
+\begin{equation}
+    d_x(k)=\operatorname{Re}\Delta_\phi(k),
+    \qquad
+    d_y(k)=-\operatorname{Im}\Delta_\phi(k),
+    \qquad
+    d_z(k)=\xi(k).
+\end{equation}
+The quasiparticle energies are
+\begin{equation}
+\label{eq:bdg-spectrum-fourier-chapter}
+    E_\pm(k)=\pm\sqrt{\xi(k)^2+\abs{\Delta_\phi(k)}^2}.
+\end{equation}
+Hence a constant Fourier-gauge phase changes the orientation of the vector
+$(d_x,d_y)$ in the pairing plane but does not change the spectrum.
+
+\section{Independent momentum-space blocks}
+
+A translation-invariant number-conserving quadratic Hamiltonian has the form
+\begin{equation}
+    H=\sum_k\xi(k)c_k^\dagger c_k.
+\end{equation}
+It is already decomposed into independent one-mode blocks labelled by $k$.
+
+A pairing Hamiltonian is different: it couples $k$ and $-k$.  Therefore its basic
+blocks are not single momenta but pairs $(k,-k)$.  Let $\mathcal{K}_+$ be a choice
+of one representative from each pair $\{k,-k\}$, excluding self-conjugate momenta.
+Then
+\begin{equation}
+\label{eq:paired-momentum-block-decomposition}
+    H
+    =
+    \sum_{k\in\mathcal{K}_+}H_{k,-k}
+    +H_{\rm self}
+    +E_0.
+\end{equation}
+Here $H_{\rm self}$ contains possible self-conjugate modes such as $k=0$ and
+$k=\pi$ under periodic boundary conditions.  For odd-parity spinless pairing,
+$\Delta_\phi(k)=0$ at self-conjugate momenta, so these modes remain unpaired.
+
+For a non-self-conjugate pair, the even-parity local Hilbert space is spanned by
+\begin{equation}
+    \ket{0}_{k,-k},
+    \qquad
+    c_k^\dagger c_{-k}^\dagger\ket{0}_{k,-k}.
+\end{equation}
+In this subspace, the BdG block describes a two-level system.  This is why the
+transverse-field Ising chain, the transverse-field XY chain, and the Kitaev chain
+all reduce to products of independent two-level problems in momentum space.
+
+\begin{principle}[Momentum-space block principle]
+A translation-invariant quadratic fermion Hamiltonian decomposes into independent
+momentum blocks.  Number-conserving Hamiltonians decompose into $k$ blocks.
+Spinless superconducting Hamiltonians decompose into $(k,-k)$ BdG blocks, plus
+possible self-conjugate modes.
+\end{principle}
+
+\section{Physical meaning of the extra Fourier phase}
+
+The constant phase $\phi$ in \cref{eq:fourier-transform-with-phase} implements the
+operator redefinition
+\begin{equation}
+    c_k^{(\phi)}=\ee^{-\ii\phi}c_k^{(0)}.
+\end{equation}
+In Nambu space,
+\begin{equation}
+    \Psi_k^{(\phi)}
+    =
+    \begin{pmatrix}
+        \ee^{-\ii\phi} & 0\\
+        0 & \ee^{\ii\phi}
+    \end{pmatrix}
+    \Psi_k^{(0)}
+    =
+    \ee^{-\ii\phi\tau_z}\Psi_k^{(0)}.
+\end{equation}
+Therefore BdG matrices in the two conventions are related by the unitary gauge
+transformation
+\begin{equation}
+\label{eq:bdg-gauge-transformation-fourier-phase}
+    \calH_{\rm BdG}^{(\phi)}(k)
+    =
+    \ee^{-\ii\phi\tau_z}
+    \calH_{\rm BdG}^{(0)}(k)
+    \ee^{\ii\phi\tau_z}.
+\end{equation}
+This rotates the $\tau_x$--$\tau_y$ components of the BdG vector by a constant
+angle and leaves $d_z(k)$ invariant.
+
+The distinction between $\vartheta$ and $\phi$ is important:
+\begin{itemize}
+    \item $\vartheta$ changes the boundary condition and therefore changes the
+    allowed momenta at finite $L$;
+    \item $\phi$ is a uniform gauge choice for momentum-space fermions and does
+    not change the allowed momenta.
+\end{itemize}
+A boundary twist can represent a physical flux through a ring.  A constant
+Fourier-gauge phase by itself cannot.
+
+\section{Example: complex pairing phase in the Kitaev chain}
+
+Consider the Kitaev chain written in the creation-pair convention
+\begin{equation}
+\label{eq:kitaev-chain-complex-gap-fourier-chapter}
+    H_{\rm K}
+    =
+    -\mu\sum_j\left(c_j^\dagger c_j-\frac{1}{2}\right)
+    -t\sum_j\left(c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j\right)
+    +\sum_j\left(
+        \Delta c_j^\dagger c_{j+1}^\dagger
+        +
+        \Delta^* c_{j+1}c_j
+    \right),
+\end{equation}
+where
+\begin{equation}
+    \Delta=\abs{\Delta}\ee^{\ii\theta_\Delta}.
+\end{equation}
+Using \cref{eq:gap-function-with-fourier-phase}, the off-diagonal BdG gap is
+\begin{equation}
+\label{eq:kitaev-gap-with-fourier-phase}
+    \Delta_\phi(k)
+    =
+    2\ii\abs{\Delta}\,
+    \ee^{\ii(\theta_\Delta-2\phi)}\sin k.
+\end{equation}
+The normal dispersion is
+\begin{equation}
+    \xi(k)=-\mu-2t\cos k.
+\end{equation}
+Thus
+\begin{equation}
+\label{eq:kitaev-bdg-complex-gap-fourier-chapter}
+    \calH_{\rm K}(k)
+    =
+    \begin{pmatrix}
+        \xi(k) & 2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k\\
+        -2\ii\abs{\Delta}\ee^{-\ii(\theta_\Delta-2\phi)}\sin k & -\xi(k)
+    \end{pmatrix}.
+\end{equation}
+The spectrum is
+\begin{equation}
+    E_\pm(k)
+    =
+    \pm\sqrt{\left(\mu+2t\cos k\right)^2
+    +4\abs{\Delta}^2\sin^2k},
+\end{equation}
+which is independent of $\theta_\Delta$ and $\phi$.
+
+Equation \cref{eq:kitaev-gap-with-fourier-phase} shows the role of the extra
+Fourier phase.  Choosing
+\begin{equation}
+    \phi=\frac{\theta_\Delta}{2}
+\end{equation}
+removes the explicit superconducting phase from the gap and gives the standard
+purely imaginary $p$-wave form
+\begin{equation}
+    \Delta_\phi(k)=2\ii\abs{\Delta}\sin k.
+\end{equation}
+Alternatively, one may choose a different $\phi$ to make the off-diagonal gap point
+along another fixed direction in the $\tau_x$--$\tau_y$ plane.
+
+For an isolated uniform Kitaev chain, the global phase $\theta_\Delta$ is therefore
+not an independent bulk observable.  It is a superconducting gauge phase.  The
+bulk spectrum and the topological phase boundary
+\begin{equation}
+    \abs{\mu}=2\abs{t}
+\end{equation}
+are unchanged by it.  What is physical is a gauge-invariant relative phase: for
+example, the phase difference between two superconductors in a Josephson junction,
+a spatial gradient of the superconducting phase, or a boundary twist that cannot
+be removed globally.  In such situations the phase is tied to current, flux, or
+junction physics and cannot be discarded as a mere convention.
+
+From the BdG-vector viewpoint, a uniform complex phase of $\Delta$ rotates the
+closed curve
+\begin{equation}
+    k\mapsto (d_x(k),d_y(k),d_z(k))
+\end{equation}
+around the $d_z$ axis.  This does not change whether the curve winds around the
+origin in the pairing plane.  Hence the topological classification of the uniform
+Kitaev chain is unaffected by the constant gap phase, even though the explicit
+matrix representation of the BdG block changes.
+
+\section{Summary of conventions}
+
+The Fourier convention used in the rest of these notes is
+\begin{equation}
+    c_k
+    =
+    \frac{\ee^{-\ii\phi}}{\sqrt{L}}
+    \sum_{j=1}^{L}\ee^{-\ii k j}c_j,
+    \qquad
+    c_j
+    =
+    \frac{\ee^{\ii\phi}}{\sqrt{L}}
+    \sum_{k\in\mathcal{K}_\vartheta}\ee^{\ii k j}c_k,
+\end{equation}
+with default $\phi=0$.  The allowed momenta are
+\begin{equation}
+    k_m=\frac{2\pi m+\vartheta}{L},
+    \qquad
+    m=0,1,\ldots,L-1.
+\end{equation}
+For Jordan--Wigner fermions obtained from a periodic spin chain,
+\begin{equation}
+\begin{array}{c|c|c}
+    \text{sector} & \text{boundary condition} & \text{momenta} \\
+    \hline
+    (-1)^N=+1 & \text{anti-periodic} & k_m=\dfrac{(2m+1)\pi}{L} \\
+    (-1)^N=-1 & \text{periodic} & k_m=\dfrac{2\pi m}{L}
+\end{array}
+\end{equation}
+Number-conserving hopping terms give one-mode blocks labelled by $k$.  Pairing
+terms give BdG blocks labelled by $(k,-k)$.  The extra phase $\phi$ is a useful
+Fourier-gauge convention: it cancels from hopping terms but shifts the phase of a
+pairing gap by twice its value.

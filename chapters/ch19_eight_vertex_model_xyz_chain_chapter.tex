@@ -1,0 +1,609 @@
+\chapter{Eight-Vertex Model and the XYZ Chain}
+\label{chap:eight-vertex-xyz}
+
+The six-vertex model is the vertex-model counterpart of the XXZ chain.  Its ice
+rule gives a local $U(1)$ conservation law, and the trigonometric $R$-matrix gives
+an interacting but integrable quantum spin chain.  The eight-vertex model is the
+next member in the same hierarchy.  It relaxes the ice rule while preserving an
+even-arrow, or $\ZZ_2$, constraint.  Algebraically this replaces the six-vertex
+$R$-matrix by an elliptic $R$-matrix.  The Hamiltonian limit is no longer XXZ but
+the fully anisotropic XYZ spin chain.
+
+The exact correspondence is
+\[
+\begin{aligned}
+    \text{eight-vertex transfer matrix}
+    &\quad\Longrightarrow\quad
+    \text{elliptic Yang--Baxter equation}\\
+    &\quad\Longrightarrow\quad
+    \text{XYZ Hamiltonian}.
+\end{aligned}
+\]
+The important conceptual change from the previous chapter is that the model is
+still Yang--Baxter integrable, but it is no longer organized by total
+magnetization sectors.  The missing $U(1)$ symmetry is the main reason why the
+solution of the eight-vertex model is technically harder than the six-vertex
+case.
+
+This chapter does not derive Baxter's full solution.  Its goal is to set up the
+model, state the elliptic $R$-matrix structure, and derive the Hamiltonian limit
+that produces the XYZ chain.  Baxter's $TQ$ relation and the full spectral theory
+belong to a more advanced treatment of elliptic integrability.
+
+\section{Eight allowed vertices and local weights}
+\label{sec:eight-vertex-local-weights}
+
+The eight-vertex model is a classical statistical model on the square lattice.
+As in the six-vertex model, arrows live on edges and a Boltzmann weight is
+assigned to each vertex.  The local constraint is weaker than the ice rule:
+\begin{equation}
+\label{eq:eight-vertex-even-arrow-rule}
+    \text{an allowed vertex has an even number of arrows pointing in.}
+\end{equation}
+Equivalently, the allowed numbers of incoming arrows are $0$, $2$, and $4$.
+There are therefore eight allowed local configurations.  The six ice-rule
+vertices are included, and the two additional vertices have all arrows pointing
+in or all arrows pointing out.
+
+In spin notation a local vertex weight is an operator on
+$V\otimes V$, where $V\simeq\CC^2$.  We use the same ordered basis as in the
+six-vertex chapter,
+\begin{equation}
+    \ket{\uparrow\uparrow},\quad
+    \ket{\uparrow\downarrow},\quad
+    \ket{\downarrow\uparrow},\quad
+    \ket{\downarrow\downarrow}.
+\end{equation}
+A standard symmetric eight-vertex weight matrix has the form
+\begin{equation}
+\label{eq:eight-vertex-R-abcd}
+    R=
+    \begin{pmatrix}
+        a&0&0&d\\
+        0&b&c&0\\
+        0&c&b&0\\
+        d&0&0&a
+    \end{pmatrix}.
+\end{equation}
+The six-vertex model is recovered when $d=0$.  The extra $d$-terms are the new
+eight-vertex processes
+\begin{equation}
+\label{eq:eight-vertex-pair-flip-processes}
+    \ket{\uparrow\uparrow}\longleftrightarrow\ket{\downarrow\downarrow}.
+\end{equation}
+They change the total $S^z$ of the two lines by two units.  Thus the model no
+longer conserves total $S^z$, but it conserves its parity.
+
+\begin{proposition}[$\ZZ_2$ conservation]
+Let
+\begin{equation}
+    Q_2=\sigma^z\otimes\sigma^z .
+\end{equation}
+For the eight-vertex weight \cref{eq:eight-vertex-R-abcd},
+\begin{equation}
+\label{eq:eight-vertex-local-Z2-conservation}
+    [R,Q_2]=0 .
+\end{equation}
+However, for $d\neq0$,
+\begin{equation}
+    \left[R,\sigma^z\otimes\id+\id\otimes\sigma^z\right]\neq0 .
+\end{equation}
+Thus the local $U(1)$ conservation of the six-vertex model is reduced to a
+$\ZZ_2$ parity conservation.
+\end{proposition}
+
+\begin{proof}
+The diagonal $a$ and $b$ processes clearly preserve both the total $z$-spin and
+its parity.  The $c$ processes exchange
+$\ket{\uparrow\downarrow}$ and $\ket{\downarrow\uparrow}$, so they also preserve
+total $z$-spin.  The $d$ processes exchange
+$\ket{\uparrow\uparrow}$ and $\ket{\downarrow\downarrow}$, changing total $S^z$
+by $\pm2$ but preserving the eigenvalue of $\sigma^z\otimes\sigma^z$.  This is
+exactly \cref{eq:eight-vertex-local-Z2-conservation}.
+\end{proof}
+
+\begin{remark}[Why the eight-vertex model is harder]
+The six-vertex transfer matrix decomposes into fixed-magnetization sectors.  This
+sector decomposition is the basic input behind the usual algebraic Bethe ansatz
+with a simple ferromagnetic reference state.  In the eight-vertex model the
+$d$-processes destroy $S^z$ conservation, so the standard highest-weight
+construction no longer applies directly.  Baxter's solution replaces it with an
+elliptic functional-relation method.
+\end{remark}
+
+\section{Row-to-row transfer matrix}
+\label{sec:eight-vertex-transfer-matrix}
+
+The transfer-matrix construction is formally the same as in the six-vertex
+model.  On a row of length $L$, the row space is
+\begin{equation}
+\label{eq:eight-vertex-row-space}
+    \calH_L=V_1\otimes V_2\otimes\cdots\otimes V_L,
+    \qquad V_j\simeq\CC^2 .
+\end{equation}
+Introduce an auxiliary space $V_a\simeq\CC^2$.  Given a spectral-parameter family
+$R(u)$ of eight-vertex weights, define the monodromy matrix
+\begin{equation}
+\label{eq:eight-vertex-monodromy}
+    M_a(u)=R_{aL}(u)R_{a,L-1}(u)\cdots R_{a1}(u),
+\end{equation}
+and the row-to-row transfer matrix
+\begin{equation}
+\label{eq:eight-vertex-transfer-matrix}
+    \tau(u)=\Tr_a M_a(u)
+    =\Tr_a\!\left[R_{aL}(u)R_{a,L-1}(u)\cdots R_{a1}(u)\right] .
+\end{equation}
+For an $L\times M$ torus,
+\begin{equation}
+\label{eq:eight-vertex-partition-function}
+    Z_{L,M}(u)=\Tr_{\calH_L}\tau(u)^M .
+\end{equation}
+The spectrum of $\tau(u)$ controls the thermodynamic limit of the classical
+model.
+
+Because of the local parity conservation in
+\cref{eq:eight-vertex-local-Z2-conservation}, the transfer matrix commutes with
+the global spin-parity operator
+\begin{equation}
+\label{eq:eight-vertex-global-parity}
+    \mathcal{P}=\prod_{j=1}^{L}\sigma_j^z,
+    \qquad
+    [\tau(u),\mathcal{P}]=0 .
+\end{equation}
+For $d\neq0$ one does not generally have
+\begin{equation}
+    [\tau(u),S^z_{\rm tot}]=0,
+    \qquad
+    S^z_{\rm tot}=\frac12\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+This is the transfer-matrix reflection of the fact that the corresponding XYZ
+Hamiltonian has only a discrete spin-flip/parity symmetry, not a continuous
+$U(1)$ symmetry.
+
+\section{Baxter's elliptic parametrization}
+\label{sec:baxter-elliptic-parametrization}
+
+A generic matrix of the form \cref{eq:eight-vertex-R-abcd} does not automatically
+produce commuting transfer matrices.  Integrability requires that the weights be
+embedded in an elliptic spectral-parameter family satisfying the Yang--Baxter
+equation.
+
+Let $\vartheta_1(u)$ and $\vartheta_4(u)$ denote Jacobi theta functions with a
+fixed nome $q$, $\abs{q}<1$.  Let $\eta$ be the crossing parameter.  One common
+Baxter parametrization, shifted so that the regular point is at $u=0$, is
+\begin{equation}
+\label{eq:eight-vertex-elliptic-weights}
+\begin{aligned}
+    a(u)&=\rho\,\vartheta_4(2\eta)\,\vartheta_4(u)\,\vartheta_1(u+2\eta),\\
+    b(u)&=\rho\,\vartheta_4(2\eta)\,\vartheta_1(u)\,\vartheta_4(u+2\eta),\\
+    c(u)&=\rho\,\vartheta_1(2\eta)\,\vartheta_4(u)\,\vartheta_4(u+2\eta),\\
+    d(u)&=\rho\,\vartheta_1(2\eta)\,\vartheta_1(u)\,\vartheta_1(u+2\eta).
+\end{aligned}
+\end{equation}
+Here $\rho$ is an arbitrary nonzero scalar normalization.  The corresponding
+$R$-matrix is
+\begin{equation}
+\label{eq:eight-vertex-R-u}
+    R(u)=
+    \begin{pmatrix}
+        a(u)&0&0&d(u)\\
+        0&b(u)&c(u)&0\\
+        0&c(u)&b(u)&0\\
+        d(u)&0&0&a(u)
+    \end{pmatrix}.
+\end{equation}
+Since $\vartheta_1(0)=0$ and $\vartheta_4'(0)=0$, the regular point satisfies
+\begin{equation}
+\label{eq:eight-vertex-regularity}
+    b(0)=d(0)=0,
+    \qquad
+    a(0)=c(0)=\rho_0,
+\end{equation}
+where
+\begin{equation}
+\label{eq:eight-vertex-rho0}
+    \rho_0
+    =\rho\,\vartheta_4(0)\vartheta_4(2\eta)\vartheta_1(2\eta).
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:eight-vertex-R0-P}
+    R(0)=\rho_0 P,
+\end{equation}
+where $P$ is the two-spin permutation operator,
+\begin{equation}
+\label{eq:eight-vertex-permutation-operator}
+    P\ket{\alpha}\otimes\ket{\beta}
+    =\ket{\beta}\otimes\ket{\alpha}.
+\end{equation}
+
+\begin{remark}[Normalization and shift conventions]
+The eight-vertex literature contains several equivalent theta-function
+conventions.  Some place the regular point at $u=\eta$ rather than $u=0$, and
+some use theta functions denoted by $H$ and $\Theta$.  The convention in
+\cref{eq:eight-vertex-elliptic-weights} is chosen to match the Hamiltonian-limit
+convention used in these notes: $R(0)$ is proportional to the permutation
+operator.
+\end{remark}
+
+For the family \cref{eq:eight-vertex-R-u}, the Yang--Baxter equation takes the
+same formal form as in the six-vertex case:
+\begin{equation}
+\label{eq:eight-vertex-YBE}
+    R_{12}(u-v)R_{13}(u-w)R_{23}(v-w)
+    =
+    R_{23}(v-w)R_{13}(u-w)R_{12}(u-v).
+\end{equation}
+This identity is a nontrivial theta-function identity.  Its consequence is the
+commutativity of transfer matrices:
+\begin{equation}
+\label{eq:eight-vertex-commuting-transfer-matrices}
+    [\tau(u),\tau(v)]=0
+    \qquad
+    \text{for all }u,v .
+\end{equation}
+Thus the eight-vertex model is integrable in the same structural sense as the
+six-vertex model: there is a one-parameter commuting family of transfer
+matrices.
+
+\begin{principle}[Elliptic integrability]
+The hierarchy
+\begin{equation}
+    \text{rational }R\text{-matrix}
+    \longrightarrow
+    \text{trigonometric }R\text{-matrix}
+    \longrightarrow
+    \text{elliptic }R\text{-matrix}
+\end{equation}
+corresponds, respectively, to the XXX, XXZ, and XYZ spin chains.  The eight-vertex
+model is the elliptic vertex model whose Hamiltonian limit is the XYZ chain.
+\end{principle}
+
+A useful way to see the difference from the six-vertex model is the Pauli-basis
+form.  Since
+\begin{align}
+    \id\otimes\id
+    &\mapsto
+    \begin{pmatrix}
+        1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1
+    \end{pmatrix},\\
+    \sigma^x\otimes\sigma^x
+    &\mapsto
+    \begin{pmatrix}
+        0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0
+    \end{pmatrix},\\
+    \sigma^y\otimes\sigma^y
+    &\mapsto
+    \begin{pmatrix}
+        0&0&0&-1\\0&0&1&0\\0&1&0&0\\-1&0&0&0
+    \end{pmatrix},\\
+    \sigma^z\otimes\sigma^z
+    &\mapsto
+    \begin{pmatrix}
+        1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&1
+    \end{pmatrix},
+\end{align}
+we may rewrite \cref{eq:eight-vertex-R-u} as
+\begin{equation}
+\label{eq:eight-vertex-R-Pauli-basis}
+    R(u)=
+    A(u)\,\id\otimes\id
+    +B(u)\,\sigma^x\otimes\sigma^x
+    +C(u)\,\sigma^y\otimes\sigma^y
+    +D(u)\,\sigma^z\otimes\sigma^z,
+\end{equation}
+with
+\begin{equation}
+\label{eq:eight-vertex-ABCD}
+    A(u)=\frac{a(u)+b(u)}{2},
+    \qquad
+    D(u)=\frac{a(u)-b(u)}{2},
+\end{equation}
+\begin{equation}
+\label{eq:eight-vertex-BCD}
+    B(u)=\frac{c(u)+d(u)}{2},
+    \qquad
+    C(u)=\frac{c(u)-d(u)}{2}.
+\end{equation}
+The distinction between $\sigma^x\sigma^x$ and $\sigma^y\sigma^y$ is controlled
+by the $d$-weight.  When $d=0$, the coefficients of
+$\sigma^x\otimes\sigma^x$ and $\sigma^y\otimes\sigma^y$ coincide, and the model
+reduces to the six-vertex/XXZ type.
+
+\section{Hamiltonian limit and the XYZ chain}
+\label{sec:eight-vertex-xyz-hamiltonian-limit}
+
+The Hamiltonian limit is obtained from the logarithmic derivative of the transfer
+matrix at the regular point.  Because $R(0)=\rho_0P$, the transfer matrix at
+$u=0$ is proportional to the one-site translation operator.  The first derivative
+therefore gives a sum of local nearest-neighbour terms.
+
+\begin{proposition}[Hamiltonian from the eight-vertex transfer matrix]
+Let $\tau(u)$ be the periodic transfer matrix built from the regular
+$R$-matrix \cref{eq:eight-vertex-R-u}.  Define
+\begin{equation}
+\label{eq:eight-vertex-H-log-derivative}
+    H_{\rm XYZ}
+    =\left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}.
+\end{equation}
+After dropping an additive scalar multiple of the identity and allowing an
+overall energy-scale normalization, one obtains
+\begin{equation}
+\label{eq:XYZ-Hamiltonian-main}
+    H_{\rm XYZ}
+    =
+    \sum_{j=1}^{L}
+    \left(
+        J_x\,\sigma_j^x\sigma_{j+1}^x
+        +J_y\,\sigma_j^y\sigma_{j+1}^y
+        +J_z\,\sigma_j^z\sigma_{j+1}^z
+    \right),
+    \qquad
+    \sigma_{L+1}^{\alpha}\equiv\sigma_1^{\alpha}.
+\end{equation}
+The three couplings are determined by the first derivatives of the vertex
+weights at the regular point:
+\begin{equation}
+\label{eq:eight-vertex-Jxyz-from-weight-derivatives}
+    J_x=\frac{b'(0)+d'(0)}{2\rho_0},
+    \qquad
+    J_y=\frac{b'(0)-d'(0)}{2\rho_0},
+    \qquad
+    J_z=\frac{a'(0)-c'(0)}{2\rho_0}.
+\end{equation}
+The discarded additive constant is
+\begin{equation}
+\label{eq:eight-vertex-additive-constant}
+    E_0=\frac{a'(0)+c'(0)}{2\rho_0}
+\end{equation}
+per bond.
+\end{proposition}
+
+\begin{proof}
+By regularity, $R(0)=\rho_0P$.  The standard transfer-matrix argument gives a
+local logarithmic derivative
+\begin{equation}
+\label{eq:eight-vertex-local-h-P-Rprime}
+    h_{j,j+1}=\frac{1}{\rho_0}P_{j,j+1}R'_{j,j+1}(0).
+\end{equation}
+For the matrix form \cref{eq:eight-vertex-R-u},
+\begin{equation}
+\label{eq:eight-vertex-PRprime-matrix}
+    \frac{1}{\rho_0}PR'(0)
+    =\frac{1}{\rho_0}
+    \begin{pmatrix}
+        a'(0)&0&0&d'(0)\\
+        0&c'(0)&b'(0)&0\\
+        0&b'(0)&c'(0)&0\\
+        d'(0)&0&0&a'(0)
+    \end{pmatrix}.
+\end{equation}
+Comparing this matrix with
+\begin{equation}
+\label{eq:eight-vertex-local-XYZ-comparison}
+    E_0\id
+    +J_x\sigma^x\otimes\sigma^x
+    +J_y\sigma^y\otimes\sigma^y
+    +J_z\sigma^z\otimes\sigma^z
+\end{equation}
+gives exactly \cref{eq:eight-vertex-Jxyz-from-weight-derivatives} and
+\cref{eq:eight-vertex-additive-constant}.
+\end{proof}
+
+For the theta-function weights in \cref{eq:eight-vertex-elliptic-weights}, these
+formulas give
+\begin{equation}
+\label{eq:eight-vertex-JxJy-theta}
+    J_x
+    =
+    \frac{\vartheta_1'(0)}{2\vartheta_4(0)\vartheta_4(2\eta)\vartheta_1(2\eta)}
+    \left[\vartheta_4(2\eta)^2+\vartheta_1(2\eta)^2\right],
+\end{equation}
+\begin{equation}
+\label{eq:eight-vertex-Jy-theta}
+    J_y
+    =
+    \frac{\vartheta_1'(0)}{2\vartheta_4(0)\vartheta_4(2\eta)\vartheta_1(2\eta)}
+    \left[\vartheta_4(2\eta)^2-\vartheta_1(2\eta)^2\right],
+\end{equation}
+and
+\begin{equation}
+\label{eq:eight-vertex-Jz-theta}
+    J_z
+    =
+    \frac12
+    \left[
+        \frac{\vartheta_1'(2\eta)}{\vartheta_1(2\eta)}
+        -
+        \frac{\vartheta_4'(2\eta)}{\vartheta_4(2\eta)}
+    \right].
+\end{equation}
+These expressions depend on the chosen normalization of the spectral parameter.
+A rescaling $u\mapsto\lambda u$ rescales all three couplings by the common factor
+$\lambda$.  The physically meaningful anisotropies are the coupling ratios.
+
+\begin{remark}[Sign convention]
+Some condensed-matter texts write
+\begin{equation}
+    H=-\sum_j
+    \left(
+        J_x\sigma_j^x\sigma_{j+1}^x
+        +J_y\sigma_j^y\sigma_{j+1}^y
+        +J_z\sigma_j^z\sigma_{j+1}^z
+    \right).
+\end{equation}
+This differs from \cref{eq:XYZ-Hamiltonian-main} by redefining
+$J_{\alpha}\mapsto -J_{\alpha}$.  The integrable structure is unaffected by this
+overall convention.
+\end{remark}
+
+\section{Relation to the XXZ chain and special limits}
+\label{sec:eight-vertex-special-limits}
+
+The XYZ chain is the most general nearest-neighbour spin-$1/2$ chain with
+diagonal exchange couplings and no magnetic field:
+\begin{equation}
+\label{eq:XYZ-general-H}
+    H_{\rm XYZ}
+    =
+    \sum_j
+    \left(
+        J_x\sigma_j^x\sigma_{j+1}^x
+        +J_y\sigma_j^y\sigma_{j+1}^y
+        +J_z\sigma_j^z\sigma_{j+1}^z
+    \right).
+\end{equation}
+The XXZ chain is the special case
+\begin{equation}
+\label{eq:XXZ-as-XYZ-special-case}
+    J_x=J_y,
+    \qquad
+    J_z=\Delta J_x .
+\end{equation}
+In the vertex-model language this corresponds to the degeneration
+\begin{equation}
+\label{eq:eight-to-six-d-zero}
+    d(u)\to0,
+\end{equation}
+so that the eight-vertex $R$-matrix becomes a six-vertex $R$-matrix and the
+elliptic parametrization degenerates to a trigonometric one.  In theta-function
+language this occurs in the trigonometric limit of the elliptic nome.  In that
+limit the $d$-weight disappears, $J_x-J_y\to0$, and the $U(1)$ symmetry of the
+XXZ chain is restored.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Vertex model & Quantum chain & Symmetry \\
+\midrule
+Six-vertex & XXZ & $U(1)$ generated by $S^z_{\rm tot}$ \\
+Eight-vertex & XYZ & $\ZZ_2$ generated by $\prod_j\sigma_j^z$ \\
+Trigonometric $R$ & XXZ anisotropy & $J_x=J_y$ \\
+Elliptic $R$ & XYZ anisotropy & $J_x\neq J_y\neq J_z$ generically \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The transverse-field Ising and XY chains studied earlier in these notes are also
+anisotropic spin chains, but their solvability mechanism is different.  They
+become quadratic fermion models after the Jordan--Wigner transformation.  The
+generic XYZ chain does not become a free-fermion Hamiltonian under
+Jordan--Wigner; it becomes an interacting fermion model.  Its exact solvability
+comes instead from the commuting transfer matrices inherited from the elliptic
+Yang--Baxter equation.
+
+\section{Fermionic image and loss of free-fermion structure}
+\label{sec:XYZ-JW-image}
+
+It is useful to compare the XYZ chain with the XY mother model.  Write
+\begin{equation}
+\label{eq:XYZ-in-ladder-operators}
+\begin{aligned}
+    J_x\sigma_j^x\sigma_{j+1}^x+J_y\sigma_j^y\sigma_{j+1}^y
+    &=(J_x+J_y)
+    \left(\sigma_j^+\sigma_{j+1}^-+\sigma_j^-\sigma_{j+1}^+\right)\\
+    &\quad
+    +(J_x-J_y)
+    \left(\sigma_j^+\sigma_{j+1}^++\sigma_j^-\sigma_{j+1}^-\right).
+\end{aligned}
+\end{equation}
+The first line gives fermion hopping after Jordan--Wigner, while the second line
+gives fermion pairing.  The additional $J_z$ term gives
+\begin{equation}
+\label{eq:ZZ-to-density-interaction}
+    \sigma_j^z\sigma_{j+1}^z
+    =(1-2n_j)(1-2n_{j+1})
+    =1-2(n_j+n_{j+1})+4n_jn_{j+1},
+\end{equation}
+up to the convention for which spin state is identified with an occupied
+fermion.  Therefore the XYZ chain maps schematically to
+\begin{equation}
+\label{eq:XYZ-JW-schematic}
+    H_{\rm XYZ}
+    \longmapsto
+    H_{\rm hopping}+H_{\rm pairing}+4J_z\sum_j n_jn_{j+1}
+    +\text{chemical-potential and boundary terms}.
+\end{equation}
+The density-density interaction is absent only when $J_z=0$.  Hence the generic
+XYZ chain is not a quadratic BdG problem.
+
+\begin{remark}[Two different meanings of anisotropy]
+In the free-fermion XY chain, anisotropy between $x$ and $y$ exchange produces
+pairing but does not destroy quadratic solvability.  In the XYZ chain, the
+$J_z\sigma^z\sigma^z$ term produces a genuine fermion interaction.  Therefore
+``anisotropic spin chain'' does not by itself specify the solution method.
+\end{remark}
+
+\section{Baxter functional relations}
+\label{sec:eight-vertex-functional-relations}
+
+The six-vertex model can be diagonalized by coordinate or algebraic Bethe ansatz
+because the transfer matrix has a simple reference state, such as the all-up
+state.  The eight-vertex transfer matrix does not preserve the number of down
+spins, so that reference-state construction is not directly available.
+Baxter's solution instead uses functional relations.
+
+The central object is a second commuting family of operators $Q(u)$ satisfying a
+relation of the schematic form
+\begin{equation}
+\label{eq:eight-vertex-TQ-schematic}
+    \tau(u)Q(u)
+    =
+    \phi_+(u)Q(u-2\eta)+\phi_-(u)Q(u+2\eta),
+\end{equation}
+where $\phi_{\pm}(u)$ are known scalar functions determined by the elliptic
+weights and the system size.  On a common eigenvector of $\tau(u)$ and $Q(u)$,
+this becomes a scalar finite-difference equation for the transfer-matrix
+eigenvalue.
+
+\begin{principle}[Baxter's replacement for the Bethe ansatz]
+For the eight-vertex model, the role of Bethe roots is played by zeros of the
+$Q$-eigenvalue.  The Bethe equations arise from requiring the apparent poles or
+zeros in the $TQ$ relation to be consistent.  Thus the solution is still an
+exact spectral solution, but it is naturally formulated as an elliptic functional
+relation rather than as a magnon scattering problem.
+\end{principle}
+
+This is why the eight-vertex and XYZ models are often regarded as more advanced
+than the six-vertex and XXZ models.  They are not merely more anisotropic; they
+belong to the elliptic level of Yang--Baxter integrability.
+
+\section{Summary of the model hierarchy}
+\label{sec:eight-vertex-summary-hierarchy}
+
+The hierarchy developed in the last two chapters can be summarized as follows:
+\begin{equation}
+\label{eq:R-matrix-hierarchy-summary}
+\begin{array}{ccccc}
+\text{XXX chain}
+&\longleftrightarrow&
+\text{rational }R\text{-matrix}
+&\longleftrightarrow&
+\Delta=1,\\[3pt]
+\text{XXZ chain}
+&\longleftrightarrow&
+\text{trigonometric }R\text{-matrix}
+&\longleftrightarrow&
+J_x=J_y\neq J_z,\\[3pt]
+\text{XYZ chain}
+&\longleftrightarrow&
+\text{elliptic }R\text{-matrix}
+&\longleftrightarrow&
+J_x\neq J_y\neq J_z.
+\end{array}
+\end{equation}
+The same progression appears on the classical two-dimensional side:
+\begin{equation}
+\label{eq:vertex-model-hierarchy-summary}
+    \text{six-vertex model}
+    \subset
+    \text{eight-vertex model},
+\end{equation}
+where the inclusion is obtained by setting the pair-flip weight $d$ to zero.
+
+\boxedpar{%
+The eight-vertex model is the elliptic vertex model whose regular transfer
+matrix generates the XYZ chain.  Its solvability is not free-fermionic and not
+based on $U(1)$ magnon-number conservation.  It is Yang--Baxter integrability at
+the elliptic level, realized through commuting transfer matrices and Baxter
+functional relations.}

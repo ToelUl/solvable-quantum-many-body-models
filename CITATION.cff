@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use these lecture notes, please cite them using the metadata in this file."
+title: "Solvable Quantum Many-Body Models in Condensed Matter: Mother Models, Equivalence Maps, and Unified Solution Methods"
+authors:
+  - family-names: "Lee"
+    given-names: "Qian-Rui"
+version: "0.1.0"
+date-released: "2026-07-02"
+license: "CC-BY-NC-SA-4.0"
+type: "book"
+abstract: "Lecture notes on exactly solvable quantum many-body models in condensed matter physics, organized around mother models, equivalence maps, and unified solution methods."
+keywords:
+  - "quantum many-body physics"
+  - "condensed matter physics"
+  - "exactly solvable models"
+  - "Jordan-Wigner transformation"
+  - "Bethe ansatz"
+  - "transfer matrix"
+  - "spin chains"
+  - "topological phases"

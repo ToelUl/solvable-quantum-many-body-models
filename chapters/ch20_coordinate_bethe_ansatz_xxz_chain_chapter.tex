@@ -1,0 +1,517 @@
+\chapter{Coordinate Bethe Ansatz for the XXZ Chain}
+\label{chap:coordinate-bethe-ansatz-xxz}
+
+The preceding chapters introduced the XXZ chain as the Hamiltonian limit of the
+six-vertex transfer matrix.  We now solve the same quantum chain directly in real
+space.  This is the coordinate Bethe ansatz.  Its logic is deliberately close to
+ordinary few-body quantum mechanics: write a plane-wave superposition in each
+ordered coordinate sector, impose the Schrodinger equation at particle contact,
+and finally impose periodic boundary conditions.
+
+Throughout this chapter we use the integrability normalization obtained from the
+six-vertex logarithmic derivative,
+\begin{equation}
+\label{eq:cba-xxz-hamiltonian}
+    H_{\rm XXZ}^{(+)}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +\sigma_j^y\sigma_{j+1}^y
+        +\Delta\bigl(\sigma_j^z\sigma_{j+1}^z-1\bigr)
+    \right),
+\end{equation}
+with periodic boundary conditions $\sigma_{L+1}^\alpha=\sigma_1^\alpha$.  The
+fully polarized state
+\begin{equation}
+\label{eq:cba-ferromagnetic-reference}
+    \ket{0}=\ket{\uparrow\uparrow\cdots\uparrow}
+\end{equation}
+is an eigenstate with zero energy.  It is not necessarily the ground state of the
+antiferromagnetic chain, but it is the natural pseudovacuum for Bethe ansatz.
+Down spins above this reference state will be called magnons.
+
+The three goals of the chapter are:
+\begin{enumerate}[label=(\roman*)]
+    \item solve the one-magnon problem and identify the bare dispersion;
+    \item derive the two-magnon scattering amplitude from the contact equation;
+    \item assemble the $M$-magnon Bethe wave function and obtain the Bethe
+    equations.
+\end{enumerate}
+The result is the first genuinely interacting exact solution in these notes: the
+energy is additive in Bethe momenta, while the allowed momenta are determined by
+many-body quantization conditions containing all two-body phase shifts.
+
+\section{Conserved magnon number and coordinate basis}
+\label{sec:cba-coordinate-basis}
+
+Using
+\begin{equation}
+    \sigma_j^x\sigma_{j+1}^x+\sigma_j^y\sigma_{j+1}^y
+    =
+    2\left(\sigma_j^+\sigma_{j+1}^-+\sigma_j^-\sigma_{j+1}^+\right),
+\end{equation}
+one sees that the $XY$ part only exchanges neighboring up and down spins.  The
+total magnetization
+\begin{equation}
+\label{eq:cba-total-magnetization}
+    S^z_{\rm tot}=\frac12\sum_{j=1}^{L}\sigma_j^z
+\end{equation}
+therefore commutes with $H_{\rm XXZ}^{(+)}$.  Equivalently, the number of down
+spins is conserved.
+
+In the sector with $M$ down spins, a convenient basis is
+\begin{equation}
+\label{eq:cba-magnon-coordinate-basis}
+    \ket{x_1,\ldots,x_M}
+    =
+    \sigma_{x_1}^-\cdots\sigma_{x_M}^-\ket{0},
+    \qquad
+    1\leq x_1<x_2<\cdots<x_M\leq L .
+\end{equation}
+A general state in this sector is
+\begin{equation}
+\label{eq:cba-general-M-magnon-state}
+    \ket{\Psi_M}
+    =
+    \sum_{1\leq x_1<\cdots<x_M\leq L}
+    \Psi(x_1,\ldots,x_M)\ket{x_1,\ldots,x_M} .
+\end{equation}
+The coordinate Bethe ansatz is an ansatz for the amplitudes
+$\Psi(x_1,\ldots,x_M)$.
+
+It is useful to separate two kinds of equations.  When no two magnons are
+neighbors, the Schrodinger equation is just a discrete free-particle equation.
+When $x_{a+1}=x_a+1$, the two magnons touch, and the nearest-neighbor Ising term
+produces a contact condition.  This contact condition is the source of the
+scattering phase.
+
+\section{One-magnon sector}
+\label{sec:cba-one-magnon-sector}
+
+A one-magnon state has the form
+\begin{equation}
+\label{eq:cba-one-magnon-state}
+    \ket{\Psi_1}
+    =
+    \sum_{x=1}^{L}\psi(x)\ket{x},
+    \qquad
+    \ket{x}=\sigma_x^-\ket{0} .
+\end{equation}
+Acting with \cref{eq:cba-xxz-hamiltonian}, one obtains
+\begin{equation}
+\label{eq:cba-one-magnon-difference-equation}
+    E\psi(x)
+    =
+    2J\psi(x-1)+2J\psi(x+1)-4J\Delta\psi(x),
+\end{equation}
+where $x$ is understood modulo $L$.  The hopping amplitude is $2J$, and the
+potential term $-4J\Delta$ comes from the two domain walls adjacent to the down
+spin.
+
+The plane wave
+\begin{equation}
+\label{eq:cba-one-magnon-plane-wave}
+    \psi_k(x)=\ee^{\ii kx}
+\end{equation}
+is therefore an eigenfunction with dispersion
+\begin{equation}
+\label{eq:cba-one-magnon-dispersion}
+    \varepsilon(k)
+    =
+    4J(\cos k-\Delta).
+\end{equation}
+Periodic boundary conditions give
+\begin{equation}
+\label{eq:cba-one-magnon-momentum-quantization}
+    \ee^{\ii kL}=1,
+    \qquad
+    k=\frac{2\pi n}{L},
+    \qquad
+    n\in\ZZ .
+\end{equation}
+
+\begin{remark}[Energy convention]
+The dispersion in \cref{eq:cba-one-magnon-dispersion} is written relative to the
+fully polarized reference state, whose energy was fixed to zero by the constant
+in \cref{eq:cba-xxz-hamiltonian}.  Reversing the overall sign of the Hamiltonian
+or removing the constant shifts and rescales the formulas, but does not change
+the Bethe wave functions or the scattering phase.
+\end{remark}
+
+\section{Two-magnon scattering}
+\label{sec:cba-two-magnon-scattering}
+
+The first nontrivial part of the Bethe ansatz appears for two magnons.  For
+coordinates $x_1<x_2$, take
+\begin{equation}
+\label{eq:cba-two-magnon-wavefunction}
+    \Psi(x_1,x_2)
+    =
+    A_{12}\,\ee^{\ii(k_1x_1+k_2x_2)}
+    +
+    A_{21}\,\ee^{\ii(k_2x_1+k_1x_2)} .
+\end{equation}
+The two terms describe the same two momenta assigned to the two ordered
+coordinates in two different ways.  Away from contact, namely for
+$x_2>x_1+1$, the wave function satisfies the free difference equation and has
+energy
+\begin{equation}
+\label{eq:cba-two-magnon-energy}
+    E(k_1,k_2)
+    =
+    4J(\cos k_1+\cos k_2-2\Delta).
+\end{equation}
+The energy is additive in the two bare one-magnon energies.
+
+At contact, $x_2=x_1+1$, two of the four domain walls of separated magnons have
+annihilated.  The Schrodinger equation becomes
+\begin{equation}
+\label{eq:cba-two-magnon-contact-equation}
+    (E+4J\Delta)\Psi(x,x+1)
+    =
+    2J\Psi(x-1,x+1)+2J\Psi(x,x+2).
+\end{equation}
+Substituting \cref{eq:cba-two-magnon-wavefunction} into
+\cref{eq:cba-two-magnon-contact-equation} fixes the ratio of amplitudes:
+\begin{equation}
+\label{eq:cba-two-magnon-scattering-amplitude}
+    \frac{A_{21}}{A_{12}}
+    =
+    S(k_1,k_2)
+    =
+    -
+    \frac{1+\ee^{\ii(k_1+k_2)}-2\Delta\ee^{\ii k_1}}
+         {1+\ee^{\ii(k_1+k_2)}-2\Delta\ee^{\ii k_2}} .
+\end{equation}
+This is the two-magnon scattering amplitude of the XXZ chain in the convention
+of \cref{eq:cba-xxz-hamiltonian}.
+
+Several checks are immediate.  First,
+\begin{equation}
+\label{eq:cba-S-unitarity}
+    S(k_1,k_2)S(k_2,k_1)=1,
+\end{equation}
+so exchanging two magnons twice gives back the original amplitude.  Second, at
+$\Delta=0$,
+\begin{equation}
+    S(k_1,k_2)=-1,
+\end{equation}
+which is the free-fermion sign of the XX chain.  Thus the XX point is recovered
+as the noninteracting limit of the coordinate Bethe ansatz.
+
+\begin{principle}[Interaction as a boundary condition]
+In the coordinate Bethe ansatz, the interaction does not destroy plane waves in
+each ordered region.  Instead, it appears as a matching condition at contact,
+which relates different plane-wave amplitudes by a two-body scattering phase.
+\end{principle}
+
+\section{The many-magnon coordinate Bethe ansatz}
+\label{sec:cba-many-magnon-wavefunction}
+
+For $M$ magnons, the ordered coordinate region is
+\begin{equation}
+    1\leq x_1<x_2<\cdots<x_M\leq L .
+\end{equation}
+The coordinate Bethe ansatz is
+\begin{equation}
+\label{eq:cba-M-magnon-wavefunction}
+    \Psi(x_1,\ldots,x_M)
+    =
+    \sum_{P\in S_M}A(P)
+    \exp\left(\ii\sum_{a=1}^{M}k_{P_a}x_a\right),
+\end{equation}
+where $S_M$ is the permutation group of $M$ objects.  The amplitude $A(P)$ is
+attached to the assignment of momentum $k_{P_a}$ to the ordered coordinate
+$x_a$.
+
+Whenever all magnons are separated, the Schrodinger equation gives the additive
+energy
+\begin{equation}
+\label{eq:cba-M-magnon-energy}
+    E(k_1,
+    \ldots,k_M)
+    =
+    \sum_{a=1}^{M}\varepsilon(k_a)
+    =
+    4J\sum_{a=1}^{M}(\cos k_a-\Delta).
+\end{equation}
+Whenever two adjacent coordinates touch, the same two-body contact equation as in
+the two-magnon problem applies.  Therefore adjacent permutations obey
+\begin{equation}
+\label{eq:cba-adjacent-permutation-relation}
+    A(Ps_a)
+    =
+    S(k_{P_a},k_{P_{a+1}})A(P),
+    \qquad
+    a=1,\ldots,M-1,
+\end{equation}
+where $s_a$ exchanges the entries in positions $a$ and $a+1$.
+
+Because the scattering amplitude is a scalar phase, consistency of different
+ways of reducing a permutation follows from ordinary multiplication.  In models
+with internal degrees of freedom, the analogous consistency condition becomes the
+Yang--Baxter equation.  This is why the coordinate Bethe ansatz here is the
+real-space shadow of the six-vertex Yang--Baxter structure.
+
+\section{Periodic boundary conditions and Bethe equations}
+\label{sec:cba-bethe-equations-momentum-form}
+
+The remaining step is to impose periodic boundary conditions.  Move magnon $j$
+once around the ring.  It accumulates a free propagation phase $\ee^{\ii k_jL}$
+and scatters once with every other magnon.  With the scattering convention of
+\cref{eq:cba-two-magnon-scattering-amplitude}, the result is
+\begin{equation}
+\label{eq:cba-momentum-bethe-equations}
+    \ee^{\ii k_jL}
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    S(k_j,k_\ell),
+    \qquad
+    j=1,\ldots,M .
+\end{equation}
+Together with the energy formula \cref{eq:cba-M-magnon-energy}, these equations
+solve the finite periodic XXZ chain in each fixed-magnon sector, up to the usual
+questions of completeness and string organization.
+
+Writing
+\begin{equation}
+    S(k_j,k_\ell)=\ee^{\ii\theta(k_j,k_\ell)},
+\end{equation}
+one obtains the logarithmic form
+\begin{equation}
+\label{eq:cba-logarithmic-bethe-equations}
+    Lk_j
+    =
+    2\pi I_j
+    +
+    \sum_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \theta(k_j,k_\ell),
+    \qquad
+    I_j\in\ZZ\ \text{or}\ \ZZ+\frac12 .
+\end{equation}
+The integer versus half-integer choice depends on $M$, $L$, the branch choice of
+$\theta$, and the boundary-condition convention.  The exponential form
+\cref{eq:cba-momentum-bethe-equations} is the unambiguous statement.
+
+\begin{remark}[What is solved by the Bethe equations]
+The Bethe equations do not say that the interacting chain has free momenta.  They
+say that eigenstates are still labelled by rapidities or momenta, but those
+labels are quantized collectively.  Each $k_j$ is shifted by the phase shifts
+against all other magnons.
+\end{remark}
+
+\section{Rapidity parametrizations}
+\label{sec:cba-rapidity-parametrizations}
+
+The momentum-space scattering amplitude is explicit but not the most useful form
+for analysis.  The standard Bethe equations become simpler after introducing a
+rapidity variable.  The appropriate parametrization depends on the anisotropy
+regime.
+
+\subsection*{Gapless regime: $-1<\Delta<1$}
+
+Let
+\begin{equation}
+\label{eq:cba-gapless-parametrization}
+    \Delta=\cos\gamma,
+    \qquad
+    0<\gamma<\pi .
+\end{equation}
+Define the rapidity $\lambda$ by
+\begin{equation}
+\label{eq:cba-gapless-momentum-rapidity-map}
+    \ee^{\ii k(\lambda)}
+    =
+    \frac{\sinh(\lambda+\ii\gamma/2)}
+         {\sinh(\lambda-\ii\gamma/2)} .
+\end{equation}
+Then \cref{eq:cba-momentum-bethe-equations} becomes
+\begin{equation}
+\label{eq:cba-gapless-xxz-bethe-equations}
+    \left[
+    \frac{\sinh(\lambda_j+\ii\gamma/2)}
+         {\sinh(\lambda_j-\ii\gamma/2)}
+    \right]^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\sinh(\lambda_j-\lambda_\ell+\ii\gamma)}
+         {\sinh(\lambda_j-\lambda_\ell-\ii\gamma)} .
+\end{equation}
+The energy becomes
+\begin{equation}
+\label{eq:cba-gapless-energy-rapidity}
+    E
+    =
+    -4J\sum_{j=1}^{M}
+    \frac{\sin^2\gamma}{\cosh(2\lambda_j)-\cos\gamma} .
+\end{equation}
+The total lattice momentum is
+\begin{equation}
+\label{eq:cba-total-momentum}
+    P
+    =
+    \sum_{j=1}^{M}k(\lambda_j)
+    \quad (\operatorname{mod} 2\pi).
+\end{equation}
+
+\subsection*{Massive antiferromagnetic regime: $\Delta>1$}
+
+Let
+\begin{equation}
+\label{eq:cba-massive-parametrization}
+    \Delta=\cosh\eta,
+    \qquad
+    \eta>0 .
+\end{equation}
+A convenient rapidity map is
+\begin{equation}
+\label{eq:cba-massive-momentum-rapidity-map}
+    \ee^{\ii k(\lambda)}
+    =
+    \frac{\sin(\lambda+\ii\eta/2)}
+         {\sin(\lambda-\ii\eta/2)} .
+\end{equation}
+The Bethe equations are
+\begin{equation}
+\label{eq:cba-massive-xxz-bethe-equations}
+    \left[
+    \frac{\sin(\lambda_j+\ii\eta/2)}
+         {\sin(\lambda_j-\ii\eta/2)}
+    \right]^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\sin(\lambda_j-\lambda_\ell+\ii\eta)}
+         {\sin(\lambda_j-\lambda_\ell-\ii\eta)} .
+\end{equation}
+The energy is
+\begin{equation}
+\label{eq:cba-massive-energy-rapidity}
+    E
+    =
+    -4J\sum_{j=1}^{M}
+    \frac{\sinh^2\eta}{\cosh\eta-\cos(2\lambda_j)} .
+\end{equation}
+In this regime complex rapidities organize into string patterns in the
+thermodynamic limit.  Strings describe bound states of magnons and are essential
+for thermodynamics, but the finite-size Bethe equations above are the starting
+point.
+
+\subsection*{Isotropic XXX point}
+
+At $\Delta=1$, one may use the rational rapidity variable
+\begin{equation}
+\label{eq:cba-xxx-momentum-rapidity-map}
+    \ee^{\ii k(\lambda)}
+    =
+    \frac{\lambda+\ii/2}{\lambda-\ii/2} .
+\end{equation}
+The Bethe equations reduce to
+\begin{equation}
+\label{eq:cba-xxx-bethe-equations}
+    \left(
+    \frac{\lambda_j+\ii/2}{\lambda_j-\ii/2}
+    \right)^L
+    =
+    \prod_{\substack{\ell=1\\ \ell\neq j}}^{M}
+    \frac{\lambda_j-\lambda_\ell+\ii}
+         {\lambda_j-\lambda_\ell-\ii} ,
+\end{equation}
+and the energy is
+\begin{equation}
+\label{eq:cba-xxx-energy}
+    E
+    =
+    -2J\sum_{j=1}^{M}
+    \frac{1}{\lambda_j^2+1/4} .
+\end{equation}
+This is the rational limit of the trigonometric XXZ equations.
+
+\section{Special limits and physical interpretation}
+\label{sec:cba-special-limits-interpretation}
+
+\begin{example}[XX point]
+At $\Delta=0$, the scattering amplitude becomes $S=-1$.  The Bethe equations are
+therefore
+\begin{equation}
+    \ee^{\ii k_jL}=(-1)^{M-1} .
+\end{equation}
+This is precisely the parity-dependent boundary condition of Jordan--Wigner
+fermions in the $M$-particle sector.  Thus the coordinate Bethe ansatz reduces to
+free fermions at the XX point.
+\end{example}
+
+\begin{example}[Two-magnon bound states]
+For $\Delta>1$, the scattering amplitude has poles in the complex momentum or
+rapidity plane.  Normalizable two-magnon wave functions can then have complex
+conjugate momenta, producing an exponentially localized relative coordinate.
+These states are the simplest examples of Bethe strings.  In the many-body
+problem, strings encode bound-state quasiparticles.
+\end{example}
+
+\begin{remark}[Pseudovacuum versus physical ground state]
+The coordinate Bethe ansatz above builds states by flipping spins above
+$\ket{0}=\ket{\uparrow\cdots\uparrow}$.  For the antiferromagnetic convention
+with $J>0$ and $\Delta>0$, this reference state is not the physical ground state
+in the zero-magnetization sector.  The true ground state is obtained by solving
+the Bethe equations with an extensive number of rapidities.  The pseudovacuum is
+used because it makes the scattering construction algebraically simple.
+\end{remark}
+
+\section{Relation to the algebraic Bethe ansatz}
+\label{sec:cba-relation-to-aba}
+
+The coordinate Bethe ansatz diagonalizes the Hamiltonian by solving the real-space
+Schrodinger equation.  The algebraic Bethe ansatz diagonalizes the whole transfer
+matrix family using the $R$-matrix algebra.  The two methods produce the same
+Bethe equations, but they organize the calculation differently:
+\begin{center}
+\begin{tabular}{@{}L{0.30\linewidth}L{0.30\linewidth}L{0.30\linewidth}@{}}
+\toprule
+Method & Basic object & Origin of Bethe equations \\
+\midrule
+Coordinate Bethe ansatz & Wave function
+$\Psi(x_1,\ldots,x_M)$ & Periodic boundary conditions plus two-body scattering \\
+Algebraic Bethe ansatz & Bethe vector
+$B(\lambda_1)\cdots B(\lambda_M)\ket{0}$ & Cancellation of unwanted terms in the RTT algebra \\
+\bottomrule
+\end{tabular}
+\end{center}
+The coordinate method is more physically transparent: it shows directly that the
+XXZ chain is solvable because many-body scattering factorizes into two-body
+phases.  The algebraic method is more structural: it explains why this
+factorization is guaranteed by the Yang--Baxter equation and gives direct access
+to transfer-matrix eigenvalues and higher conserved charges.
+
+\section{Summary}
+\label{sec:cba-summary}
+
+The coordinate Bethe ansatz for the XXZ chain can be summarized as
+\begin{equation}
+\label{eq:cba-summary-chain}
+\boxed{
+\begin{gathered}
+    H_{\rm XXZ}^{(+)}
+    \quad\Longrightarrow\quad
+    M\text{-magnon coordinate sectors}
+    \\
+    \Longrightarrow\quad
+    \Psi(x_1,\ldots,x_M)
+    =
+    \sum_{P\in S_M}A(P)
+    \exp\left(\ii\sum_a k_{P_a}x_a\right)
+    \\
+    \Longrightarrow\quad
+    A(Ps_a)=S(k_{P_a},k_{P_{a+1}})A(P)
+    \\
+    \Longrightarrow\quad
+    \ee^{\ii k_jL}=\prod_{\ell\neq j}S(k_j,k_\ell),
+    \qquad
+    E=4J\sum_j(\cos k_j-\Delta).
+\end{gathered}}
+\end{equation}
+The one-magnon sector gives the bare dispersion.  The two-magnon contact equation
+gives the scattering phase.  The many-magnon solution works because all
+collisions factorize into the same two-body scattering amplitude.  This is the
+coordinate-space form of the Yang--Baxter integrability already encountered in
+the six-vertex model.

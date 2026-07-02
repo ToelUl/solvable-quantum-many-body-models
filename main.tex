@@ -1,0 +1,564 @@
+% !TEX program = xelatex
+% -----------------------------------------------------------------------------
+% Lecture note skeleton
+% Solvable Quantum Many-Body Models in Condensed Matter
+% -----------------------------------------------------------------------------
+% Recommended compiler: XeLaTeX or LuaLaTeX.
+% This file is an English lecture-note scaffold. It is intended to be expanded
+% chapter by chapter into a pedagogical set of notes.
+% -----------------------------------------------------------------------------
+
+\documentclass[12pt,openany]{book}
+
+% -----------------------------------------------------------------------------
+% Packages
+% -----------------------------------------------------------------------------
+\usepackage[a4paper,margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{ragged2e}
+\usepackage{adjustbox}
+\usepackage{microtype}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=blue!60!black,
+    urlcolor=blue!60!black,
+    pdftitle={Solvable Quantum Many-Body Models in Condensed Matter},
+    pdfauthor={Qian--Rui Lee}
+}
+
+% -----------------------------------------------------------------------------
+% Theorem-like environments
+% -----------------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{principle}{Principle}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+
+% -----------------------------------------------------------------------------
+% Macros
+% -----------------------------------------------------------------------------
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Pf}{\operatorname{Pf}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\id}{\mathbf{1}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calZ}{\mathcal{Z}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle #1\right|}
+\newcommand{\braket}[2]{\left\langle #1\middle|#2\right\rangle}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\todo}[1]{\textcolor{red!70!black}{\textbf{[TODO:} #1\textbf{]}}}
+
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.18}
+\setlength{\emergencystretch}{3em}
+\newcommand{\boxedpar}[1]{%
+\begin{center}
+\fbox{\begin{minipage}{0.93\linewidth}\centering #1\end{minipage}}
+\end{center}}
+
+% -----------------------------------------------------------------------------
+% Title
+% -----------------------------------------------------------------------------
+\title{\bfseries Solvable Quantum Many-Body Models in Condensed Matter\\[4pt]
+\large Mother Models, Equivalence Maps, and Unified Solution Methods}
+\author{Qian--Rui Lee}
+\date{\today}
+
+\begin{document}
+\pagestyle{plain}
+
+\maketitle
+
+\frontmatter
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+The purpose of these lecture notes is not to present a long catalogue of isolated solvable models. Instead, the central aim is to construct a \emph{mother-model and equivalence-map approach} to exactly solvable quantum many-body systems in condensed matter physics. The guiding strategy is to identify a small number of mathematically general and physically representative structures, solve them in detail, and then recover many familiar models as parameter limits, dual descriptions, transfer-matrix limits, Jordan--Wigner images, Bogoliubov--de Gennes representations, gauge-sector reductions, or special cases of Bethe-ansatz/Yang--Baxter integrability.
+
+The defining principle of the notes is therefore
+\boxedpar{%
+\emph{Solve a small number of mother models}\par
+\vspace{2pt}
+$\Longrightarrow$\par
+\vspace{2pt}
+\emph{cover whole families by parameter choices or equivalence maps.}}
+
+Thus the intended structure is not
+\[
+\text{Ising}\to\text{XY}\to\text{Kitaev}\to\text{SSH}\to\cdots,
+\]
+but rather
+\boxedpar{%
+\begin{tabular}{@{}c@{}}
+free fermions/BdG
+$\to$ transfer matrices
+$\to$ Bethe ansatz/Yang--Baxter\\
+$\to$ commuting projectors
+$\to$ Majorana--gauge solvability.
+\end{tabular}}
+
+\section*{How to read these notes}
+
+A productive reading route is the following.
+\begin{enumerate}[label=(\roman*)]
+    \item First master the unified tools in Part~I: spin algebra, the Jordan--Wigner transformation, Fourier transformation on a lattice, BdG formalism, Bogoliubov diagonalization, transfer matrices, and duality.
+    \item Then study the transverse-field XY chain in Part~II. This is the first genuine mother model in the notes; it contains the TFIM, the XX chain, and the Kitaev chain after fermionization.
+    \item Next read Part~III to understand the transfer-matrix correspondence between one-dimensional quantum systems and two-dimensional classical statistical models.
+    \item Then move to Part~IV, which treats interacting but integrable systems such as the XXZ spin chain and the six-vertex model.
+    \item Finally, read Part~V for two-dimensional quantum exact solvability, including the toric code, the Kitaev honeycomb model, Rokhsar--Kivelson points, and exact ground-state constructions.
+\end{enumerate}
+
+\tableofcontents
+
+% -----------------------------------------------------------------------------
+\mainmatter
+% -----------------------------------------------------------------------------
+
+\chapter{Introduction: Solvability by Mother Models and Equivalence Maps}
+
+\section{Motivation}
+
+Exactly solvable models in condensed matter physics have two complementary roles. First, they provide rare nonperturbative laboratories in which the spectrum, quasiparticles, correlation functions, order parameters, topological invariants, or partition functions can be computed with controlled mathematics. Second, they serve as conceptual fixed points around which more general many-body phenomena can be organized: quantum criticality, topological phases, fractionalization, duality, integrability, and entanglement structure.
+
+The distinctive feature of these notes is that solvable models are organized by \emph{mother models}. A mother model is a Hamiltonian, transfer matrix, algebraic structure, or exactly solvable construction general enough that several familiar models can be obtained from it through parameter choices, limiting procedures, duality transformations, fermionization, or gauge-sector reduction.
+
+\begin{principle}[Mother-model principle]
+If a family of models shares the same diagonalization mechanism, transfer matrix, quadratic fermion/BdG structure, Yang--Baxter algebra, stabilizer algebra, or Majorana-gauge reduction, one should first solve the mother structure rather than repeatedly solve each special case from scratch.
+\end{principle}
+
+\section{Four notions of exact solvability}
+
+The phrase ``exactly solvable'' is not unique. These notes distinguish four useful levels of solvability.
+
+{\small\setlength{\tabcolsep}{3pt}\begin{longtable}{L{0.15\textwidth}L{0.39\textwidth}L{0.31\textwidth}}
+\caption{Different strengths of exact solvability.}\label{tab:solvability-levels}\\
+\toprule
+Level & Meaning & Representative models \\
+\midrule
+\endfirsthead
+\toprule
+Level & Meaning & Representative models \\
+\midrule
+\endhead
+A. Full spectral diagonalization & One can obtain the full spectrum, quasiparticles, partition function, or correlation-function structure. & XY chain, TFIM, Kitaev chain, 2D Ising model \\
+B. Free-fermion/\newline Pfaffian solvability & An interacting spin model or classical statistical model can be mapped by Jordan--Wigner, Majorana, Kasteleyn, or Pfaffian methods to a quadratic fermion problem. & TFIM, XY chain, Kitaev chain, dimer models, 2D Ising model, Kitaev honeycomb model in a fixed flux sector \\
+C. Bethe/Yang--Baxter integrability & The model is not necessarily free, but it is solvable because of factorized scattering, commuting transfer matrices, or an underlying Yang--Baxter structure. & XXX, XXZ, XYZ, six-vertex, eight-vertex, 1D Hubbard model \\
+D. Exact ground state or commuting-projector solvability & The ground state or the whole spectrum is controlled by projector, stabilizer, or frustration-free structure, although generic dynamics need not be integrable. & Toric code, cluster model, AKLT chain, RK dimer model \\
+\bottomrule
+\end{longtable}}
+
+\section{Core equivalence map}
+
+The central map of these notes is shown in \cref{fig:core-equivalence-map}.
+
+\begin{figure}[htbp]
+\centering
+\small
+\fbox{%
+\begin{minipage}{0.96\linewidth}
+\begin{align*}
+&\text{TFIM}
+\subset
+\text{XY chain}
+\xrightarrow{\text{JW}}
+\text{Kitaev chain}
+\xrightarrow{\text{continuum}}
+\text{Majorana CFT}
+\\[4pt]
+&\text{SSH chain}
+\subset
+\text{two-band chiral fermion}
+\sim
+\substack{\text{Dirac Hamiltonian}\\\text{with winding number}}
+\\[4pt]
+&\text{1D TFIM}
+\longleftrightarrow
+\text{2D classical Ising}
+\longleftrightarrow
+\text{free Majorana/Pfaffian formulation}
+\\[4pt]
+&\text{XXZ chain}
+\longleftrightarrow
+\text{six-vertex model}
+\longleftrightarrow
+\text{Yang--Baxter equation}
+\longleftrightarrow
+\text{Bethe ansatz}
+\\[4pt]
+&\text{XYZ chain}
+\longleftrightarrow
+\text{eight-vertex model}
+\\[4pt]
+&\text{toric code}
+\subset
+\text{commuting-projector/quantum-double models}
+\\[4pt]
+&\text{Kitaev honeycomb model}
+\longleftrightarrow
+\substack{\text{free Majorana fermions}\\\text{in static }\ZZ_2\text{ gauge fields}}
+\\[4pt]
+&\text{AKLT/RK/cluster models}
+\subset
+\substack{\text{frustration-free}\\\text{exact-ground-state models}}
+\end{align*}
+\end{minipage}}
+\caption{Core equivalence map among the main solvable structures.}
+\label{fig:core-equivalence-map}
+\end{figure}
+
+\section{Primary mother structures}
+
+The full notes are organized around five primary mother structures:
+\begin{equation}
+\boxed{
+\begin{array}{c}
+\text{free-fermion/BdG solvability},\\
+\text{transfer matrices and quantum--classical correspondence},\\
+\text{Bethe ansatz and Yang--Baxter integrability},\\
+\text{commuting-projector/stabilizer solvability},\\
+\text{Majorana fermions coupled to static }\ZZ_2\text{ gauge fields}.
+\end{array}
+}
+\end{equation}
+
+% -----------------------------------------------------------------------------
+\chapter{Model Taxonomy by Equivalence Class}
+% -----------------------------------------------------------------------------
+
+\section{One-dimensional quantum models}
+
+{\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{L{0.20\textwidth}L{0.24\textwidth}L{0.27\textwidth}L{0.16\textwidth}}
+\caption{Mother classes, representative models, and solution methods for one-dimensional quantum many-body systems.}\label{tab:1d-quantum-taxonomy}\\
+\toprule
+Mother class & Representative models & Main solution method & Role in the notes \\
+\midrule
+\endfirsthead
+\toprule
+Mother class & Representative models & Main solution method & Role in the notes \\
+\midrule
+\endhead
+Quadratic fermion / BdG & TFIM, transverse-field XY chain, XX chain, Kitaev chain & Jordan--Wigner transformation, Fourier transform, Bogoliubov rotation & Essential main line \\
+Two-band chiral free fermion & SSH chain, dimerized hopping chain, dimerized XX chain & Bloch Hamiltonian and winding number & Essential main line \\
+Bethe-ansatz integrability & XXX chain, XXZ chain & Coordinate Bethe ansatz and algebraic Bethe ansatz & Essential main line \\
+Yang--Baxter / vertex-model integrability & XXZ $\leftrightarrow$ six-vertex, XYZ $\leftrightarrow$ eight-vertex & Commuting transfer matrices, $R$-matrix, Yang--Baxter equation & Middle-to-advanced main line \\
+Nested Bethe ansatz & 1D Hubbard model & Lieb--Wu equations, nested Bethe ansatz & Advanced chapter \\
+Long-range integrability & Haldane--Shastry model, Calogero--Sutherland model & Inverse-square interaction, fractional statistics, special conserved charges & Advanced chapter \\
+Frustration-free / MPS solvability & AKLT chain, cluster model, Majumdar--Ghosh chain & Projector decomposition, exact MPS, stabilizer algebra & Supplementary but recommended \\
+Continuum low-energy field theory & Luttinger liquid, Ising CFT, Majorana CFT, compact boson & Bosonization, CFT, scaling limit & Unifying low-energy chapter \\
+\bottomrule
+\end{longtable}}
+
+\section{Two-dimensional classical models relevant to quantum many-body physics}
+
+{\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{L{0.20\textwidth}L{0.23\textwidth}L{0.24\textwidth}L{0.18\textwidth}}
+\caption{Two-dimensional classical exactly solved models and their relations to quantum many-body systems.}\label{tab:2d-classical-taxonomy}\\
+\toprule
+Mother class & Representative models & Main solution method & Relation to quantum systems \\
+\midrule
+\endfirsthead
+\toprule
+Mother class & Representative models & Main solution method & Relation to quantum systems \\
+\midrule
+\endhead
+Transfer matrix / free fermion & 2D classical Ising model at zero field & Onsager solution, transfer matrix, fermionization & Anisotropic limit gives the 1D TFIM \\
+Vertex integrability & Six-vertex model & Bethe ansatz, Yang--Baxter equation & Quantum Hamiltonian limit gives the XXZ chain \\
+Vertex integrability & Eight-vertex model & Baxter solution, elliptic parametrization & Quantum Hamiltonian limit gives the XYZ chain \\
+Pfaffian free-fermion structure & Classical dimer model & Kasteleyn orientation, Pfaffian determinant & Related to RK dimers and Majorana/Pfaffian methods \\
+Loop/height/\newline Coulomb-gas representation & $O(n)$ loop model, SOS/RSOS models & Height mapping, Coulomb gas, integrable points & Related to CFT, minimal models, and critical lattice models \\
+\bottomrule
+\end{longtable}}
+
+\section{Two-dimensional quantum models}
+
+{\footnotesize\setlength{\tabcolsep}{3pt}\begin{longtable}{L{0.20\textwidth}L{0.23\textwidth}L{0.25\textwidth}L{0.17\textwidth}}
+\caption{Classification of two-dimensional quantum exactly solvable models.}\label{tab:2d-quantum-taxonomy}\\
+\toprule
+Mother class & Representative models & Main solution method & Remarks \\
+\midrule
+\endfirsthead
+\toprule
+Mother class & Representative models & Main solution method & Remarks \\
+\midrule
+\endhead
+Commuting projector & Toric code & Stabilizer diagonalization, local commuting projectors & Exactly solvable fixed point of topological order \\
+Quantum double & $D(G)$ models, generalized toric codes & Group algebra, quantum double, anyon fusion & Non-Abelian generalization of the toric code structure \\
+Majorana + static gauge field & Kitaev honeycomb model & Majorana representation, conserved $\ZZ_2$ gauge fields, free Majorana Hamiltonian in each flux sector & Central exactly solvable 2D spin-liquid model \\
+Free Chern/BdG bands & Chern insulator, $p+\ii p$ superconductor & Band/BdG diagonalization, Chern number & Noninteracting many-body exact models \\
+Rokhsar--Kivelson structure & Quantum dimer models at the RK point & Equal-weight ground state, stochastic/classical correspondence & Exact ground state; not necessarily full-spectrum solvable \\
+Stabilizer SPT & 2D cluster states and related graph states & Commuting stabilizers, symmetry-protected order & Useful examples for quantum information and SPT phases \\
+\bottomrule
+\end{longtable}}
+
+% -----------------------------------------------------------------------------
+\part{Unified Mathematical Tools}
+% -----------------------------------------------------------------------------
+
+\input{chapters/ch01_spin_half_algebra_lattice_conventions_chapter}
+
+\input{chapters/ch02_Jordan_Wigner_Transformation}
+
+\input{chapters/ch03_fourier_transform_momentum_space_blocks_chapter}
+
+\input{chapters/ch04_bogoliubov_de_gennes_formalism_chapter}
+
+\input{chapters/ch05_bogoliubov_transformation_quasiparticles_chapter}
+
+\input{chapters/ch06_correlation_functions_covariance_matrices_pfaffians_chapter}
+
+\input{chapters/ch07_transfer_matrix_quantum_classical_correspondence_chapter}
+
+\input{chapters/ch08_duality_chapter}
+
+\input{chapters/ch09_topology_two_band_hamiltonians_chapter}
+
+\input{chapters/ch10_bethe_ansatz_yang_baxter_preview_chapter}
+
+% -----------------------------------------------------------------------------
+\part{Free-Fermion Mother Models}
+% -----------------------------------------------------------------------------
+
+\input{chapters/ch11_transverse_field_xy_mother_model_chapter}
+
+\input{chapters/ch12_transverse_field_ising_model_chapter}
+
+\input{chapters/ch13_xx_chain_free_fermions_chapter}
+
+\input{chapters/ch14_kitaev_chain_fermionic_image_xy_chapter}
+
+\input{chapters/ch15_ssh_chain_two_band_chiral_fermions_chapter}
+
+% -----------------------------------------------------------------------------
+\part{Transfer Matrices and Quantum--Classical Correspondence}
+% -----------------------------------------------------------------------------
+
+\input{chapters/ch16_two_dimensional_classical_ising_model_chapter}
+
+\input{chapters/ch17_from_2d_classical_ising_to_1d_quantum_tfim_chapter}
+
+\input{chapters/ch18_six_vertex_model_xxz_chain_chapter}
+
+\input{chapters/ch19_eight_vertex_model_xyz_chain_chapter}
+
+% -----------------------------------------------------------------------------
+\part{Interacting Integrable Quantum Chains}
+% -----------------------------------------------------------------------------
+
+\input{chapters/ch20_coordinate_bethe_ansatz_xxz_chain_chapter}
+
+\input{chapters/ch21_algebraic_bethe_ansatz_chapter}
+
+\input{chapters/ch22_further_integrable_models_chapter}
+
+% -----------------------------------------------------------------------------
+\part{Two-Dimensional Quantum Exact Solvability}
+% -----------------------------------------------------------------------------
+
+\input{chapters/ch23_commuting_projector_toric_code_chapter}
+
+\input{chapters/ch24_kitaev_quantum_double_models_chapter}
+
+\input{chapters/ch25_kitaev_honeycomb_model_chapter}
+
+\input{chapters/ch26_rokhsar_kivelson_quantum_dimer_models_chapter}
+
+\input{chapters/ch27_exact_ground_state_models_aklt_cluster_parent_chapter}
+
+% -----------------------------------------------------------------------------
+\input{chapters/ch28_mechanisms_exact_solvability_concluding_chapter}
+% -----------------------------------------------------------------------------
+\backmatter
+% -----------------------------------------------------------------------------
+
+% =============================================================================
+% Essential References
+% =============================================================================
+
+\chapter{Essential References}
+\label{chap:essential-references}
+
+These notes are intended to be largely self-contained.  The references below are
+not exhaustive; they are selected as minimal original sources and standard texts
+for the main exactly solvable structures discussed in the notes.  The emphasis is
+therefore on representative sources for the solvability mechanisms rather than
+on a complete historical bibliography.
+
+\begin{thebibliography}{99}
+
+% -----------------------------------------------------------------------------
+% Free fermions, Ising models, and topological one-dimensional chains
+% -----------------------------------------------------------------------------
+
+\bibitem{JordanWigner1928}
+P.~Jordan and E.~Wigner,
+``\"Uber das Paulische \"Aquivalenzverbot,''
+\emph{Zeitschrift f\"ur Physik} \textbf{47}, 631--651 (1928).
+
+\bibitem{LiebSchultzMattis1961}
+E.~H.~Lieb, T.~Schultz, and D.~Mattis,
+``Two soluble models of an antiferromagnetic chain,''
+\emph{Annals of Physics} \textbf{16}, 407--466 (1961).
+
+\bibitem{Onsager1944}
+L.~Onsager,
+``Crystal statistics. I. A two-dimensional model with an order-disorder
+transition,''
+\emph{Physical Review} \textbf{65}, 117--149 (1944).
+
+\bibitem{SSH1979}
+W.~P.~Su, J.~R.~Schrieffer, and A.~J.~Heeger,
+``Solitons in polyacetylene,''
+\emph{Physical Review Letters} \textbf{42}, 1698--1701 (1979).
+
+\bibitem{Kitaev2001}
+A.~Y.~Kitaev,
+``Unpaired Majorana fermions in quantum wires,''
+\emph{Physics-Uspekhi} \textbf{44}, 131--136 (2001).
+
+% -----------------------------------------------------------------------------
+% Transfer matrices, vertex models, and Bethe ansatz
+% -----------------------------------------------------------------------------
+
+\bibitem{Bethe1931}
+H.~Bethe,
+``Zur Theorie der Metalle. I. Eigenwerte und Eigenfunktionen der linearen
+Atomkette,''
+\emph{Zeitschrift f\"ur Physik} \textbf{71}, 205--226 (1931).
+
+\bibitem{BaxterBook}
+R.~J.~Baxter,
+\emph{Exactly Solved Models in Statistical Mechanics},
+Academic Press, London (1982).
+
+\bibitem{Faddeev1996}
+L.~D.~Faddeev,
+``How algebraic Bethe ansatz works for integrable models,''
+in \emph{Quantum Symmetries / Symetries Quantiques},
+edited by A.~Connes, K.~Gawedzki, and J.~Zinn-Justin,
+North-Holland, Amsterdam (1998), pp.~149--219;
+also available as arXiv:hep-th/9605187.
+
+\bibitem{LiebWu1968}
+E.~H.~Lieb and F.~Y.~Wu,
+``Absence of Mott transition in an exact solution of the short-range,
+one-band model in one dimension,''
+\emph{Physical Review Letters} \textbf{20}, 1445--1448 (1968).
+
+\bibitem{Haldane1988}
+F.~D.~M.~Haldane,
+``Exact Jastrow--Gutzwiller resonating-valence-bond ground state of the
+spin-$\frac12$ antiferromagnetic Heisenberg chain with $1/r^2$ exchange,''
+\emph{Physical Review Letters} \textbf{60}, 635--638 (1988).
+
+\bibitem{Shastry1988}
+B.~S.~Shastry,
+``Exact solution of an $S=\frac12$ Heisenberg antiferromagnetic chain with
+long-ranged interactions,''
+\emph{Physical Review Letters} \textbf{60}, 639--642 (1988).
+
+\bibitem{SutherlandBook}
+B.~Sutherland,
+\emph{Beautiful Models: 70 Years of Exactly Solved Quantum Many-Body Problems},
+World Scientific, Singapore (2004).
+
+% -----------------------------------------------------------------------------
+% Two-dimensional topological exact solvability
+% -----------------------------------------------------------------------------
+
+\bibitem{Kitaev2003}
+A.~Y.~Kitaev,
+``Fault-tolerant quantum computation by anyons,''
+\emph{Annals of Physics} \textbf{303}, 2--30 (2003).
+
+\bibitem{Kitaev2006}
+A.~Y.~Kitaev,
+``Anyons in an exactly solved model and beyond,''
+\emph{Annals of Physics} \textbf{321}, 2--111 (2006).
+
+% -----------------------------------------------------------------------------
+% Dimers, Rokhsar--Kivelson points, and exact ground-state models
+% -----------------------------------------------------------------------------
+
+\bibitem{Kasteleyn1961}
+P.~W.~Kasteleyn,
+``The statistics of dimers on a lattice: I. The number of dimer arrangements on
+a quadratic lattice,''
+\emph{Physica} \textbf{27}, 1209--1225 (1961).
+
+\bibitem{RokhsarKivelson1988}
+D.~S.~Rokhsar and S.~A.~Kivelson,
+``Superconductivity and the quantum hard-core dimer gas,''
+\emph{Physical Review Letters} \textbf{61}, 2376--2379 (1988).
+
+\bibitem{AKLT1987}
+I.~Affleck, T.~Kennedy, E.~H.~Lieb, and H.~Tasaki,
+``Rigorous results on valence-bond ground states in antiferromagnets,''
+\emph{Physical Review Letters} \textbf{59}, 799--802 (1987).
+
+\bibitem{RaussendorfBriegel2001}
+R.~Raussendorf and H.~J.~Briegel,
+``A one-way quantum computer,''
+\emph{Physical Review Letters} \textbf{86}, 5188--5191 (2001).
+
+\bibitem{FNW1992}
+M.~Fannes, B.~Nachtergaele, and R.~F.~Werner,
+``Finitely correlated states on quantum spin chains,''
+\emph{Communications in Mathematical Physics} \textbf{144}, 443--490 (1992).
+
+% -----------------------------------------------------------------------------
+% General background texts
+% -----------------------------------------------------------------------------
+
+\bibitem{SachdevBook}
+S.~Sachdev,
+\emph{Quantum Phase Transitions},
+2nd ed., Cambridge University Press, Cambridge (2011).
+
+\bibitem{FradkinBook}
+E.~Fradkin,
+\emph{Field Theories of Condensed Matter Physics},
+2nd ed., Cambridge University Press, Cambridge (2013).
+
+\bibitem{DiFrancescoCFT}
+P.~Di Francesco, P.~Mathieu, and D.~Senechal,
+\emph{Conformal Field Theory},
+Springer, New York (1997).
+
+\bibitem{AltlandSimons}
+A.~Altland and B.~D.~Simons,
+\emph{Condensed Matter Field Theory},
+2nd ed., Cambridge University Press, Cambridge (2010).
+
+\end{thebibliography}
+
+\end{document}

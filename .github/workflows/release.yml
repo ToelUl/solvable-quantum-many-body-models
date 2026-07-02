@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------------
+# Release build: when a version tag like v0.1.0 is pushed, compile the notes and
+# attach the PDF to a GitHub Release. This matches the project's versioning
+# policy in README.md ("PDF ... attached to the corresponding GitHub Release").
+#
+# Usage:
+#   git tag v0.2.0
+#   git push origin v0.2.0
+# -----------------------------------------------------------------------------
+name: Release PDF
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write           # required for softprops/action-gh-release to create the release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Compile main.tex with XeLaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
+
+      - name: Name the PDF after the version tag
+        run: cp main.pdf "solvable-quantum-many-body-models-${GITHUB_REF_NAME}.pdf"
+
+      - name: Create GitHub Release and attach the PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          files: solvable-quantum-many-body-models-${{ github.ref_name }}.pdf
+          generate_release_notes: true

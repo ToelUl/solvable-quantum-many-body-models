@@ -1,0 +1,638 @@
+\chapter{Correlation Functions, Covariance Matrices, and Pfaffians}
+\chaptermark{Correlation Functions and Pfaffians}
+\label{chap:correlation-functions-covariance-pfaffians}
+
+The preceding chapters reduced the transverse-field Ising chain, the XY chain,
+and the Kitaev chain to quadratic fermion or BdG Hamiltonians.  Diagonalizing the
+Hamiltonian gives the spectrum and the quasiparticle vacuum.  For many-body
+physics, however, the spectrum is only half of the solution.  One also wants
+order parameters, spin-spin correlators, string correlators, entanglement
+entropies, and finite-temperature response functions.
+
+The essential reason quadratic fermion models are exactly solvable at the level
+of correlation functions is that their ground states and thermal states are
+\emph{fermionic Gaussian states}.  In such states all higher-order correlation
+functions are fixed by two-point functions.  For local fermionic observables this
+statement is Wick's theorem.  For spin observables obtained after the
+Jordan--Wigner transformation, the nonlocal strings turn spin correlators into
+products of many Majorana operators, and Wick's theorem organizes those products
+as Pfaffians.  In translation-invariant one-dimensional problems, these
+Pfaffians often further reduce to Toeplitz determinants.
+
+This chapter gives the correlation-function machinery used throughout the rest
+of the notes.  The conventions are those of the previous chapters:
+\begin{equation}
+    n_j=c_j^\dagger c_j=\frac{1-\sigma_j^z}{2},
+    \qquad
+    \sigma_j^z=1-2n_j,
+\end{equation}
+and the Jordan--Wigner convention is
+\begin{equation}
+    c_j=\left(\prod_{\ell<j}\sigma_\ell^z\right)\sigma_j^+,
+    \qquad
+    c_j^\dagger=\left(\prod_{\ell<j}\sigma_\ell^z\right)\sigma_j^- .
+\end{equation}
+Thus the occupied fermion state corresponds to spin down.
+
+\section{Gaussian fermionic states and Wick theorem}
+\label{sec:gaussian-fermionic-states-wick}
+
+A fermionic state is called Gaussian if its density matrix can be written, up to
+normalization, as the exponential of a quadratic form in fermion operators.  In a
+complex-fermion basis this means schematically
+\begin{equation}
+    \rho
+    =\frac{1}{Z}
+    \exp\left[-\sum_{i,j}c_i^\dagger K_{ij}c_j
+    -\frac12\sum_{i,j}\left(
+        L_{ij}c_i^\dagger c_j^\dagger+L_{ij}^*c_jc_i
+    \right)\right],
+\end{equation}
+where $K^\dagger=K$ and $L^T=-L$.  Equivalently, in a Majorana basis to be
+introduced below,
+\begin{equation}
+    \rho=\frac{1}{Z}\exp\left(\frac{\ii}{4}\sum_{m,n}W_{mn}a_ma_n\right),
+    \qquad
+    W^T=-W,
+\end{equation}
+with $W$ real for a physical Hermitian quadratic exponent.
+
+The ground state of any gapped quadratic Hamiltonian is Gaussian.  A thermal
+state of a quadratic Hamiltonian is also Gaussian.  This is the algebraic reason
+why free fermion and BdG models are not merely spectrally solvable, but also
+correlation-function solvable.
+
+\begin{theorem}[Wick theorem for parity-even Gaussian states]
+\label{thm:wick-majorana}
+Let $\rho$ be a parity-even fermionic Gaussian state, and let
+$O_1,\ldots,O_{2N}$ be fermionic operators linear in $c_j$ and $c_j^\dagger$.
+Then
+\begin{equation}
+\label{eq:wick-general-linear-fermion}
+    \left\langle O_1O_2\cdots O_{2N}\right\rangle
+    =
+    \sum_{\text{pairings }P}
+    \operatorname{sgn}(P)
+    \prod_{(r,s)\in P}\left\langle O_rO_s\right\rangle .
+\end{equation}
+All odd products have vanishing expectation value:
+\begin{equation}
+    \left\langle O_1O_2\cdots O_{2N+1}\right\rangle=0.
+\end{equation}
+The sign $\operatorname{sgn}(P)$ is the fermionic sign obtained by bringing the
+paired operators next to one another.
+\end{theorem}
+
+For example,
+\begin{align}
+\label{eq:wick-four-point-example}
+    \langle O_1O_2O_3O_4\rangle
+    &=
+    \langle O_1O_2\rangle\langle O_3O_4\rangle
+    -
+    \langle O_1O_3\rangle\langle O_2O_4\rangle
+    +
+    \langle O_1O_4\rangle\langle O_2O_3\rangle .
+\end{align}
+The alternating signs are not optional.  They are the main bookkeeping issue in
+fermionic correlation functions.
+
+\begin{proof}[Sketch of proof]
+For a Gaussian density matrix, introduce Grassmann sources $\eta_m$ coupled to a
+basis of Majorana operators $a_m$.  The generating function has the form
+\begin{equation}
+    Z[\eta]
+    =\left\langle
+    \exp\left(\sum_m\eta_ma_m\right)
+    \right\rangle
+    =\exp\left(\frac12\sum_{m,n}\eta_mG_{mn}\eta_n\right),
+\end{equation}
+where $G_{mn}$ is the two-point contraction matrix.  Differentiating $Z[\eta]$
+with respect to the Grassmann sources gives all correlation functions.  Since
+$Z[\eta]$ is the exponential of a quadratic form, every nonzero derivative pairs
+sources into two-point contractions.  This gives \cref{eq:wick-general-linear-fermion}.
+Odd derivatives vanish because the generating function is even in the Grassmann
+sources.
+\end{proof}
+
+For practical calculations it is usually inefficient to explicitly enumerate all
+pairings.  The compact object that automatically includes all pairings and their
+fermionic signs is the Pfaffian.
+
+\section{Pfaffians}
+\label{sec:pfaffians-basic-definition}
+
+Let $M$ be a $2N\times2N$ antisymmetric matrix.  Its Pfaffian is defined by
+\begin{equation}
+\label{eq:pfaffian-definition}
+    \Pf(M)
+    =
+    \frac{1}{2^N N!}
+    \sum_{\pi\in S_{2N}}
+    \sgn(\pi)
+    \prod_{r=1}^{N}
+    M_{\pi(2r-1),\pi(2r)} .
+\end{equation}
+Equivalently, it is the signed sum over all pairings of the $2N$ indices.
+It obeys the fundamental identity
+\begin{equation}
+\label{eq:pfaffian-determinant-identity}
+    \Pf(M)^2=\det M .
+\end{equation}
+For the smallest cases,
+\begin{equation}
+    \Pf
+    \begin{pmatrix}
+        0&m_{12}\\
+        -m_{12}&0
+    \end{pmatrix}
+    =m_{12},
+\end{equation}
+and
+\begin{equation}
+\label{eq:pfaffian-four-by-four}
+    \Pf
+    \begin{pmatrix}
+        0&m_{12}&m_{13}&m_{14}\\
+        -m_{12}&0&m_{23}&m_{24}\\
+        -m_{13}&-m_{23}&0&m_{34}\\
+        -m_{14}&-m_{24}&-m_{34}&0
+    \end{pmatrix}
+    =m_{12}m_{34}-m_{13}m_{24}+m_{14}m_{23}.
+\end{equation}
+Thus \cref{eq:pfaffian-four-by-four} is precisely the four-point Wick expansion
+\cref{eq:wick-four-point-example}.
+
+If $a_m$ are Majorana operators and the indices
+$m_1,\ldots,m_{2N}$ are all distinct, Wick theorem can be written as
+\begin{equation}
+\label{eq:majorana-product-pfaffian-contraction}
+    \left\langle a_{m_1}a_{m_2}\cdots a_{m_{2N}}\right\rangle
+    =
+    \Pf\left(G_{\mathcal{I}}\right),
+    \qquad
+    \mathcal{I}=\{m_1,\ldots,m_{2N}\},
+\end{equation}
+where the antisymmetric contraction matrix is
+\begin{equation}
+    (G_{\mathcal{I}})_{rs}
+    =
+    \begin{cases}
+    \left\langle a_{m_r}a_{m_s}\right\rangle,& r<s,\\
+    -\left\langle a_{m_s}a_{m_r}\right\rangle,& r>s,\\
+    0,&r=s.
+    \end{cases}
+\end{equation}
+The next section rewrites this formula in terms of the covariance matrix
+$\Gamma$.
+
+\section{Majorana covariance matrix}
+\label{sec:majorana-covariance-matrix}
+
+For each lattice site define two Hermitian Majorana operators
+\begin{equation}
+\label{eq:majorana-definition-this-chapter}
+    a_{2j-1}=c_j+c_j^\dagger,
+    \qquad
+    a_{2j}=\ii(c_j-c_j^\dagger).
+\end{equation}
+They satisfy
+\begin{equation}
+\label{eq:majorana-clifford-algebra}
+    a_m^\dagger=a_m,
+    \qquad
+    \{a_m,a_n\}=2\delta_{mn}.
+\end{equation}
+The inverse relations are
+\begin{equation}
+\label{eq:complex-fermion-from-majorana}
+    c_j=\frac12\left(a_{2j-1}-\ii a_{2j}\right),
+    \qquad
+    c_j^\dagger=\frac12\left(a_{2j-1}+\ii a_{2j}\right).
+\end{equation}
+
+\begin{definition}[Majorana covariance matrix]
+\label{def:majorana-covariance-matrix}
+For a state $\rho$, the Majorana covariance matrix is the real antisymmetric
+matrix
+\begin{equation}
+\label{eq:majorana-covariance-definition}
+    \Gamma_{mn}
+    =
+    \frac{\ii}{2}\left\langle [a_m,a_n]\right\rangle .
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:majorana-two-point-from-gamma}
+    \left\langle a_ma_n\right\rangle
+    =
+    \delta_{mn}-\ii\Gamma_{mn}.
+\end{equation}
+\end{definition}
+
+The covariance matrix is the natural object for Gaussian-state calculations.
+For a parity-even Gaussian state, all correlation functions are determined by
+$\Gamma$.  In particular, for distinct Majorana indices
+$m_1,\ldots,m_{2N}$,
+\begin{equation}
+\label{eq:majorana-product-pfaffian-gamma}
+    \left\langle a_{m_1}a_{m_2}\cdots a_{m_{2N}}\right\rangle
+    =
+    \Pf\left(-\ii\Gamma_{\mathcal{I}}\right),
+    \qquad
+    \mathcal{I}=\{m_1,\ldots,m_{2N}\}.
+\end{equation}
+Here $\Gamma_{\mathcal{I}}$ denotes the submatrix of $\Gamma$ restricted to the
+ordered list $\mathcal{I}=(m_1,\ldots,m_{2N})$.  The order matters: permuting the
+indices changes the Pfaffian by the sign of the permutation, exactly as required
+for fermionic operators.
+
+\begin{remark}[Pure Gaussian states]
+For a pure Gaussian state, the covariance matrix obeys
+\begin{equation}
+\label{eq:pure-gaussian-gamma-square}
+    \Gamma^2=-\id.
+\end{equation}
+For a mixed Gaussian state, its eigenvalues come in pairs $\pm \ii\nu_\alpha$ with
+$0\leq \nu_\alpha\leq1$.  The pure-state limit corresponds to
+$\nu_\alpha=1$ for every mode.
+\end{remark}
+
+\subsection*{Relation to normal and anomalous correlators}
+
+It is often useful to express $\Gamma$ in terms of the complex-fermion
+correlation matrices
+\begin{equation}
+\label{eq:normal-anomalous-correlators-definition}
+    C_{ij}=\langle c_i^\dagger c_j\rangle,
+    \qquad
+    F_{ij}=\langle c_i c_j\rangle,
+    \qquad
+    F_{ij}=-F_{ji}.
+\end{equation}
+Using \cref{eq:majorana-definition-this-chapter}, one obtains
+\begin{align}
+\label{eq:gamma-block-odd-odd}
+    \Gamma_{2i-1,2j-1}
+    &=
+    \ii\left(C_{ij}-C_{ji}+F_{ij}-F_{ij}^*\right),\\
+\label{eq:gamma-block-even-even}
+    \Gamma_{2i,2j}
+    &=
+    \ii\left(C_{ij}-C_{ji}-F_{ij}+F_{ij}^*\right),\\
+\label{eq:gamma-block-odd-even}
+    \Gamma_{2i-1,2j}
+    &=
+    \delta_{ij}-C_{ij}-C_{ji}-F_{ij}+F_{ij}^*.
+\end{align}
+The remaining block follows from antisymmetry:
+\begin{equation}
+    \Gamma_{2i,2j-1}=-\Gamma_{2j-1,2i}.
+\end{equation}
+
+For a translation-invariant BCS ground state written as
+\begin{equation}
+    \ket{\mathrm{GS}}
+    =
+    \prod_{k\in\mathcal{K}_+}
+    \left(u_k+v_kc_k^\dagger c_{-k}^\dagger\right)\ket{0},
+\end{equation}
+with the Fourier convention of the previous chapter,
+\begin{equation}
+    c_j=\frac{\ee^{\ii\phi}}{\sqrt{L}}\sum_k\ee^{\ii kj}c_k,
+\end{equation}
+the normal and anomalous kernels may be written as
+\begin{align}
+\label{eq:translation-invariant-C-r}
+    C_r
+    &=
+    \langle c_j^\dagger c_{j+r}\rangle
+    =
+    \frac{1}{L}\sum_k\ee^{\ii kr}\abs{v_k}^2,\\
+\label{eq:translation-invariant-F-r}
+    F_r
+    &=
+    \langle c_j c_{j+r}\rangle
+    =
+    \frac{\ee^{2\ii\phi}}{L}\sum_k\ee^{-\ii kr}\kappa_k,
+    \qquad
+    \kappa_k=\langle c_kc_{-k}\rangle=-u_kv_k.
+\end{align}
+The phase $\phi$ is the Fourier-gauge phase discussed earlier.  It rotates the
+representation of anomalous correlators but leaves gauge-invariant spin and
+fermion-parity observables unchanged.
+
+\subsection*{Covariance matrix from a quadratic Majorana Hamiltonian}
+
+A general quadratic Majorana Hamiltonian can be written as
+\begin{equation}
+\label{eq:majorana-quadratic-hamiltonian}
+    H=\frac{\ii}{4}\sum_{m,n=1}^{2L}A_{mn}a_ma_n,
+    \qquad
+    A^T=-A,
+\end{equation}
+where $A$ is real antisymmetric.  For its thermal state at inverse temperature
+$\beta$, the covariance matrix is
+\begin{equation}
+\label{eq:thermal-gamma-majorana-hamiltonian}
+    \Gamma_\beta
+    =
+    \ii\tanh\left(\frac{\beta\,\ii A}{2}\right).
+\end{equation}
+In the zero-temperature limit for a gapped Hamiltonian,
+\begin{equation}
+\label{eq:ground-state-gamma-sign-function}
+    \Gamma_0=\ii\,\sgn(\ii A).
+\end{equation}
+This formula is useful for numerical checks because it bypasses the explicit
+construction of many-body wavefunctions.
+
+\begin{example}[One fermionic mode]
+Let
+\begin{equation}
+    H=\varepsilon\left(c^\dagger c-\frac12\right).
+\end{equation}
+Then
+\begin{equation}
+    H=-\frac{\ii\varepsilon}{2}a_1a_2,
+    \qquad
+    A=
+    \begin{pmatrix}
+        0&-\varepsilon\\
+        \varepsilon&0
+    \end{pmatrix}.
+\end{equation}
+For $\varepsilon>0$, the zero-temperature state is the empty state, and
+\begin{equation}
+    \Gamma_{12}=1,
+    \qquad
+    \langle \ii a_1a_2\rangle=1.
+\end{equation}
+This agrees with $\sigma^z=1-2n$ under the spin-down-as-occupied convention.
+\end{example}
+
+\section{Local observables from the covariance matrix}
+\label{sec:local-observables-from-covariance}
+
+The simplest observables are local density and magnetization.  From
+\cref{eq:complex-fermion-from-majorana},
+\begin{equation}
+\label{eq:number-from-majoranas}
+    n_j=c_j^\dagger c_j
+    =\frac12\left(1-\ii a_{2j-1}a_{2j}\right),
+\end{equation}
+and therefore
+\begin{equation}
+\label{eq:sigmaz-from-majoranas}
+    \sigma_j^z=1-2n_j=\ii a_{2j-1}a_{2j}.
+\end{equation}
+Taking the expectation value gives
+\begin{equation}
+\label{eq:sigmaz-expectation-from-gamma}
+    \langle \sigma_j^z\rangle
+    =
+    \Gamma_{2j-1,2j},
+    \qquad
+    \langle n_j\rangle
+    =
+    \frac12\left(1-\Gamma_{2j-1,2j}\right).
+\end{equation}
+
+For $i\neq j$, the longitudinal spin correlator is a four-Majorana expectation:
+\begin{equation}
+\label{eq:sigmaz-sigmaz-pfaffian}
+    \langle \sigma_i^z\sigma_j^z\rangle
+    =
+    -\Pf\left(-\ii\Gamma_{\{2i-1,2i,2j-1,2j\}}\right).
+\end{equation}
+Equivalently, expanding the four-point Pfaffian gives
+\begin{align}
+\label{eq:sigmaz-sigmaz-expanded}
+    \langle \sigma_i^z\sigma_j^z\rangle
+    &
+    =
+    \Gamma_{2i-1,2i}\Gamma_{2j-1,2j}
+    -
+    \Gamma_{2i-1,2j-1}\Gamma_{2i,2j}
+    +
+    \Gamma_{2i-1,2j}\Gamma_{2i,2j-1}.
+\end{align}
+Thus even density-density and longitudinal spin correlations are already
+encoded in the same covariance matrix.
+
+\section{Spin correlators as Pfaffians}
+\label{sec:spin-correlators-as-pfaffians}
+
+The nontrivial feature of spin correlators is the Jordan--Wigner string.  Define
+\begin{equation}
+\label{eq:jw-string-this-chapter}
+    S_j=\prod_{\ell<j}\sigma_\ell^z
+    =
+    \prod_{\ell<j}\ii a_{2\ell-1}a_{2\ell}.
+\end{equation}
+With the convention used in these notes,
+\begin{equation}
+\label{eq:spin-majorana-local-formulas}
+    \sigma_j^x=S_ja_{2j-1},
+    \qquad
+    \sigma_j^y=-S_ja_{2j},
+    \qquad
+    \sigma_j^z=\ii a_{2j-1}a_{2j}.
+\end{equation}
+For $i<j$, multiplying the strings gives finite products of Majorana operators:
+\begin{align}
+\label{eq:sigmax-sigmax-majorana-string}
+    \sigma_i^x\sigma_j^x
+    &=
+    \ii^{j-i}
+    a_{2i}
+    \left(\prod_{m=i+1}^{j-1}a_{2m-1}a_{2m}\right)
+    a_{2j-1},\\
+\label{eq:sigmay-sigmay-majorana-string}
+    \sigma_i^y\sigma_j^y
+    &=
+    -\ii^{j-i}
+    a_{2i-1}
+    \left(\prod_{m=i+1}^{j-1}a_{2m-1}a_{2m}\right)
+    a_{2j},\\
+\label{eq:sigmax-sigmay-majorana-string}
+    \sigma_i^x\sigma_j^y
+    &=
+    -\ii^{j-i}
+    a_{2i}
+    \left(\prod_{m=i+1}^{j-1}a_{2m-1}a_{2m}\right)
+    a_{2j}.
+\end{align}
+The products are ordered from left to right as written.  The string length grows
+linearly with the spin separation, but the expectation value is still exactly
+computable: it is a Pfaffian of a finite submatrix of $\Gamma$.
+
+For example, define the ordered index list
+\begin{equation}
+\label{eq:index-list-xx-correlator}
+    \mathcal{I}_{xx}(i,j)
+    =
+    (2i,2i+1,2i+2,\ldots,2j-2,2j-1),
+    \qquad i<j.
+\end{equation}
+Then
+\begin{equation}
+\label{eq:xx-correlator-pfaffian}
+    \langle \sigma_i^x\sigma_j^x\rangle
+    =
+    \ii^{j-i}
+    \Pf\left(-\ii\Gamma_{\mathcal{I}_{xx}(i,j)}\right).
+\end{equation}
+Similarly, with
+\begin{equation}
+\label{eq:index-list-yy-correlator}
+    \mathcal{I}_{yy}(i,j)
+    =
+    (2i-1,2i+1,2i+2,\ldots,2j-2,2j),
+\end{equation}
+one has
+\begin{equation}
+\label{eq:yy-correlator-pfaffian}
+    \langle \sigma_i^y\sigma_j^y\rangle
+    =
+    -\ii^{j-i}
+    \Pf\left(-\ii\Gamma_{\mathcal{I}_{yy}(i,j)}\right).
+\end{equation}
+These equations are one of the most important practical outputs of the
+Jordan--Wigner solution: a highly nonlocal spin correlator has been reduced to a
+finite-dimensional linear-algebra problem.
+
+\begin{remark}[Why Pfaffians rather than determinants?]
+A determinant appears when the Wick contractions have a bipartite structure, for
+example when only contractions of the form $\langle B_mA_n\rangle$ enter.  A
+Pfaffian is the more general object.  It remains valid when the state has complex
+pairing, broken time-reversal symmetry, finite-size boundary subtleties, or mixed
+$AA$, $BB$, and $AB$ contractions.
+\end{remark}
+
+\section{Toeplitz determinant form in translation-invariant chains}
+\label{sec:toeplitz-determinant-translation-invariant}
+
+For many real XY-chain conventions, symmetries imply a simpler determinant
+formula.  Introduce
+\begin{equation}
+\label{eq:A-B-operators-toeplitz}
+    A_j=c_j+c_j^\dagger=a_{2j-1},
+    \qquad
+    B_j=c_j^\dagger-c_j=\ii a_{2j}.
+\end{equation}
+These satisfy
+\begin{equation}
+    A_j^2=1,
+    \qquad
+    B_j^2=-1,
+    \qquad
+    \{A_i,B_j\}=0.
+\end{equation}
+The local parity is
+\begin{equation}
+    \sigma_j^z=A_jB_j,
+\end{equation}
+and the transverse correlator for $r>0$ becomes
+\begin{equation}
+\label{eq:xx-string-A-B-form}
+    \sigma_j^x\sigma_{j+r}^x
+    =
+    B_jA_{j+1}B_{j+1}A_{j+2}\cdots B_{j+r-1}A_{j+r}.
+\end{equation}
+If the Gaussian state is translation invariant and its only nontrivial
+contractions in this basis are
+\begin{equation}
+\label{eq:G-r-definition-toeplitz}
+    G_r=\langle B_jA_{j+r}\rangle,
+\end{equation}
+then Wick theorem reduces \cref{eq:xx-string-A-B-form} to the Toeplitz
+determinant
+\begin{equation}
+\label{eq:xx-toeplitz-determinant}
+    \langle \sigma_j^x\sigma_{j+r}^x\rangle
+    =
+    \det
+    \begin{pmatrix}
+        G_1&G_2&\cdots&G_r\\
+        G_0&G_1&\cdots&G_{r-1}\\
+        \vdots&\vdots&\ddots&\vdots\\
+        G_{2-r}&G_{3-r}&\cdots&G_1
+    \end{pmatrix}.
+\end{equation}
+This is a Toeplitz determinant because the matrix entries depend only on the
+index difference.  Analogous determinant formulas exist for
+$\langle\sigma_j^y\sigma_{j+r}^y\rangle$ and mixed transverse correlators, with
+shifted kernels.  In conventions or models where the bipartite contraction
+structure is absent, one should return to the Pfaffian formulas
+\cref{eq:xx-correlator-pfaffian,eq:yy-correlator-pfaffian}.
+
+\begin{remark}[Thermodynamic limit]
+In the thermodynamic limit, $G_r$ is usually represented by a Fourier integral
+\begin{equation}
+    G_r=\int_{-\pi}^{\pi}\frac{\dd k}{2\pi}\,\ee^{-\ii kr}g(k),
+\end{equation}
+where $g(k)$ is the symbol determined by the BdG ground state.  Long-distance
+spin correlations then reduce to the asymptotic analysis of Toeplitz
+determinants.  This is the bridge between free-fermion diagonalization and exact
+critical exponents in the Ising and XY chains.
+\end{remark}
+
+\section[Entanglement from covariance matrices]{Reduced density matrices and entanglement from covariance matrices}
+\label{sec:entanglement-from-covariance-matrix}
+
+Although the present notes mainly use covariance matrices for correlation
+functions, the same object also determines entanglement in Gaussian states.  Let
+$A$ be a subsystem consisting of $\ell$ lattice sites, hence $2\ell$ Majorana
+operators.  Restrict the full covariance matrix to this subsystem:
+\begin{equation}
+    \Gamma_A=\Gamma|_A.
+\end{equation}
+The eigenvalues of $\Gamma_A$ come in pairs $\pm\ii\nu_\alpha$, with
+$0\leq\nu_\alpha\leq1$, $\alpha=1,\ldots,\ell$.  The reduced density matrix
+$\rho_A$ is Gaussian, and its von Neumann entropy is
+\begin{equation}
+\label{eq:gaussian-entanglement-entropy}
+    S_A
+    =
+    -\Tr \rho_A\log\rho_A
+    =
+    \sum_{\alpha=1}^{\ell}
+    \left[
+    -\frac{1+\nu_\alpha}{2}\log\frac{1+\nu_\alpha}{2}
+    -\frac{1-\nu_\alpha}{2}\log\frac{1-\nu_\alpha}{2}
+    \right].
+\end{equation}
+Thus the same matrix $\Gamma$ simultaneously encodes spin correlators,
+fermionic correlators, and entanglement spectra.
+
+\section{Practical recipe}
+\label{sec:correlation-functions-practical-recipe}
+
+For a quadratic spin chain solved by Jordan--Wigner, Fourier transform, and
+Bogoliubov transformation, the correlation-function workflow is:
+\begin{enumerate}[label=(\roman*)]
+    \item Diagonalize the BdG Hamiltonian and obtain the coherence factors
+    $u_k,v_k$ or, equivalently, the occupied negative-energy BdG projector.
+    \item Construct the normal and anomalous correlators $C_{ij}$ and $F_{ij}$,
+    either in momentum space using \cref{eq:translation-invariant-C-r,eq:translation-invariant-F-r}
+    or directly in real space.
+    \item Convert $C$ and $F$ into the Majorana covariance matrix $\Gamma$ using
+    \cref{eq:gamma-block-odd-odd,eq:gamma-block-even-even,eq:gamma-block-odd-even}.
+    \item Compute local fermionic observables directly from $C$ and $F$, or from
+    the relevant submatrix of $\Gamma$.
+    \item Compute spin correlators by rewriting the Jordan--Wigner strings as
+    ordered Majorana products and evaluating the Pfaffian
+    $\Pf(-\ii\Gamma_{\mathcal{I}})$.
+    \item In translation-invariant cases with the appropriate symmetry, simplify
+    the Pfaffian to a Toeplitz determinant and use known determinant asymptotics
+    for long-distance behavior.
+\end{enumerate}
+
+The main conceptual point is that the nonlocality introduced by the
+Jordan--Wigner transformation does not destroy exact solvability.  It only
+changes the final algebraic object from a two-point function to a Pfaffian of a
+finite covariance submatrix.  This Pfaffian structure is the common language
+behind the exact correlation functions of the TFIM, the XY chain, Kitaev-chain
+spin representations, the two-dimensional Ising model, and more general
+free-Majorana solvable systems.

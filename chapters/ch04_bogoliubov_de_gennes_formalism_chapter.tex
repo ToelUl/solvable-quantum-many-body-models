@@ -1,0 +1,644 @@
+\chapter{Bogoliubov--de Gennes Formalism}
+
+The Jordan--Wigner transformation maps several spin-$1/2$ chains to quadratic
+fermion Hamiltonians.  If the fermion number is conserved, Fourier
+transformation already diagonalizes the problem into one-mode momentum blocks. If
+pairing terms are present, however, the Hamiltonian conserves only fermion
+parity, and the elementary block is no longer a single mode $k$ but a paired
+sector $(k,-k)$.  The Bogoliubov--de Gennes (BdG) formalism is the systematic
+language for this situation.
+
+The purpose of this chapter is to fix the algebraic conventions used later in
+the XY chain, the transverse-field Ising chain, and the Kitaev chain.  We do not
+yet perform the full Bogoliubov rotation; that will be done in the next chapter.
+Here we explain how a quadratic pairing Hamiltonian is encoded as a matrix in
+Nambu space, why the resulting matrix has a built-in particle--hole redundancy,
+and how this Nambu-space structure differs from an ordinary two-band Bloch
+Hamiltonian such as the SSH model.
+
+\section{Real-space quadratic fermion Hamiltonians}
+
+Let $c_j,c_j^\dagger$ be canonical spinless fermions on a chain of length $L$,
+obeying
+\begin{equation}
+    \{c_i,c_j^\dagger\}=\delta_{ij},
+    \qquad
+    \{c_i,c_j\}=\{c_i^\dagger,c_j^\dagger\}=0.
+\end{equation}
+The most general quadratic Hamiltonian preserving fermion parity is
+\begin{equation}
+\label{eq:bdg-real-space-quadratic-hamiltonian}
+    H
+    =
+    \sum_{i,j=1}^{L} h_{ij}c_i^\dagger c_j
+    +\frac12\sum_{i,j=1}^{L}
+    \left(
+        \Delta_{ij}c_i^\dagger c_j^\dagger
+        +\Delta_{ij}^*c_j c_i
+    \right)
+    +E_{\rm cl}.
+\end{equation}
+Hermiticity requires
+\begin{equation}
+    h^\dagger=h.
+\end{equation}
+Fermi statistics require the pairing matrix to be antisymmetric,
+\begin{equation}
+\label{eq:bdg-pairing-antisymmetry-real-space}
+    \Delta^T=-\Delta,
+\end{equation}
+because only the antisymmetric part of $\Delta_{ij}c_i^\dagger c_j^\dagger$
+survives.
+
+It is useful to introduce the real-space Nambu spinor
+\begin{equation}
+\label{eq:bdg-real-space-nambu-spinor}
+    \Upsilon
+    =
+    \begin{pmatrix}
+        c_1\\
+        \vdots\\
+        c_L\\
+        c_1^\dagger\\
+        \vdots\\
+        c_L^\dagger
+    \end{pmatrix},
+    \qquad
+    \Upsilon^\dagger
+    =
+    \begin{pmatrix}
+        c_1^\dagger&\cdots&c_L^\dagger&c_1&\cdots&c_L
+    \end{pmatrix}.
+\end{equation}
+Then \cref{eq:bdg-real-space-quadratic-hamiltonian} can be written as
+\begin{equation}
+\label{eq:bdg-real-space-matrix-form}
+    H
+    =
+    \frac12\Upsilon^\dagger\mathbb{H}_{\rm BdG}\Upsilon
+    +E_{\rm const},
+\end{equation}
+where
+\begin{equation}
+\label{eq:bdg-real-space-matrix}
+    \mathbb{H}_{\rm BdG}
+    =
+    \begin{pmatrix}
+        h & \Delta\\
+        -\Delta^* & -h^T
+    \end{pmatrix}.
+\end{equation}
+The constant differs from the normal-ordering constant in
+\cref{eq:bdg-real-space-quadratic-hamiltonian}; explicitly,
+\begin{equation}
+    E_{\rm const}=E_{\rm cl}+\frac12\Tr h.
+\end{equation}
+This shift has no effect on eigenvectors or quasiparticle energies, but it must
+be retained when computing the absolute ground-state energy.
+
+\begin{remark}[Why the factor of $1/2$ appears]
+The Nambu spinor contains both particles and holes.  Therefore the degrees of
+freedom are doubled.  The prefactor $1/2$ in
+\cref{eq:bdg-real-space-matrix-form} compensates this doubling.  Without this
+factor the normal hopping term and the pairing term would be counted twice.
+\end{remark}
+
+\section{Intrinsic particle--hole redundancy}
+
+The BdG matrix is not an arbitrary Hermitian $2L\times 2L$ matrix.  It satisfies
+an intrinsic particle--hole constraint.  Let
+\begin{equation}
+    \tau_x=
+    \begin{pmatrix}
+        0&\id_L\\
+        \id_L&0
+    \end{pmatrix},
+    \qquad
+    \mathcal{C}=\tau_x K,
+\end{equation}
+where $K$ denotes complex conjugation.  Then
+\begin{equation}
+\label{eq:bdg-real-space-phs}
+    \tau_x\mathbb{H}_{\rm BdG}^*\tau_x
+    =
+    -\mathbb{H}_{\rm BdG},
+    \qquad
+    \text{equivalently}\qquad
+    \mathcal{C}\mathbb{H}_{\rm BdG}\mathcal{C}^{-1}
+    =
+    -\mathbb{H}_{\rm BdG}.
+\end{equation}
+Thus if
+\begin{equation}
+    \mathbb{H}_{\rm BdG}\Phi=E\Phi,
+\end{equation}
+then
+\begin{equation}
+    \mathbb{H}_{\rm BdG}(\mathcal{C}\Phi)=-E(\mathcal{C}\Phi).
+\end{equation}
+The spectrum is symmetric about zero.  This symmetry is not an optional physical
+symmetry imposed on the model; it is a redundancy of the Nambu description.
+
+\begin{principle}[BdG redundancy principle]
+A BdG Hamiltonian doubles the Hilbert-space variables by treating $c$ and
+$c^\dagger$ as independent components of a Nambu spinor.  The particle--hole
+constraint removes this artificial doubling: the negative-energy BdG states are
+particle--hole partners of the positive-energy states, not independent physical
+single-particle bands.
+\end{principle}
+
+\section{Translation-invariant BdG blocks}
+
+For a translation-invariant chain, the Fourier convention of the previous
+chapter is
+\begin{equation}
+\label{eq:bdg-chapter-fourier-convention}
+    c_k
+    =
+    \frac{\ee^{-\ii\phi}}{\sqrt{L}}
+    \sum_{j=1}^{L}\ee^{-\ii kj}c_j,
+    \qquad
+    c_j
+    =
+    \frac{\ee^{\ii\phi}}{\sqrt{L}}
+    \sum_{k\in\mathcal{K}_\vartheta}\ee^{\ii kj}c_k,
+\end{equation}
+with
+\begin{equation}
+    \mathcal{K}_\vartheta
+    =
+    \left\{
+        k_m=\frac{2\pi m+\vartheta}{L}
+        \ \middle|\
+        m=0,1,\ldots,L-1
+    \right\}.
+\end{equation}
+The boundary twist $\vartheta$ fixes the allowed momenta, while the constant
+phase $\phi$ is a Fourier-gauge convention.
+
+Consider the momentum-space Hamiltonian
+\begin{equation}
+\label{eq:bdg-chapter-general-momentum-hamiltonian}
+    H
+    =
+    \sum_{k\in\mathcal{K}_\vartheta}\xi(k)c_k^\dagger c_k
+    +\frac12\sum_{k\in\mathcal{K}_\vartheta}
+    \left[
+        \Delta_\phi(k)c_k^\dagger c_{-k}^\dagger
+        +\Delta_\phi(k)^*c_{-k}c_k
+    \right]
+    +E_{\rm cl}.
+\end{equation}
+For spinless fermions,
+\begin{equation}
+\label{eq:bdg-chapter-odd-gap}
+    \Delta_\phi(-k)=-\Delta_\phi(k).
+\end{equation}
+The natural Nambu spinor for the pair $(k,-k)$ is
+\begin{equation}
+\label{eq:bdg-chapter-nambu-spinor}
+    \Psi_k
+    =
+    \begin{pmatrix}
+        c_k\\
+        c_{-k}^\dagger
+    \end{pmatrix},
+    \qquad
+    \Psi_k^\dagger
+    =
+    \begin{pmatrix}
+        c_k^\dagger&c_{-k}
+    \end{pmatrix}.
+\end{equation}
+Then
+\begin{equation}
+\label{eq:bdg-chapter-block-form}
+    H
+    =
+    \frac12\sum_{k\in\mathcal{K}_\vartheta}
+    \Psi_k^\dagger\mathcal{H}_{\rm BdG}(k)\Psi_k
+    +E_0,
+\end{equation}
+where
+\begin{equation}
+\label{eq:bdg-chapter-block-matrix}
+    \mathcal{H}_{\rm BdG}(k)
+    =
+    \begin{pmatrix}
+        \xi(k) & \Delta_\phi(k)\\
+        \Delta_\phi(k)^* & -\xi(-k)
+    \end{pmatrix}.
+\end{equation}
+The corresponding particle--hole constraint is
+\begin{equation}
+\label{eq:bdg-chapter-phs-momentum}
+    \tau_x\mathcal{H}_{\rm BdG}(-k)^*\tau_x
+    =
+    -\mathcal{H}_{\rm BdG}(k).
+\end{equation}
+For the nearest-neighbour chains studied later, one usually has
+\begin{equation}
+    \xi(-k)=\xi(k),
+    \qquad
+    \Delta_\phi(-k)=-\Delta_\phi(k),
+\end{equation}
+and the matrix simplifies to
+\begin{equation}
+\label{eq:bdg-chapter-even-dispersion-block}
+    \mathcal{H}_{\rm BdG}(k)
+    =
+    \begin{pmatrix}
+        \xi(k) & \Delta_\phi(k)\\
+        \Delta_\phi(k)^* & -\xi(k)
+    \end{pmatrix}.
+\end{equation}
+
+\section{Two-level representation}
+
+Let $\tau_x,\tau_y,\tau_z$ denote Pauli matrices acting in Nambu space, not in the
+original spin space.  For the common even-dispersion case
+\cref{eq:bdg-chapter-even-dispersion-block}, the BdG block can be written as
+\begin{equation}
+\label{eq:bdg-chapter-d-vector-form}
+    \mathcal{H}_{\rm BdG}(k)
+    =
+    d_x(k)\tau_x+d_y(k)\tau_y+d_z(k)\tau_z,
+\end{equation}
+where
+\begin{equation}
+\label{eq:bdg-chapter-d-vector-components}
+    d_x(k)=\operatorname{Re}\Delta_\phi(k),
+    \qquad
+    d_y(k)=-\operatorname{Im}\Delta_\phi(k),
+    \qquad
+    d_z(k)=\xi(k).
+\end{equation}
+The BdG spectrum is therefore
+\begin{equation}
+\label{eq:bdg-chapter-spectrum}
+    E_\pm(k)
+    =
+    \pm E(k),
+    \qquad
+    E(k)=\sqrt{\xi(k)^2+\abs{\Delta_\phi(k)}^2}
+    =\sqrt{d_x(k)^2+d_y(k)^2+d_z(k)^2}.
+\end{equation}
+A bulk gap closes only if
+\begin{equation}
+\label{eq:bdg-chapter-gap-closing-condition}
+    d_x(k)=d_y(k)=d_z(k)=0
+\end{equation}
+for some allowed momentum $k$ in the thermodynamic limit.
+
+\begin{remark}[Meaning of the negative branch]
+The negative branch $-E(k)$ is not a second independent physical species.  It is
+the particle--hole partner of the positive branch $E(k)$.  The physical
+quasiparticle spectrum after Bogoliubov diagonalization consists of the positive
+energies $E(k)$, together with a ground-state energy shift.
+\end{remark}
+
+\section[Independent (k,-k) sectors]{Independent $(k,-k)$ sectors}
+
+For $k\not\equiv -k$ modulo the reciprocal lattice, the four-dimensional Fock
+space generated by $c_k^\dagger$ and $c_{-k}^\dagger$ splits into even and odd
+fermion-parity sectors.  The even sector is
+\begin{equation}
+\label{eq:bdg-chapter-even-sector-basis}
+    \mathcal{H}_{k,-k}^{\rm even}
+    =
+    \operatorname{span}\left\{
+        \ket{0}_{k,-k},
+        c_k^\dagger c_{-k}^\dagger\ket{0}_{k,-k}
+    \right\},
+\end{equation}
+whereas the odd sector is
+\begin{equation}
+    \mathcal{H}_{k,-k}^{\rm odd}
+    =
+    \operatorname{span}\left\{
+        c_k^\dagger\ket{0}_{k,-k},
+        c_{-k}^\dagger\ket{0}_{k,-k}
+    \right\}.
+\end{equation}
+Pairing terms connect the two states in the even sector but do not connect states
+of opposite fermion parity.  Thus the BdG problem is equivalent to a two-level
+problem in each even-parity $(k,-k)$ sector.
+
+If the allowed momentum set contains self-conjugate momenta satisfying
+\begin{equation}
+    k\equiv -k \pmod{2\pi},
+\end{equation}
+then $k=0$ or $k=\pi$.  For spinless odd-parity pairing,
+\begin{equation}
+    \Delta_\phi(0)=0,
+    \qquad
+    \Delta_\phi(\pi)=0,
+\end{equation}
+so these modes are not paired by the superconducting term.  They contribute
+ordinary number-operator pieces of the form
+\begin{equation}
+    \xi(k)c_k^\dagger c_k.
+\end{equation}
+Such self-conjugate modes are often irrelevant in the thermodynamic bulk
+spectrum, but they matter in finite-size calculations and in the parity-sector
+bookkeeping of Jordan--Wigner-transformed spin chains.
+
+\section{Gauge phase in Nambu space}
+
+The previous chapter allowed a constant phase $\phi$ in the Fourier transform.
+This phase acts on momentum-space fermions as
+\begin{equation}
+    c_k^{(\phi)}=\ee^{-\ii\phi}c_k^{(0)}.
+\end{equation}
+Consequently,
+\begin{equation}
+\label{eq:bdg-chapter-nambu-gauge-transformation}
+    \Psi_k^{(\phi)}
+    =
+    \ee^{-\ii\phi\tau_z}\Psi_k^{(0)}.
+\end{equation}
+The BdG matrix transforms as
+\begin{equation}
+\label{eq:bdg-chapter-bdg-gauge-transformation}
+    \mathcal{H}_{\rm BdG}^{(\phi)}(k)
+    =
+    \ee^{-\ii\phi\tau_z}
+    \mathcal{H}_{\rm BdG}^{(0)}(k)
+    \ee^{\ii\phi\tau_z}.
+\end{equation}
+Therefore $\phi$ rotates the $\tau_x$--$\tau_y$ components of the BdG vector while
+leaving $d_z(k)=\xi(k)$ and the spectrum invariant.  Equivalently, the pairing
+gap transforms as
+\begin{equation}
+\label{eq:bdg-chapter-gap-gauge-phase}
+    \Delta_\phi(k)=\ee^{-2\ii\phi}\Delta_0(k).
+\end{equation}
+The factor of two reflects the fact that the pairing operator carries charge
+$2$ under the fermion $U(1)$ phase rotation.
+
+This distinction is important:
+\begin{equation}
+    \vartheta \text{ changes the allowed momenta, whereas } \phi
+    \text{ only changes the Nambu gauge.}
+\end{equation}
+A boundary twist $\vartheta$ can represent a physical flux through a ring.  A
+constant $\phi$ is a basis convention unless it is tied to a relative phase
+between distinct superconducting regions or to a spatially varying order
+parameter.
+
+\section{Example: Kitaev-chain BdG matrix}
+
+Consider the spinless Kitaev chain
+\begin{equation}
+\label{eq:bdg-chapter-kitaev-real-space}
+    H_{\rm K}
+    =
+    -\mu\sum_j\left(c_j^\dagger c_j-\frac12\right)
+    -t\sum_j\left(c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j\right)
+    +\sum_j
+    \left(
+        \Delta c_j^\dagger c_{j+1}^\dagger
+        +\Delta^* c_{j+1}c_j
+    \right),
+\end{equation}
+with
+\begin{equation}
+    \Delta=\abs{\Delta}\ee^{\ii\theta_\Delta}.
+\end{equation}
+Using the Fourier convention \cref{eq:bdg-chapter-fourier-convention}, one finds
+\begin{equation}
+\label{eq:bdg-chapter-kitaev-xi-gap}
+    \xi(k)=-\mu-2t\cos k,
+    \qquad
+    \Delta_\phi(k)
+    =
+    2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k.
+\end{equation}
+The BdG block is
+\begin{equation}
+\label{eq:bdg-chapter-kitaev-bdg-block}
+    \mathcal{H}_{\rm K}(k)
+    =
+    \begin{pmatrix}
+        -\mu-2t\cos k
+        &
+        2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k
+        \\
+        -2\ii\abs{\Delta}\ee^{-\ii(\theta_\Delta-2\phi)}\sin k
+        &
+        \mu+2t\cos k
+    \end{pmatrix}.
+\end{equation}
+The spectrum is
+\begin{equation}
+\label{eq:bdg-chapter-kitaev-spectrum}
+    E_\pm(k)
+    =
+    \pm\sqrt{(\mu+2t\cos k)^2+4\abs{\Delta}^2\sin^2 k}.
+\end{equation}
+It is independent of the uniform phase $\theta_\Delta$ and of the Fourier-gauge
+phase $\phi$.
+
+Choosing
+\begin{equation}
+    \phi=\frac{\theta_\Delta}{2}
+\end{equation}
+removes the explicit superconducting phase from the off-diagonal matrix element:
+\begin{equation}
+    \Delta_\phi(k)=2\ii\abs{\Delta}\sin k.
+\end{equation}
+For a single uniform Kitaev chain this is only a gauge choice.  In contrast,
+relative superconducting phases between different segments, Josephson junctions,
+or spatial phase gradients are physical because they cannot be removed by one
+constant global choice of $\phi$.
+
+For $\phi=\theta_\Delta/2$, the BdG vector is
+\begin{equation}
+    \bm{d}(k)
+    =
+    \bigl(0,-2\abs{\Delta}\sin k,-\mu-2t\cos k\bigr),
+\end{equation}
+using the convention $d_y=-\operatorname{Im}\Delta_\phi$.  The gap closes at
+\begin{equation}
+    \sin k=0,
+    \qquad
+    \mu+2t\cos k=0,
+\end{equation}
+so the thermodynamic phase boundaries are
+\begin{equation}
+\label{eq:bdg-chapter-kitaev-phase-boundaries}
+    \mu=-2t
+    \quad (k=0),
+    \qquad
+    \mu=2t
+    \quad (k=\pi).
+\end{equation}
+Equivalently, for real nonzero $t$,
+\begin{equation}
+    \abs{\mu}=2\abs{t}
+\end{equation}
+marks the bulk gap closing between the trivial and topological phases.
+
+\section{Example: BdG form of the transverse-field XY chain}
+
+The transverse-field XY chain later studied as a mother model has the Pauli-form
+Hamiltonian
+\begin{equation}
+\label{eq:bdg-chapter-xy-spin-hamiltonian}
+    H_{\rm XY}
+    =
+    -\sum_{j=1}^{L}
+    \left[
+        \frac{1+\gamma}{2}\sigma_j^x\sigma_{j+1}^x
+        +
+        \frac{1-\gamma}{2}\sigma_j^y\sigma_{j+1}^y
+    \right]
+    -h\sum_{j=1}^{L}\sigma_j^z,
+\end{equation}
+up to the boundary-sector subtleties already fixed in the Jordan--Wigner chapter.
+With the convention
+\begin{equation}
+    n_j=c_j^\dagger c_j=\frac{1-\sigma_j^z}{2},
+\end{equation}
+the bulk Jordan--Wigner image is a quadratic pairing Hamiltonian.  In the common
+normalization used in these notes, its BdG vector may be chosen as
+\begin{equation}
+\label{eq:bdg-chapter-xy-d-vector}
+    \bm{d}_{\rm XY}(k)
+    =
+    \bigl(0,-2\gamma\sin k,2(h-\cos k)\bigr),
+\end{equation}
+so that
+\begin{equation}
+\label{eq:bdg-chapter-xy-spectrum}
+    E_{\rm XY}(k)
+    =
+    2\sqrt{(h-\cos k)^2+\gamma^2\sin^2 k}.
+\end{equation}
+This form makes the common free-fermion structure transparent:
+\begin{equation}
+    \text{XY chain}
+    \quad\longleftrightarrow\quad
+    \text{spinless BdG chain}
+    \quad\longleftrightarrow\quad
+    \text{independent }(k,-k)\text{ two-level systems}.
+\end{equation}
+The transverse-field Ising chain is the special case $\gamma=1$.  The XX chain is
+the special case $\gamma=0$, where the pairing component vanishes and the problem
+reduces to a number-conserving free-fermion hopping model.
+
+\begin{remark}[Normalization warning]
+Different references place factors of $2$ in different locations in
+\cref{eq:bdg-chapter-xy-spin-hamiltonian}.  The invariant statement is the shape
+of the spectrum and the gap-closing conditions.  With the above convention, the
+critical lines are obtained from
+\begin{equation}
+    h-\cos k=0,
+    \qquad
+    \gamma\sin k=0.
+\end{equation}
+For $\gamma\neq0$, this gives $h=1$ at $k=0$ and $h=-1$ at $k=\pi$.
+\end{remark}
+
+\section{Nambu space versus sublattice space}
+
+A two-component Hamiltonian of the form
+\begin{equation}
+    \mathcal{H}(k)=d_x(k)\tau_x+d_y(k)\tau_y+d_z(k)\tau_z
+\end{equation}
+may describe very different physics depending on what the two components mean.
+For the Kitaev and XY chains, the two components are Nambu components,
+\begin{equation}
+    \Psi_k=(c_k,c_{-k}^\dagger)^T.
+\end{equation}
+For the SSH chain, the two components are sublattice components,
+\begin{equation}
+    \psi_k=(a_k,b_k)^T,
+\end{equation}
+where $a_k$ and $b_k$ annihilate fermions on two distinct sites within the unit
+cell.  The formal $2\times2$ matrix notation is similar, but the physical meaning
+is different.
+
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{@{}L{0.24\linewidth}YY@{}}
+\toprule
+ & BdG/Nambu two-level system & SSH/sublattice two-band system \\
+\midrule
+Two-component spinor
+& $(c_k,c_{-k}^\dagger)^T$
+& $(a_k,b_k)^T$ \\
+Physical components
+& particle and hole of related momenta
+& two independent orbitals/sublattices in one unit cell \\
+Reason for two bands
+& artificial Nambu doubling
+& genuine Bloch-band structure \\
+Built-in symmetry
+& particle--hole redundancy
+$\tau_x\mathcal{H}(-k)^*\tau_x=-\mathcal{H}(k)$
+& no BdG redundancy; SSH has chiral symmetry only for special hopping structure \\
+Prefactor in Hamiltonian
+& $\frac12\sum_k\Psi_k^\dagger\mathcal{H}_{\rm BdG}(k)\Psi_k$
+& $\sum_k\psi_k^\dagger h_{\rm Bloch}(k)\psi_k$ \\
+Meaning of negative energy
+& hole partner of positive-energy quasiparticle
+& physical valence band \\
+Ground state
+& Bogoliubov/BCS quasiparticle vacuum
+& filled-band Slater determinant at fixed particle number \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+This distinction is central to the organization of these notes.  The Kitaev,
+TFIM, and XY chains are solved through BdG pairing blocks.  The SSH model is a
+number-conserving free-fermion Bloch problem.  Both can be represented by maps
+from momentum space to a vector $\bm{d}(k)$, and both can carry topological
+winding numbers in one dimension, but the Hilbert-space interpretation of the
+same-looking Pauli matrices is not the same.
+
+\section{Summary}
+
+The BdG formalism rewrites a quadratic parity-preserving fermion Hamiltonian in
+Nambu space.  In real space,
+\begin{equation}
+    \mathbb{H}_{\rm BdG}
+    =
+    \begin{pmatrix}
+        h&\Delta\\
+        -\Delta^*&-h^T
+    \end{pmatrix},
+    \qquad
+    h^\dagger=h,
+    \qquad
+    \Delta^T=-\Delta.
+\end{equation}
+In a translation-invariant spinless chain, the basic momentum block is
+\begin{equation}
+    \mathcal{H}_{\rm BdG}(k)
+    =
+    \begin{pmatrix}
+        \xi(k)&\Delta_\phi(k)\\
+        \Delta_\phi(k)^*&-\xi(-k)
+    \end{pmatrix}.
+\end{equation}
+For $\xi(-k)=\xi(k)$ this becomes a two-level Hamiltonian
+\begin{equation}
+    \mathcal{H}_{\rm BdG}(k)=\bm{d}(k)\cdot\bm{\tau},
+    \qquad
+    \bm{d}(k)=
+    \bigl(\operatorname{Re}\Delta_\phi(k),
+    -\operatorname{Im}\Delta_\phi(k),
+    \xi(k)\bigr),
+\end{equation}
+with eigenvalues
+\begin{equation}
+    E_\pm(k)=\pm\sqrt{\xi(k)^2+\abs{\Delta_\phi(k)}^2}.
+\end{equation}
+The particle--hole relation
+\begin{equation}
+    \tau_x\mathcal{H}_{\rm BdG}(-k)^*\tau_x=-\mathcal{H}_{\rm BdG}(k)
+\end{equation}
+is an intrinsic Nambu redundancy.  The next chapter will use this structure to
+construct the explicit Bogoliubov transformation, the quasiparticle operators,
+and the BCS product ground state.

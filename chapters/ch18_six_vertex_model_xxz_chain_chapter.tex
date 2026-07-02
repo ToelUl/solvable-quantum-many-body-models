@@ -1,0 +1,663 @@
+\chapter{Six-Vertex Model and the XXZ Chain}
+\label{chap:six-vertex-xxz}
+
+The two-dimensional Ising model was solvable because its transfer matrix could be
+rewritten in terms of free fermions.  The six-vertex model is solvable for a
+different reason.  It is generally not a free-fermion model.  Its solvability
+comes from the existence of an $R$-matrix satisfying the Yang--Baxter equation.
+This equation implies a commuting family of transfer matrices, and the
+logarithmic derivative of this family produces the one-dimensional XXZ quantum
+spin chain.
+
+This chapter has three goals:
+\begin{enumerate}[label=(\roman*)]
+    \item define the six allowed local vertices and the row-to-row transfer
+    matrix;
+    \item introduce the six-vertex $R$-matrix and explain how the Yang--Baxter
+    equation gives commuting transfer matrices; and
+    \item take the Hamiltonian limit and obtain the XXZ chain with anisotropy
+    parameter $\Delta$.
+\end{enumerate}
+The coordinate and algebraic Bethe-ansatz diagonalizations are postponed to the
+following chapters.  Here the main point is the exact map
+\[
+    \text{six-vertex transfer matrix}
+    \quad\Longrightarrow\quad
+    \text{commuting transfer matrices}
+    \quad\Longrightarrow\quad
+    \text{XXZ Hamiltonian}.
+\]
+
+\section{Arrows, the ice rule, and six local weights}
+\label{sec:six-vertex-weights-ice-rule}
+
+The six-vertex model is a classical statistical model on a square lattice.  The
+degrees of freedom are arrows living on the edges.  At each vertex four arrows
+meet.  The allowed configurations obey the \emph{ice rule}: exactly two arrows
+point into the vertex and exactly two arrows point out of the vertex.
+
+Equivalently, each local vertex conserves a two-state charge.  We identify an
+arrow state with a spin-$1/2$ basis vector
+\begin{equation}
+    \ket{\uparrow}=\begin{pmatrix}1\\0\end{pmatrix},
+    \qquad
+    \ket{\downarrow}=\begin{pmatrix}0\\1\end{pmatrix},
+    \qquad
+    V\simeq \CC^2 .
+\end{equation}
+A local vertex weight is then an operator on $V\otimes V$.  In the ordered basis
+\begin{equation}
+    \ket{\uparrow\uparrow},
+    \quad
+    \ket{\uparrow\downarrow},
+    \quad
+    \ket{\downarrow\uparrow},
+    \quad
+    \ket{\downarrow\downarrow},
+\end{equation}
+the most common six-vertex weight matrix has the block form
+\begin{equation}
+\label{eq:six-vertex-constant-R-matrix}
+    R=
+    \begin{pmatrix}
+        a&0&0&0\\
+        0&b&c&0\\
+        0&c&b&0\\
+        0&0&0&a
+    \end{pmatrix}.
+\end{equation}
+The six nonzero matrix elements are
+\begin{equation}
+\label{eq:six-vertex-six-nonzero-weights}
+\begin{aligned}
+    &\ket{\uparrow\uparrow}\longrightarrow\ket{\uparrow\uparrow}
+    &&\text{with weight }a,\\
+    &\ket{\downarrow\downarrow}\longrightarrow\ket{\downarrow\downarrow}
+    &&\text{with weight }a,\\
+    &\ket{\uparrow\downarrow}\longrightarrow\ket{\uparrow\downarrow}
+    &&\text{with weight }b,\\
+    &\ket{\downarrow\uparrow}\longrightarrow\ket{\downarrow\uparrow}
+    &&\text{with weight }b,\\
+    &\ket{\uparrow\downarrow}\longrightarrow\ket{\downarrow\uparrow}
+    &&\text{with weight }c,\\
+    &\ket{\downarrow\uparrow}\longrightarrow\ket{\uparrow\downarrow}
+    &&\text{with weight }c.
+\end{aligned}
+\end{equation}
+All other matrix elements vanish.  Thus $R$ conserves the total $z$-spin on the
+two lines:
+\begin{equation}
+\label{eq:six-vertex-U1-conservation-local}
+    \left[ R,\sigma^z\otimes\id+\id\otimes\sigma^z\right]=0 .
+\end{equation}
+This is the algebraic form of the ice rule.
+
+\begin{definition}[Six-vertex anisotropy parameter]
+For nonzero $a$ and $b$, the standard six-vertex anisotropy parameter is
+\begin{equation}
+\label{eq:six-vertex-Delta-from-abc}
+    \Delta
+    =
+    \frac{a^2+b^2-c^2}{2ab} .
+\end{equation}
+Multiplying all weights by a common scalar changes the normalization of the
+partition function but not $\Delta$.
+\end{definition}
+
+The parameter $\Delta$ is the same anisotropy parameter that appears in the XXZ
+spin chain obtained from the Hamiltonian limit.  The local weights $(a,b,c)$
+control a two-dimensional classical model, whereas $\Delta$ controls the relative
+strength of the $z$ interaction in the associated one-dimensional quantum chain.
+
+\begin{remark}[Why there are six vertices]
+Without the ice rule there would be $2^4=16$ possible arrow configurations at a
+four-valent vertex.  The constraint ``two in and two out'' leaves six.  In the
+spin notation this is exactly the statement that the local weight preserves the
+number of up spins, or equivalently the total $S^z$ charge, on the two lines.
+\end{remark}
+
+\section{Row-to-row transfer matrix}
+\label{sec:six-vertex-row-transfer-matrix}
+
+Consider a square lattice with $L$ columns and $M$ rows.  We impose periodic
+boundary conditions in the horizontal direction.  A row configuration is specified
+by the $L$ vertical arrows crossing a horizontal cut, hence the row Hilbert space
+is
+\begin{equation}
+\label{eq:six-vertex-row-space}
+    \calH_L=V_1\otimes V_2\otimes\cdots\otimes V_L,
+    \qquad
+    V_j\simeq\CC^2 .
+\end{equation}
+A row-to-row transfer matrix maps one row of vertical arrows to the next row,
+summing over the internal horizontal arrows.
+
+The efficient way to write this object is to introduce an auxiliary space
+$V_a\simeq\CC^2$, which represents the horizontal arrow passing through the row.
+Let $R_{aj}(u)$ act on the auxiliary space $a$ and the quantum space $j$.  The
+monodromy matrix is
+\begin{equation}
+\label{eq:six-vertex-monodromy-matrix}
+    M_a(u)
+    =
+    R_{aL}(u)R_{a,L-1}(u)\cdots R_{a1}(u),
+\end{equation}
+and the transfer matrix is the auxiliary trace
+\begin{equation}
+\label{eq:six-vertex-transfer-matrix}
+    \tau(u)=\Tr_a M_a(u)
+    =
+    \Tr_a\!\bigl[R_{aL}(u)R_{a,L-1}(u)\cdots R_{a1}(u)\bigr] .
+\end{equation}
+The trace over $a$ closes the horizontal arrow into a periodic loop.  The
+partition function on an $L\times M$ torus is then
+\begin{equation}
+\label{eq:six-vertex-partition-function-transfer}
+    Z_{L,M}(u)=\Tr_{\calH_L}\tau(u)^M .
+\end{equation}
+Thus the thermodynamics of the two-dimensional classical model is controlled by
+the spectrum of $\tau(u)$.
+
+\begin{remark}[Two meanings of the same space]
+In the classical model, $\calH_L$ is a convenient vector space for row
+configurations.  In the quantum Hamiltonian limit, the same tensor product becomes
+the Hilbert space of a length-$L$ spin chain.  This is the same conceptual move as
+in the Ising transfer-matrix construction: a classical transfer direction becomes
+imaginary time for a quantum problem.
+\end{remark}
+
+The ice rule implies a global $U(1)$ symmetry of the transfer matrix.  Let
+\begin{equation}
+\label{eq:six-vertex-total-magnetization}
+    S^z_{\rm tot}=\frac12\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+Since every local $R_{aj}(u)$ conserves the sum of the auxiliary and quantum
+$z$-spins, tracing over the auxiliary space gives
+\begin{equation}
+\label{eq:six-vertex-transfer-U1-conservation}
+    [\tau(u),S^z_{\rm tot}]=0 .
+\end{equation}
+The corresponding XXZ Hamiltonian therefore conserves total magnetization.
+
+\section{The trigonometric six-vertex \texorpdfstring{$R$}{R}-matrix}
+\label{sec:six-vertex-r-matrix}
+
+A single transfer matrix is not yet enough to imply exact solvability.  The
+integrable structure appears when the vertex weights are embedded in a
+spectral-parameter family $R(u)$ satisfying the Yang--Baxter equation.  A standard
+hyperbolic parametrization is
+\begin{equation}
+\label{eq:six-vertex-R-hyperbolic}
+    R(u)=
+    \begin{pmatrix}
+        \sinh(u+\eta)&0&0&0\\
+        0&\sinh u&\sinh\eta&0\\
+        0&\sinh\eta&\sinh u&0\\
+        0&0&0&\sinh(u+\eta)
+    \end{pmatrix}.
+\end{equation}
+Here $u$ is the spectral parameter and $\eta$ is the anisotropy parameter.  In
+this convention
+\begin{equation}
+\label{eq:six-vertex-hyperbolic-weights}
+    a(u)=\sinh(u+\eta),
+    \qquad
+    b(u)=\sinh u,
+    \qquad
+    c(u)=\sinh\eta,
+\end{equation}
+and \cref{eq:six-vertex-Delta-from-abc} gives
+\begin{equation}
+\label{eq:xxz-Delta-cosh-eta}
+    \Delta=\cosh\eta .
+\end{equation}
+For the critical regime one often uses the trigonometric parametrization
+\begin{equation}
+\label{eq:six-vertex-R-trigonometric}
+    R(u)=
+    \begin{pmatrix}
+        \sin(u+\gamma)&0&0&0\\
+        0&\sin u&\sin\gamma&0\\
+        0&\sin\gamma&\sin u&0\\
+        0&0&0&\sin(u+\gamma)
+    \end{pmatrix},
+    \qquad
+    \Delta=\cos\gamma .
+\end{equation}
+The two forms are related by analytic continuation $\eta\leftrightarrow \ii\gamma$,
+up to harmless scalar and phase normalizations.  The hyperbolic form is natural
+for $\Delta>1$, while the trigonometric form is natural for $\abs{\Delta}<1$.
+
+\begin{remark}[Scalar normalization]
+The transformation
+\begin{equation}
+    R(u)\longmapsto f(u)R(u)
+\end{equation}
+with scalar $f(u)\neq0$ preserves the Yang--Baxter equation.  It multiplies the
+transfer matrix by $f(u)^L$ and therefore changes only the scalar part of
+$\log\tau(u)$.  In the Hamiltonian limit this produces an additive constant in
+$H$, not a change of the interacting physics.
+\end{remark}
+
+The $R$-matrix in \cref{eq:six-vertex-R-hyperbolic} is \emph{regular}:
+\begin{equation}
+\label{eq:six-vertex-regularity}
+    R(0)=\sinh\eta\,P,
+\end{equation}
+where $P:V\otimes V\to V\otimes V$ is the permutation operator
+\begin{equation}
+\label{eq:permutation-operator-definition}
+    P(\ket{\alpha}\otimes\ket{\beta})
+    =
+    \ket{\beta}\otimes\ket{\alpha} .
+\end{equation}
+In Pauli matrices,
+\begin{equation}
+\label{eq:permutation-operator-pauli}
+    P=\frac12\left(
+        \id\otimes\id
+        +\sigma^x\otimes\sigma^x
+        +\sigma^y\otimes\sigma^y
+        +\sigma^z\otimes\sigma^z
+    \right).
+\end{equation}
+Regularity is the key property that makes the logarithmic derivative of
+$\tau(u)$ local.
+
+\section{Yang--Baxter equation and commuting transfer matrices}
+\label{sec:six-vertex-yang-baxter}
+
+Let $R_{ij}(u)$ denote $R(u)$ acting on the $i$th and $j$th tensor factors and as
+identity on all others.  The Yang--Baxter equation is
+\begin{equation}
+\label{eq:six-vertex-YBE}
+    R_{12}(u-v)R_{13}(u)R_{23}(v)
+    =
+    R_{23}(v)R_{13}(u)R_{12}(u-v) .
+\end{equation}
+It is an operator identity on $V_1\otimes V_2\otimes V_3$.  The six-vertex
+$R$-matrix \cref{eq:six-vertex-R-hyperbolic} satisfies this equation.  In the
+classical vertex-model language, \cref{eq:six-vertex-YBE} is a local
+star--triangle move.  In the quantum scattering language, it is the consistency
+condition for factorized three-body scattering.
+
+\begin{theorem}[Commuting six-vertex transfer matrices]
+\label{thm:six-vertex-commuting-transfer}
+Let $R(u)$ satisfy the Yang--Baxter equation \cref{eq:six-vertex-YBE}.  Define
+$\tau(u)$ by \cref{eq:six-vertex-transfer-matrix}.  Then
+\begin{equation}
+\label{eq:six-vertex-transfer-commutativity}
+    [\tau(u),\tau(v)]=0,
+    \qquad
+    \text{for all }u,v .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Introduce two auxiliary spaces $a$ and $b$.  The Yang--Baxter equation implies
+the local relation
+\begin{equation}
+\label{eq:six-vertex-local-RLL}
+    R_{ab}(u-v)R_{aj}(u)R_{bj}(v)
+    =
+    R_{bj}(v)R_{aj}(u)R_{ab}(u-v)
+\end{equation}
+for each quantum site $j$.  Multiplying this identity over all sites gives the
+RTT relation
+\begin{equation}
+\label{eq:six-vertex-RTT}
+    R_{ab}(u-v)M_a(u)M_b(v)
+    =
+    M_b(v)M_a(u)R_{ab}(u-v) .
+\end{equation}
+Taking $\Tr_a\Tr_b$ and using cyclicity of the trace in the auxiliary spaces,
+$R_{ab}(u-v)$ can be moved through the trace and canceled.  The result is
+\begin{equation}
+    \Tr_a M_a(u)\,\Tr_b M_b(v)
+    =
+    \Tr_b M_b(v)\,\Tr_a M_a(u),
+\end{equation}
+which is exactly $\tau(u)\tau(v)=\tau(v)\tau(u)$.
+\end{proof}
+
+The implication is substantial.  Expanding the logarithm of $\tau(u)$ around a
+regular point gives an infinite sequence of mutually commuting conserved charges:
+\begin{equation}
+\label{eq:six-vertex-log-transfer-charges}
+    \log\tau(u)
+    =
+    \sum_{n=0}^{\infty}(u-u_0)^n Q_n,
+    \qquad
+    [Q_m,Q_n]=0 .
+\end{equation}
+The first nontrivial local charge is the XXZ Hamiltonian.  Higher charges have
+larger spatial range and are responsible for integrability.
+
+\begin{principle}[Yang--Baxter integrability]
+The Yang--Baxter equation is the local algebraic identity that upgrades one
+transfer matrix into a commuting one-parameter family.  The logarithm of this
+family generates the Hamiltonian and the higher conserved charges.
+\end{principle}
+
+\section{Hamiltonian limit and the XXZ chain}
+\label{sec:six-vertex-hamiltonian-limit}
+
+We now derive the quantum Hamiltonian associated with the regular six-vertex
+transfer matrix.  For a homogeneous periodic chain, regularity gives
+\begin{equation}
+\label{eq:six-vertex-transfer-at-zero-shift}
+    \tau(0)
+    =
+    (\sinh\eta)^L\,U,
+\end{equation}
+where $U$ is the one-site translation operator on the spin chain.  Taking the
+logarithmic derivative removes this translation and produces a nearest-neighbor
+operator:
+\begin{equation}
+\label{eq:six-vertex-log-derivative-locality}
+    \left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}
+    =
+    \sum_{j=1}^{L}
+    \frac{1}{\sinh\eta}
+    P_{j,j+1}R'_{j,j+1}(0),
+\end{equation}
+with $j+1$ understood modulo $L$.  The local operator can be computed explicitly.
+From \cref{eq:six-vertex-R-hyperbolic},
+\begin{equation}
+\label{eq:six-vertex-R-prime-zero}
+    R'(0)=
+    \begin{pmatrix}
+        \cosh\eta&0&0&0\\
+        0&1&0&0\\
+        0&0&1&0\\
+        0&0&0&\cosh\eta
+    \end{pmatrix}.
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:six-vertex-local-log-derivative-pauli}
+    \frac{1}{\sinh\eta}P R'(0)
+    =
+    \frac{1}{2\sinh\eta}
+    \left(
+        \sigma^x\otimes\sigma^x
+        +\sigma^y\otimes\sigma^y
+        +\cosh\eta\,\sigma^z\otimes\sigma^z
+        +\cosh\eta\,\id\otimes\id
+    \right).
+\end{equation}
+Multiplying the logarithmic derivative by $2\sinh\eta$ and subtracting an
+additive constant gives
+\begin{equation}
+\label{eq:xxz-from-six-vertex-integrability-normalization}
+    H_{\rm XXZ}^{(+)}
+    =
+    J\sum_{j=1}^{L}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +\sigma_j^y\sigma_{j+1}^y
+        +\Delta\bigl(\sigma_j^z\sigma_{j+1}^z-1\bigr)
+    \right),
+    \qquad
+    \Delta=\cosh\eta .
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:xxz-hamiltonian-log-derivative-final}
+    H_{\rm XXZ}^{(+)}
+    =
+    2J\sinh\eta
+    \left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}
+    -2J\Delta L .
+\end{equation}
+The superscript $(+)$ indicates the standard antiferromagnetic integrability
+normalization for $J>0$ and $\Delta>0$.  The constant $-2J\Delta L$ fixes the
+energy of the fully polarized reference state to zero; it has no effect on
+eigenvectors, gaps, or correlation functions.
+
+In spin-operator normalization, $S_j^\alpha=\sigma_j^\alpha/2$, the same
+Hamiltonian is
+\begin{equation}
+\label{eq:xxz-spin-operator-normalization-from-six-vertex}
+    H_{\rm XXZ}^{(+)}
+    =
+    4J\sum_{j=1}^{L}
+    \left(
+        S_j^xS_{j+1}^x
+        +S_j^yS_{j+1}^y
+        +\Delta S_j^zS_{j+1}^z
+    \right)
+    -J\Delta L .
+\end{equation}
+Only the overall energy scale and additive constant differ from other common XXZ
+conventions.
+
+\begin{remark}[Relation to the earlier Pauli convention]
+Earlier chapters used the ferromagnetic Pauli convention
+\begin{equation}
+    H_{\rm XXZ}^{\rm ferro}
+    =
+    -\frac{J_{\rm f}}{2}\sum_j
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +\sigma_j^y\sigma_{j+1}^y
+        +\Delta\sigma_j^z\sigma_{j+1}^z
+    \right)
+    -h\sum_j\sigma_j^z .
+\end{equation}
+The Hamiltonian generated directly by the six-vertex $R$-matrix is instead the
+integrability convention \cref{eq:xxz-from-six-vertex-integrability-normalization}.
+The two are related by an overall sign and energy-scale choice, plus an additive
+constant.  Whenever Bethe-ansatz formulas are quoted, the sign convention must be
+stated explicitly.
+\end{remark}
+
+The trigonometric $R$-matrix gives the same formula with
+\begin{equation}
+\label{eq:xxz-gapless-Delta-cos-gamma}
+    \Delta=\cos\gamma,
+    \qquad
+    \sinh\eta\longrightarrow\sin\gamma .
+\end{equation}
+Thus the critical XXZ regime $\abs{\Delta}<1$ is naturally parametrized by
+$0<\gamma<\pi$.
+
+\section{Why the Hamiltonian is local}
+\label{sec:six-vertex-why-local}
+
+It is useful to isolate the mechanism behind locality.  The transfer matrix
+\begin{equation}
+    \tau(u)=\Tr_a R_{aL}(u)\cdots R_{a1}(u)
+\end{equation}
+is a nonlocal operator on the whole chain.  Nevertheless, at the regular point
+$u=0$ every $R_{aj}(0)$ is a permutation.  The product of permutations simply
+moves the auxiliary spin through the chain and becomes the translation operator
+after the auxiliary trace.  Differentiating with respect to $u$ replaces exactly
+one local permutation by $R'(0)$, while all other factors remain permutations.
+After multiplying by $\tau(0)^{-1}$, this single defect becomes a local
+nearest-neighbor density.
+
+This is the vertex-model analogue of the Trotter logic in the Ising--TFIM
+correspondence.  The difference is that the present transfer matrix is not merely
+one short-time evolution operator.  It belongs to a commuting spectral-parameter
+family, and this additional structure produces infinitely many conserved charges.
+
+\begin{proposition}[Local charge from regularity]
+\label{prop:regular-transfer-local-charge}
+Let $R(u)$ satisfy $R(0)=\rho P$ with $\rho\neq0$, and define the homogeneous
+periodic transfer matrix by \cref{eq:six-vertex-transfer-matrix}.  Then
+\begin{equation}
+    \left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}
+    =
+    \sum_{j=1}^{L}h_{j,j+1},
+    \qquad
+    h_{j,j+1}=\rho^{-1}P_{j,j+1}R'_{j,j+1}(0),
+\end{equation}
+up to the conventional orientation of the one-site translation operator.
+\end{proposition}
+
+\section{Conserved magnetization and interacting character}
+\label{sec:six-vertex-conserved-magnetization-interaction}
+
+The XXZ Hamiltonian obtained above satisfies
+\begin{equation}
+\label{eq:xxz-U1-symmetry}
+    [H_{\rm XXZ}^{(+)},S^z_{\rm tot}]=0 .
+\end{equation}
+Using $\sigma_j^\pm=(\sigma_j^x\pm\ii\sigma_j^y)/2$, one may rewrite the exchange
+part as
+\begin{equation}
+\label{eq:xxz-ladder-form}
+    \sigma_j^x\sigma_{j+1}^x+
+    \sigma_j^y\sigma_{j+1}^y
+    =
+    2\left(
+        \sigma_j^+\sigma_{j+1}^-
+        +
+        \sigma_j^-\sigma_{j+1}^+
+    \right).
+\end{equation}
+Thus the $XY$ part hops a down spin through an up-spin background, while the
+$\Delta\sigma_j^z\sigma_{j+1}^z$ term gives a nearest-neighbor interaction between
+magnons.  At $\Delta=0$ the model is the XX chain and becomes free after the
+Jordan--Wigner transformation.  At generic $\Delta$, the Jordan--Wigner image
+contains a density--density interaction and is not a quadratic fermion model.
+
+Explicitly, under Jordan--Wigner fermionization, the $XY$ part becomes hopping,
+whereas
+\begin{equation}
+\label{eq:xxz-density-density-interaction}
+    \sigma_j^z\sigma_{j+1}^z
+    =
+    (1-2n_j)(1-2n_{j+1})
+    =
+    1-2(n_j+n_{j+1})+4n_jn_{j+1} .
+\end{equation}
+The quartic term $n_jn_{j+1}$ is the interacting part.  Therefore the XXZ chain
+is a genuinely interacting integrable model, except at the free-fermion point
+$\Delta=0$.
+
+\begin{remark}[Why this chapter leaves the spectrum unfinished]
+For the Ising, XY, Kitaev, and SSH chains, exact solvability meant reducing the
+Hamiltonian to independent BdG blocks.  For the XXZ chain this is impossible at
+generic $\Delta$ because of the quartic Jordan--Wigner interaction.  Its solution
+requires Bethe ansatz: many-body eigenstates are built from interacting magnons
+whose scattering factorizes.  The six-vertex transfer matrix supplies the
+Yang--Baxter reason why that factorization is consistent.
+\end{remark}
+
+\section{Anisotropy regimes}
+\label{sec:six-vertex-xxz-regimes}
+
+For the antiferromagnetic XXZ convention
+\begin{equation}
+\label{eq:xxz-standard-spin-regime-convention}
+    H_{\rm XXZ}^{S}
+    =
+    \mathcal{J}\sum_j
+    \left(
+        S_j^xS_{j+1}^x
+        +S_j^yS_{j+1}^y
+        +\Delta S_j^zS_{j+1}^z
+    \right),
+    \qquad
+    \mathcal{J}>0,
+\end{equation}
+the familiar zero-field phase structure is summarized as follows:
+\begin{center}
+\begin{tabular}{@{}L{0.22\linewidth}L{0.30\linewidth}L{0.34\linewidth}@{}}
+\toprule
+Parameter regime & Useful parametrization & Quantum-chain behavior \\
+\midrule
+$\Delta>1$ & $\Delta=\cosh\eta$ & gapped antiferromagnetic, or N\'{e}el, regime \\
+$-1<\Delta<1$ & $\Delta=\cos\gamma$ & gapless critical Luttinger-liquid regime \\
+$\Delta=1$ & isotropic XXX point & critical with full $SU(2)$ symmetry and marginal corrections \\
+$\Delta<-1$ & analytic continuation or sign-twisted convention & gapped ferromagnetic regime \\
+\bottomrule
+\end{tabular}
+\end{center}
+For the classical six-vertex model with positive weights, one also classifies
+regions using
+\begin{equation}
+    \Delta=\frac{a^2+b^2-c^2}{2ab} .
+\end{equation}
+The regime $\abs{\Delta}<1$ is the critical disordered phase of the classical
+vertex model.  The regions $\Delta>1$ and $\Delta<-1$ correspond to ordered
+ferroelectric and antiferroelectric regimes, respectively, depending on which
+weights dominate.  The exact terminology is classical-model dependent, but the
+same invariant $\Delta$ controls the integrable family.
+
+\begin{remark}[Classical phases versus quantum phases]
+The two-dimensional six-vertex partition function at a fixed spectral parameter
+and the one-dimensional XXZ Hamiltonian obtained by a logarithmic derivative are
+not the same physical object.  They are two different uses of the same commuting
+transfer-matrix family.  The shared parameter $\Delta$ explains why their phase
+diagrams are closely related, but one should not identify a classical ordered
+region with a quantum ground-state phase without specifying the Hamiltonian limit
+and the sign convention.
+\end{remark}
+
+\section{What the transfer matrix solution will become}
+\label{sec:six-vertex-what-comes-next}
+
+The six-vertex transfer matrix is diagonalized by Bethe ansatz.  In the algebraic
+form, one writes the monodromy matrix as a $2\times2$ matrix in auxiliary space,
+\begin{equation}
+\label{eq:six-vertex-ABA-monodromy-entries}
+    M_a(u)=
+    \begin{pmatrix}
+        A(u)&B(u)\\
+        C(u)&D(u)
+    \end{pmatrix}_a,
+    \qquad
+    \tau(u)=A(u)+D(u).
+\end{equation}
+The operator $B(u)$ creates Bethe quasiparticles above a reference state, and the
+RTT relation generated by the Yang--Baxter equation gives the algebra needed to
+move $A(u)$ and $D(u)$ through a product of $B$'s.  Requiring unwanted terms to
+vanish gives the Bethe equations.
+
+In the coordinate form, the same result appears as factorized magnon scattering.
+In a sector with $M$ down spins, a wave function is a sum over plane waves in each
+ordered coordinate region,
+\begin{equation}
+    \Psi(x_1,\ldots,x_M)
+    =
+    \sum_{P\in S_M}A(P)
+    \exp\left(\ii\sum_{a=1}^{M}k_{P_a}x_a\right),
+    \qquad
+    x_1<\cdots<x_M .
+\end{equation}
+The two-body scattering phase determines how the amplitudes $A(P)$ change when
+neighboring momenta are exchanged.  Periodic boundary conditions then lead to
+Bethe equations.  The following chapters derive these statements explicitly.
+
+\section{Summary}
+\label{sec:six-vertex-summary}
+
+The essential chain of ideas is
+\begin{equation}
+\label{eq:six-vertex-summary-chain}
+\boxed{
+\begin{gathered}
+    \text{ice-rule vertex weights}
+    \;\Longrightarrow\;
+    R(u)\text{ with }U(1)\text{ conservation}
+    \\
+    \Longrightarrow\;
+    \text{Yang--Baxter equation}
+    \;\Longrightarrow\;
+    [\tau(u),\tau(v)]=0
+    \\
+    \Longrightarrow\;
+    H_{\rm XXZ}\propto
+    \left.\frac{\dd}{\dd u}\log\tau(u)\right|_{u=0}
+    \;\Longrightarrow\;
+    \text{interacting Bethe-ansatz integrability.}
+\end{gathered}}
+\end{equation}
+The six-vertex model is therefore the canonical bridge between two-dimensional
+classical vertex models and one-dimensional interacting quantum spin chains.
+Unlike the Ising--TFIM correspondence, the resulting quantum chain is not solved
+by free fermions at generic anisotropy.  Its solvability is instead controlled by
+Yang--Baxter integrability and factorized scattering.

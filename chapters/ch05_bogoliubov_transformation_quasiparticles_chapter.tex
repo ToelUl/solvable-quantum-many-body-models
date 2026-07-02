@@ -1,0 +1,664 @@
+\chapter{Bogoliubov Transformation and Quasiparticles}
+\label{chap:bogoliubov-transformation-quasiparticles}
+
+The previous chapter formulated quadratic pairing Hamiltonians as BdG matrices.
+A BdG matrix makes the particle--hole structure transparent, but it is still not
+the final solution of the many-body problem.  The final step is the
+\emph{Bogoliubov transformation}: a canonical change of fermionic operators that
+turns each BdG block into a collection of independent quasiparticle number operators.
+
+This chapter gives the explicit diagonalization used throughout the later
+chapters on the transverse-field XY chain, the transverse-field Ising chain, and
+the Kitaev chain.  The main idea is simple.  For each independent momentum pair
+$(k,-k)$, pairing mixes the empty state and the doubly occupied state.  The
+Bogoliubov transformation is the fermionic rotation that chooses the correct
+linear combinations of particles and holes so that the Hamiltonian becomes a collection of free quasiparticles.
+
+\section{Independent positive-momentum sectors}
+\label{sec:bt-independent-momentum-sectors}
+
+For the spinless BdG chains considered in these notes, the momentum-space
+Hamiltonian has the form
+\begin{equation}
+\label{eq:bt-full-momentum-hamiltonian}
+    H
+    =
+    \sum_{k\in\mathcal{K}_\vartheta}\xi(k)c_k^\dagger c_k
+    +\frac12\sum_{k\in\mathcal{K}_\vartheta}
+    \left[
+        \Delta_\phi(k)c_k^\dagger c_{-k}^\dagger
+        +\Delta_\phi(k)^*c_{-k}c_k
+    \right]
+    +E_{\rm cl},
+\end{equation}
+where
+\begin{equation}
+\label{eq:bt-even-xi-odd-gap}
+    \xi(-k)=\xi(k),
+    \qquad
+    \Delta_\phi(-k)=-\Delta_\phi(k).
+\end{equation}
+The allowed set $\mathcal{K}_\vartheta$ is fixed by the boundary twist
+introduced in the Fourier-transform chapter.  Let $\mathcal{K}_+$ denote a set
+containing exactly one representative from each non-self-conjugate pair
+$\{k,-k\}$.  Self-conjugate momenta, if present, satisfy
+\begin{equation}
+    k\equiv -k \pmod{2\pi},
+\end{equation}
+and are therefore $k=0$ or $k=\pi$.
+
+For $k\in\mathcal{K}_+$, the contribution of the pair $(k,-k)$ is
+\begin{equation}
+\label{eq:bt-pair-hamiltonian}
+    H_k
+    =
+    \xi_k\left(c_k^\dagger c_k+c_{-k}^\dagger c_{-k}-1\right)
+    +\Delta_k c_k^\dagger c_{-k}^\dagger
+    +\Delta_k^*c_{-k}c_k,
+\end{equation}
+where, for compactness,
+\begin{equation}
+    \xi_k\equiv \xi(k),
+    \qquad
+    \Delta_k\equiv \Delta_\phi(k).
+\end{equation}
+Equivalently, with the Nambu spinor
+\begin{equation}
+\label{eq:bt-nambu-spinor-positive-k}
+    \Psi_k
+    =
+    \begin{pmatrix}
+        c_k\\
+        c_{-k}^\dagger
+    \end{pmatrix},
+    \qquad
+    \Psi_k^\dagger
+    =
+    \begin{pmatrix}
+        c_k^\dagger&c_{-k}
+    \end{pmatrix},
+\end{equation}
+one has
+\begin{equation}
+\label{eq:bt-pair-hamiltonian-nambu}
+    H_k=\Psi_k^\dagger\mathcal{H}_{\rm BdG}(k)\Psi_k,
+    \qquad
+    \mathcal{H}_{\rm BdG}(k)
+    =
+    \begin{pmatrix}
+        \xi_k&\Delta_k\\
+        \Delta_k^*&-\xi_k
+    \end{pmatrix}.
+\end{equation}
+Notice that no additional factor of $1/2$ appears in
+\cref{eq:bt-pair-hamiltonian-nambu}, because $\mathcal{K}_+$ already contains
+only one momentum from each pair.  This is equivalent to the all-momentum BdG
+formula with a factor of $1/2$.
+
+The positive BdG energy is
+\begin{equation}
+\label{eq:bt-positive-energy}
+    E_k
+    =
+    \sqrt{\xi_k^2+\abs{\Delta_k}^2}.
+\end{equation}
+The goal is to find new canonical fermions $\gamma_k,\gamma_{-k}$ such that
+\begin{equation}
+\label{eq:bt-diagonal-goal}
+    H_k
+    =
+    E_k\left(\gamma_k^\dagger\gamma_k+
+    \gamma_{-k}^\dagger\gamma_{-k}-1\right).
+\end{equation}
+
+\section{Bogoliubov angle and coherence factors}
+\label{sec:bt-coherence-factors}
+
+Write the complex pairing amplitude as
+\begin{equation}
+\label{eq:bt-gap-phase-definition}
+    \Delta_k=\abs{\Delta_k}\ee^{\ii\alpha_k},
+    \qquad
+    \alpha_k=\operatorname{Arg}\Delta_k,
+\end{equation}
+whenever $\Delta_k\neq0$.  Introduce the polar angle $\theta_k\in[0,\pi]$ by
+\begin{equation}
+\label{eq:bt-bogoliubov-angle}
+    \cos\theta_k=\frac{\xi_k}{E_k},
+    \qquad
+    \sin\theta_k=\frac{\abs{\Delta_k}}{E_k}.
+\end{equation}
+The standard coherence factors are
+\begin{equation}
+\label{eq:bt-coherence-factors}
+    u_k=\cos\frac{\theta_k}{2}
+    =\sqrt{\frac{E_k+\xi_k}{2E_k}},
+    \qquad
+    v_k=-\ee^{\ii\alpha_k}\sin\frac{\theta_k}{2}
+    =-\ee^{\ii\alpha_k}\sqrt{\frac{E_k-\xi_k}{2E_k}}.
+\end{equation}
+They obey
+\begin{equation}
+\label{eq:bt-coherence-normalization}
+    \abs{u_k}^2+\abs{v_k}^2=1,
+\end{equation}
+and, with the above phase convention,
+\begin{equation}
+\label{eq:bt-coherence-ratio}
+    \frac{v_k}{u_k}
+    =
+    -\frac{\Delta_k}{E_k+\xi_k}
+\end{equation}
+whenever $E_k+\xi_k\neq0$.
+
+\begin{remark}[Gauge convention at singular points]
+The expression \cref{eq:bt-coherence-factors} is a convenient local gauge.  At
+points where $E_k+\xi_k=0$, the ratio in \cref{eq:bt-coherence-ratio} is not a
+good coordinate even though the physical state is well defined.  One may instead
+use an equivalent gauge based on $E_k-\xi_k$.  This is the same type of gauge
+singularity encountered when representing a two-level eigenvector on a Bloch
+sphere.
+\end{remark}
+
+\section{Canonical Bogoliubov transformation}
+\label{sec:bt-canonical-transformation}
+
+Define the quasiparticle operators by
+\begin{equation}
+\label{eq:bt-bogoliubov-transformation}
+    \gamma_k
+    =
+    u_k c_k-v_k c_{-k}^\dagger,
+    \qquad
+    \gamma_{-k}
+    =
+    u_k c_{-k}+v_k c_k^\dagger.
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:bt-bogoliubov-transformation-matrix}
+    \begin{pmatrix}
+        \gamma_k\\
+        \gamma_{-k}^\dagger
+    \end{pmatrix}
+    =
+    U_k
+    \begin{pmatrix}
+        c_k\\
+        c_{-k}^\dagger
+    \end{pmatrix},
+    \qquad
+    U_k
+    =
+    \begin{pmatrix}
+        u_k&-v_k\\
+        v_k^*&u_k
+    \end{pmatrix}.
+\end{equation}
+The matrix $U_k$ is unitary because of
+\cref{eq:bt-coherence-normalization}.  Therefore the transformation preserves the
+canonical anticommutation relations:
+\begin{equation}
+\label{eq:bt-quasiparticle-car}
+    \{\gamma_q,\gamma_{q'}^\dagger\}=\delta_{q,q'},
+    \qquad
+    \{\gamma_q,\gamma_{q'}\}=0.
+\end{equation}
+The inverse transformation is
+\begin{equation}
+\label{eq:bt-inverse-bogoliubov-transformation}
+    c_k=u_k\gamma_k+v_k\gamma_{-k}^\dagger,
+    \qquad
+    c_{-k}=u_k\gamma_{-k}-v_k\gamma_k^\dagger.
+\end{equation}
+
+\begin{proposition}[Diagonalization of one BdG block]
+\label{prop:bt-one-block-diagonalization}
+With $u_k,v_k$ given by \cref{eq:bt-coherence-factors}, the Bogoliubov
+transformation \cref{eq:bt-bogoliubov-transformation} diagonalizes the pair
+Hamiltonian:
+\begin{equation}
+\label{eq:bt-pair-diagonalized}
+    H_k
+    =
+    E_k\left(\gamma_k^\dagger\gamma_k+
+    \gamma_{-k}^\dagger\gamma_{-k}-1\right).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Using the Nambu notation of \cref{eq:bt-nambu-spinor-positive-k}, the
+transformation is
+\begin{equation}
+    \Gamma_k=U_k\Psi_k,
+    \qquad
+    \Gamma_k=
+    \begin{pmatrix}
+        \gamma_k\\
+        \gamma_{-k}^\dagger
+    \end{pmatrix}.
+\end{equation}
+A direct multiplication gives
+\begin{equation}
+\label{eq:bt-unitary-diagonalization}
+    U_k\mathcal{H}_{\rm BdG}(k)U_k^\dagger
+    =
+    \begin{pmatrix}
+        E_k&0\\
+        0&-E_k
+    \end{pmatrix}
+    =E_k\tau_z.
+\end{equation}
+Hence
+\begin{align}
+    H_k
+    &
+    =\Psi_k^\dagger\mathcal{H}_{\rm BdG}(k)\Psi_k
+      =\Gamma_k^\dagger E_k\tau_z\Gamma_k\notag\\
+    &
+    =E_k\gamma_k^\dagger\gamma_k
+     -E_k\gamma_{-k}\gamma_{-k}^\dagger
+      =E_k\left(\gamma_k^\dagger\gamma_k+
+      \gamma_{-k}^\dagger\gamma_{-k}-1\right),
+\end{align}
+where the last equality uses
+$\gamma_{-k}\gamma_{-k}^\dagger=1-\gamma_{-k}^\dagger\gamma_{-k}$.
+\end{proof}
+
+Thus the BdG eigenvalues $\pm E_k$ are not two independent particle species.
+They are the particle and hole branches of one canonical pair of quasiparticle
+modes.  The physical excitation energies are nonnegative and are given by
+$E_k$.
+
+\section{Even-sector two-level problem}
+\label{sec:bt-even-sector-two-level}
+
+The same diagonalization can be seen directly in the many-body Hilbert space.
+For $k\not\equiv -k$, the even-parity subspace is spanned by
+\begin{equation}
+\label{eq:bt-even-basis}
+    \ket{0}_{k,-k},
+    \qquad
+    \ket{11}_{k,-k}=c_k^\dagger c_{-k}^\dagger\ket{0}_{k,-k}.
+\end{equation}
+In this basis the pair Hamiltonian is represented by
+\begin{equation}
+\label{eq:bt-even-sector-matrix}
+    H_k^{\rm even}
+    =
+    \begin{pmatrix}
+        -\xi_k&\Delta_k^*\\
+        \Delta_k&\xi_k
+    \end{pmatrix}.
+\end{equation}
+Its eigenvalues are $-E_k$ and $+E_k$.  The lower eigenstate is
+\begin{equation}
+\label{eq:bt-pair-ground-state}
+    \ket{\mathrm{GS}}_k
+    =
+    u_k\ket{0}_{k,-k}
+    +v_k c_k^\dagger c_{-k}^\dagger\ket{0}_{k,-k},
+\end{equation}
+with the same $u_k,v_k$ as in \cref{eq:bt-coherence-factors}.  Indeed,
+\begin{equation}
+    \frac{v_k}{u_k}=-\frac{\Delta_k}{E_k+\xi_k}
+\end{equation}
+is exactly the lower-eigenvector equation for
+\cref{eq:bt-even-sector-matrix}.
+
+The odd-parity states
+\begin{equation}
+    c_k^\dagger\ket{0}_{k,-k},
+    \qquad
+    c_{-k}^\dagger\ket{0}_{k,-k}
+\end{equation}
+are not mixed by the pairing term.  Relative to the ground state of the pair,
+they are one-quasiparticle excitations with energy cost $E_k$.  The doubly
+excited state $\gamma_k^\dagger\gamma_{-k}^\dagger\ket{\mathrm{GS}}_k$ has energy
+cost $2E_k$.
+
+\section{BCS product ground state}
+\label{sec:bt-bcs-product-ground-state}
+
+The full quasiparticle vacuum is defined by
+\begin{equation}
+\label{eq:bt-quasiparticle-vacuum-definition}
+    \gamma_q\ket{\mathrm{GS}}=0
+    \qquad
+    \text{for all quasiparticle modes }q.
+\end{equation}
+For the non-self-conjugate momentum pairs, it is the product of the pair ground
+states:
+\begin{equation}
+\label{eq:bt-bcs-product-state}
+    \ket{\mathrm{GS}}
+    =
+    \prod_{k\in\mathcal{K}_+}
+    \left(
+        u_k+v_k c_k^\dagger c_{-k}^\dagger
+    \right)
+    \ket{0},
+\end{equation}
+up to the separate treatment of self-conjugate modes.  The ordering of the
+product over $k$ must be fixed once and for all, since fermion creation operators
+anticommute.  A different ordering changes only an overall sign convention for
+the many-body state.
+
+The diagonal Hamiltonian is
+\begin{equation}
+\label{eq:bt-full-diagonal-hamiltonian}
+    H
+    =
+    E_{\rm vac}
+    +
+    \sum_{k\in\mathcal{K}_+}E_k
+    \left(
+        \gamma_k^\dagger\gamma_k+
+        \gamma_{-k}^\dagger\gamma_{-k}
+    \right)
+    +H_{\rm self},
+\end{equation}
+where
+\begin{equation}
+\label{eq:bt-paired-sector-vacuum-energy}
+    E_{\rm vac}=E_{\rm cl}-\sum_{k\in\mathcal{K}_+}E_k
+\end{equation}
+modulo the constant convention used in the original Hamiltonian.  The term
+$H_{\rm self}$ denotes possible $k=0$ or $k=\pi$ contributions, discussed below.
+
+\begin{principle}[Meaning of the BCS product]
+The BCS ground state is not a fixed-particle-number state.  It is a coherent
+superposition of states with different fermion numbers but the same fermion
+parity.  This is natural for BdG Hamiltonians, which conserve fermion parity
+rather than fermion number.
+\end{principle}
+
+For each pair $(k,-k)$, the occupation and anomalous expectation values are
+\begin{equation}
+\label{eq:bt-bcs-basic-contractions}
+    \langle c_k^\dagger c_k\rangle=\abs{v_k}^2,
+    \qquad
+    \langle c_{-k}^\dagger c_{-k}\rangle=\abs{v_k}^2,
+    \qquad
+    \langle c_{-k}c_k\rangle=u_kv_k.
+\end{equation}
+Using \cref{eq:bt-coherence-factors}, these become
+\begin{equation}
+\label{eq:bt-bcs-basic-contractions-explicit}
+    \abs{v_k}^2=\frac12\left(1-\frac{\xi_k}{E_k}\right),
+    \qquad
+    u_kv_k=-\frac{\Delta_k}{2E_k}.
+\end{equation}
+These contractions are the input for the covariance-matrix and Pfaffian methods
+developed in the next chapter.
+
+\section{Self-conjugate momenta and parity bookkeeping}
+\label{sec:bt-self-conjugate-momenta}
+
+If the allowed momentum set contains $q=0$ or $q=\pi$, then $q=-q$ modulo
+$2\pi$.  For spinless odd-parity pairing,
+\begin{equation}
+    \Delta_q=0,
+\end{equation}
+so such a mode cannot be paired with itself.  Its BdG contribution is instead an
+ordinary one-mode problem.  In a symmetric BdG convention one writes
+\begin{equation}
+\label{eq:bt-self-conjugate-bdg-term}
+    H_q=\xi_q\left(c_q^\dagger c_q-\frac12\right).
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:bt-self-conjugate-diagonal}
+    H_q=\abs{\xi_q}\left(\eta_q^\dagger\eta_q-\frac12\right),
+\end{equation}
+where
+\begin{equation}
+    \eta_q=
+    \begin{cases}
+        c_q, & \xi_q>0,\\
+        c_q^\dagger, & \xi_q<0.
+    \end{cases}
+\end{equation}
+Thus the ground-state occupation of the self-conjugate mode is
+\begin{equation}
+\label{eq:bt-self-conjugate-occupation}
+    n_q^{\rm GS}
+    =
+    \begin{cases}
+        0, & \xi_q>0,\\
+        1, & \xi_q<0.
+    \end{cases}
+\end{equation}
+These modes are negligible for most thermodynamic bulk quantities but essential
+for finite-size spectra and fermion-parity selection.
+
+In Jordan--Wigner images of spin chains, the physical Hilbert space splits into
+fermion-parity sectors.  The parity sector fixes the boundary condition, and the
+boundary condition fixes whether self-conjugate momenta are present.  Therefore a
+careful finite-size solution requires the following sequence:
+\begin{equation}
+\label{eq:bt-finite-size-sequence}
+\begin{aligned}
+    \text{spin parity sector}
+    &\longrightarrow
+    \text{fermion boundary condition}
+    \longrightarrow
+    \text{allowed momentum set}\\
+    &\longrightarrow
+    \text{Bogoliubov diagonalization}.
+\end{aligned}
+\end{equation}
+Only after this sequence can one compare the vacuum energies of different parity
+sectors to determine the true finite-size ground state.
+
+\section{Role of the Fourier-gauge phase}
+\label{sec:bt-fourier-gauge-phase}
+
+The Fourier convention used in these notes allows
+\begin{equation}
+\label{eq:bt-fourier-phase-convention}
+    c_k^{(\phi)}=\ee^{-\ii\phi}c_k^{(0)},
+    \qquad
+    c_j=\frac{\ee^{\ii\phi}}{\sqrt{L}}
+    \sum_k \ee^{\ii kj}c_k^{(\phi)}.
+\end{equation}
+As explained in the previous chapter, this is a Nambu gauge choice.  It changes
+\begin{equation}
+\label{eq:bt-gap-phase-under-fourier-gauge}
+    \Delta_k^{(\phi)}=\ee^{-2\ii\phi}\Delta_k^{(0)},
+\end{equation}
+but leaves the spectrum invariant:
+\begin{equation}
+    E_k=\sqrt{\xi_k^2+\abs{\Delta_k^{(\phi)}}^2}.
+\end{equation}
+Since the coherence factor $v_k$ carries the phase of $\Delta_k$, it transforms
+as
+\begin{equation}
+\label{eq:bt-v-gauge-transformation}
+    v_k^{(\phi)}=\ee^{-2\ii\phi}v_k^{(0)},
+    \qquad
+    u_k^{(\phi)}=u_k^{(0)},
+\end{equation}
+within the convention \cref{eq:bt-coherence-factors}.  The BCS factor transforms
+covariantly:
+\begin{equation}
+\label{eq:bt-bcs-factor-gauge-invariance}
+    u_k^{(\phi)}+v_k^{(\phi)}
+    c_k^{(\phi)\dagger}c_{-k}^{(\phi)\dagger}
+    =
+    u_k^{(0)}+v_k^{(0)}c_k^{(0)\dagger}c_{-k}^{(0)\dagger}.
+\end{equation}
+Thus the many-body state is unchanged; only its coordinate representation in
+Nambu space has been rotated.
+
+This observation is especially useful for a Kitaev chain with complex pairing,
+\begin{equation}
+\label{eq:bt-complex-kitaev-gap}
+    \Delta=\abs{\Delta}\ee^{\ii\theta_\Delta}.
+\end{equation}
+The gap function derived in the previous chapter is
+\begin{equation}
+\label{eq:bt-kitaev-gap-with-phase}
+    \Delta_\phi(k)
+    =
+    2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k.
+\end{equation}
+Choosing
+\begin{equation}
+\label{eq:bt-kitaev-phase-gauge-choice}
+    \phi=\frac{\theta_\Delta}{2}
+\end{equation}
+sets
+\begin{equation}
+    \Delta_\phi(k)=2\ii\abs{\Delta}\sin k.
+\end{equation}
+For a single uniform Kitaev chain, this removes the uniform superconducting phase
+from the BdG block.  The phase becomes physical only when it is relative to
+another phase, spatially dependent, or tied to a boundary twist or flux that
+cannot be removed by a single global gauge choice.
+
+\section{Application: quasiparticles of the Kitaev chain}
+\label{sec:bt-kitaev-quasiparticles}
+
+For the Kitaev chain in the convention of the previous chapter,
+\begin{equation}
+\label{eq:bt-kitaev-xi-delta}
+    \xi_k=-\mu-2t\cos k,
+    \qquad
+    \Delta_k=2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k.
+\end{equation}
+The quasiparticle dispersion is
+\begin{equation}
+\label{eq:bt-kitaev-quasiparticle-spectrum}
+    E_k=
+    \sqrt{(\mu+2t\cos k)^2+4\abs{\Delta}^2\sin^2 k}.
+\end{equation}
+The Bogoliubov angle is determined by
+\begin{equation}
+\label{eq:bt-kitaev-angle}
+    \cos\theta_k=\frac{-\mu-2t\cos k}{E_k},
+    \qquad
+    \sin\theta_k=\frac{2\abs{\Delta}\abs{\sin k}}{E_k}.
+\end{equation}
+The phase entering $v_k$ is
+\begin{equation}
+\label{eq:bt-kitaev-alpha}
+    \alpha_k
+    =
+    \operatorname{Arg}\left[
+        2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k
+    \right].
+\end{equation}
+In the gauge $\phi=\theta_\Delta/2$, this reduces to the phase of
+$\ii\sin k$.  Hence the only remaining phase discontinuity is the sign change of
+$\sin k$, which reflects the odd-parity nature of spinless $p$-wave pairing.
+
+The gap closes when both terms inside \cref{eq:bt-kitaev-quasiparticle-spectrum}
+vanish:
+\begin{equation}
+    \sin k=0,
+    \qquad
+    \mu+2t\cos k=0.
+\end{equation}
+Thus, for real nonzero $t$, the bulk phase boundaries are
+\begin{equation}
+    \mu=-2t
+    \quad(k=0),
+    \qquad
+    \mu=2t
+    \quad(k=\pi).
+\end{equation}
+The Bogoliubov quasiparticles become gapless at these transition points.
+
+\section{Application: quasiparticles of the XY and TFIM chains}
+\label{sec:bt-xy-tfim-quasiparticles}
+
+For the transverse-field XY chain in the normalization fixed earlier, the BdG
+vector can be chosen as
+\begin{equation}
+\label{eq:bt-xy-d-vector}
+    \bm{d}_{\rm XY}(k)
+    =
+    \bigl(0,-2\gamma\sin k,2(h-
+    \cos k)\bigr).
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:bt-xy-xi-gap}
+    \xi_k=2(h-\cos k),
+    \qquad
+    \Delta_k=2\ii\gamma\sin k,
+\end{equation}
+up to the same Nambu-gauge conventions discussed above.  The quasiparticle
+energy is
+\begin{equation}
+\label{eq:bt-xy-quasiparticle-spectrum}
+    E_k=2\sqrt{(h-\cos k)^2+\gamma^2\sin^2 k}.
+\end{equation}
+The transverse-field Ising chain is obtained by setting $\gamma=1$:
+\begin{equation}
+\label{eq:bt-tfim-spectrum}
+    E_k^{\rm TFIM}
+    =2\sqrt{(h-\cos k)^2+\sin^2 k}
+    =2\sqrt{1+h^2-2h\cos k}.
+\end{equation}
+The gap closes at $h=1$ and $k=0$ in the thermodynamic limit.  With the
+normalization used here, the excitation gap behaves as
+\begin{equation}
+\label{eq:bt-tfim-gap}
+    \Delta_{\rm gap}=2\abs{1-h}
+\end{equation}
+near the critical point.
+
+The XX chain corresponds to $\gamma=0$.  In that case the pairing vanishes,
+\begin{equation}
+    \Delta_k=0,
+\end{equation}
+and the Bogoliubov transformation reduces to an ordinary choice of occupied and
+empty fermion modes.  Thus the XX chain is a number-conserving free-fermion
+problem, while the TFIM and generic XY chain are genuine BdG pairing problems.
+
+\section{Summary}
+\label{sec:bt-summary}
+
+Each non-self-conjugate momentum pair $(k,-k)$ of a spinless BdG chain is solved
+by a canonical Bogoliubov transformation.  Starting from
+\begin{equation}
+    H_k
+    =
+    \xi_k\left(n_k+n_{-k}-1\right)
+    +\Delta_k c_k^\dagger c_{-k}^\dagger
+    +\Delta_k^*c_{-k}c_k,
+\end{equation}
+one defines
+\begin{equation}
+    E_k=\sqrt{\xi_k^2+\abs{\Delta_k}^2},
+    \qquad
+    u_k=\sqrt{\frac{E_k+\xi_k}{2E_k}},
+    \qquad
+    v_k=-\ee^{\ii\operatorname{Arg}\Delta_k}
+    \sqrt{\frac{E_k-\xi_k}{2E_k}}.
+\end{equation}
+The quasiparticles are
+\begin{equation}
+    \gamma_k=u_kc_k-v_kc_{-k}^\dagger,
+    \qquad
+    \gamma_{-k}=u_kc_{-k}+v_kc_k^\dagger,
+\end{equation}
+and the Hamiltonian becomes
+\begin{equation}
+    H_k=E_k\left(\gamma_k^\dagger\gamma_k+
+    \gamma_{-k}^\dagger\gamma_{-k}-1\right).
+\end{equation}
+The quasiparticle vacuum is the BCS product state
+\begin{equation}
+    \ket{\mathrm{GS}}
+    =
+    \prod_{k\in\mathcal{K}_+}
+    \left(u_k+v_kc_k^\dagger c_{-k}^\dagger\right)\ket{0},
+\end{equation}
+with separate finite-size bookkeeping for possible $k=0$ and $k=\pi$ modes.
+The phase of the pairing gap appears in $v_k$ and in the anomalous correlator,
+but a uniform Fourier-gauge phase changes only the representation, not the
+physical spectrum or state.  This diagonal form is the starting point for the
+Gaussian correlation-function machinery developed in the next chapter.

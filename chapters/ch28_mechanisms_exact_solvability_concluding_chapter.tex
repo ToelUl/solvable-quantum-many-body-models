@@ -1,0 +1,706 @@
+% -----------------------------------------------------------------------------
+% Concluding synthesis chapter for
+% Solvable Quantum Many-Body Models in Condensed Matter
+% This file is intended to be included by \input{} from main.tex.
+% -----------------------------------------------------------------------------
+
+\part{Concluding Synthesis}
+
+\chapter{Mechanisms of Exact Solvability in Quantum Many-Body Models}
+\label{ch:mechanisms-exact-solvability}
+
+The previous chapters developed several families of exactly solvable models: one-dimensional free-fermion spin chains, transfer-matrix formulations of two-dimensional classical systems, Yang--Baxter integrable quantum chains, commuting-projector topological phases, Majorana--gauge solvable models, Rokhsar--Kivelson points, and parent-Hamiltonian constructions.  The purpose of this final chapter is to put those examples into one conceptual map.
+
+The central lesson is simple but important:
+\boxedpar{%
+Exact solvability is not a single technique.  It is the manifestation of hidden structure.}
+Different models are solvable for different reasons.  Sometimes the hidden structure is a nonlocal fermionization.  Sometimes it is a commuting family of transfer matrices.  Sometimes it is factorized scattering.  Sometimes it is a local stabilizer algebra, a static gauge field, a frustration-free projector structure, or a tensor-network parent construction.  These mechanisms are not equivalent, but they are comparable.  Together they form a small set of organizing principles for a large part of exactly solvable many-body physics.
+
+\section{Several Meanings of Exact Solvability}
+\label{sec:several-meanings-solvability}
+
+The phrase \emph{exactly solvable} is often used broadly.  In a many-body context it is useful to distinguish several levels of exactness.
+
+\begin{definition}[Exact solvability]
+A many-body model is exactly solvable, in a specified sense, if some nonperturbative part of its many-body structure can be determined in closed or systematically controllable form.  The controlled object may be the full spectrum, a transfer-matrix spectrum, the partition function, ground states, correlation functions, quasiparticle scattering, topological sectors, or a complete set of commuting projectors.
+\end{definition}
+
+This definition is deliberately plural.  For example, the transverse-field Ising chain and the AKLT chain are both exactly solvable, but not in the same sense.  The transverse-field Ising chain can be mapped to a quadratic fermion Hamiltonian and spectrally diagonalized.  The AKLT chain has an exactly known valence-bond-solid ground state and a frustration-free parent Hamiltonian, but its full excitation spectrum is not solved by the same elementary diagonalization.
+
+\begin{longtable}{L{0.22\textwidth}L{0.43\textwidth}L{0.25\textwidth}}
+\caption{Several useful meanings of exact solvability.}\label{tab:exact-solvability-meanings}\\
+\toprule
+Type of solvability & Controlled structure & Representative examples \\
+\midrule
+\endfirsthead
+\toprule
+Type of solvability & Controlled structure & Representative examples \\
+\midrule
+\endhead
+Full quadratic spectral solution & The Hamiltonian is reduced to independent fermionic or bosonic modes by an exact transformation. & TFIM, XY chain, Kitaev chain \\
+Transfer-matrix solution & The partition function or quantum spectrum is encoded in the eigenvalues of a transfer matrix. & 2D Ising model, six-vertex model, eight-vertex model \\
+Yang--Baxter integrability & There is a commuting family of transfer matrices and factorized many-body scattering. & XXX, XXZ, XYZ, Hubbard chain \\
+Commuting-projector solution & The Hamiltonian is a sum of mutually commuting local terms, so the spectrum is organized by simultaneous eigenvalues. & Toric code, quantum double models, cluster stabilizers \\
+Majorana--gauge solution & The spin problem decomposes into static gauge sectors, and each sector contains a quadratic Majorana Hamiltonian. & Kitaev honeycomb model \\
+Frustration-free ground-state solution & The ground state is annihilated by every local positive term. & RK point, AKLT chain, MPS/PEPS parent Hamiltonians \\
+\bottomrule
+\end{longtable}
+
+The distinction matters because different exact solutions answer different physical questions.  A free-fermion solution gives precise quasiparticle dispersions and correlation functions.  A Bethe-ansatz solution gives interacting quasiparticles and thermodynamic Bethe equations.  A commuting-projector solution gives topological degeneracy and anyonic superselection sectors with almost no conventional quasiparticle dispersion.  A parent-Hamiltonian construction gives exact ground states and entanglement structure, but usually not a closed expression for all excited states.
+
+\begin{principle}[Solvability must specify what is solved]
+A statement that a model is exactly solvable should be accompanied by the object that is exactly controlled: the spectrum, the ground state, the partition function, the transfer-matrix eigenvalues, the scattering matrix, the correlation functions, or the topological sector decomposition.
+\end{principle}
+
+\section{The Free-Fermion Mechanism}
+\label{sec:free-fermion-mechanism}
+
+The first major solvability mechanism in these notes is nonlocal fermionization followed by quadratic diagonalization.  In one dimension, the Jordan--Wigner transformation converts spin flips into fermionic operators by attaching a parity string:
+\begin{equation}
+\label{eq:conclusion-jw-convention}
+    c_j
+    =
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^+,
+    \qquad
+    c_j^\dagger
+    =
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^- .
+\end{equation}
+The string is not an optional decoration.  It is the operator that converts spin commutation relations on different sites into fermionic anticommutation relations.
+
+After fermionization, many spin chains in these notes take the general quadratic form
+\begin{equation}
+\label{eq:conclusion-quadratic-bdg}
+    H
+    =
+    \sum_{i,j}
+    \left(
+        c_i^\dagger A_{ij}c_j
+        +\frac12 c_i^\dagger B_{ij}c_j^\dagger
+        +\frac12 c_i B_{ji}^*c_j
+    \right)
+    +E_{\rm const},
+\end{equation}
+where \(A=A^\dagger\) and \(B=-B^{\mathsf T}\).  Equivalently, in Nambu notation,
+\begin{equation}
+\label{eq:conclusion-bdg-form}
+    H
+    =
+    \frac12
+    \begin{pmatrix}
+        c^\dagger & c
+    \end{pmatrix}
+    \begin{pmatrix}
+        A & B\\
+        -B^* & -A^*
+    \end{pmatrix}
+    \begin{pmatrix}
+        c\\ c^\dagger
+    \end{pmatrix}
+    +E_0 .
+\end{equation}
+The remaining steps are linear algebra: Fourier transform, block diagonalization in momentum space, and Bogoliubov rotation.
+
+\subsection{Jordan--Wigner as nonlocal linearization}
+
+The Jordan--Wigner transformation solves an apparent paradox.  The transverse-field Ising and XY chains are interacting spin systems, but their interactions are special: nearest-neighbor spin terms become quadratic fermion hopping and pairing terms.  For example, spin operators on adjacent sites combine with the Jordan--Wigner strings so that the nonlocal strings cancel locally.  This is why the method is powerful but also dimension-specific.  In two spatial dimensions there is no simple one-dimensional ordering for which all local spin interactions remain local quadratic fermion terms.
+
+The essential pattern is
+\begin{equation}
+\label{eq:conclusion-spin-to-fermion-pattern}
+    \text{local spin interaction}
+    \quad\xrightarrow{\rm JW}\quad
+    \text{quadratic fermion hopping/pairing},
+\end{equation}
+provided the spin interaction belongs to the appropriate Ising/XY family.  Once the Hamiltonian is quadratic, its eigenstates are fermionic Gaussian states.
+
+\subsection{Bogoliubov diagonalization and criticality}
+
+For translation-invariant chains, the quadratic Hamiltonian decomposes into independent momentum blocks.  A typical BdG block has the form
+\begin{equation}
+\label{eq:conclusion-bdg-d-vector}
+    \mathcal{H}(k)
+    =
+    d_x(k)\tau^x+d_y(k)\tau^y+d_z(k)\tau^z,
+\end{equation}
+with quasiparticle energy
+\begin{equation}
+\label{eq:conclusion-free-spectrum}
+    \epsilon(k)=\sqrt{d_x(k)^2+d_y(k)^2+d_z(k)^2}.
+\end{equation}
+A quantum critical point occurs when the gap closes:
+\begin{equation}
+\label{eq:conclusion-gap-closing}
+    \min_k \epsilon(k)=0.
+\end{equation}
+This is the common mechanism behind the critical transverse-field Ising chain, the gapless XX chain, the anisotropic XY chain, and the topological transition of the Kitaev chain.  The universal low-energy theory is obtained by expanding \(\epsilon(k)\) near the gapless momentum.  Linear gap closing gives relativistic Majorana or Dirac modes with dynamical exponent \(z=1\); quadratic band touching gives \(z=2\) behavior.
+
+\subsection{Boundary sectors and parity}
+
+The free-fermion solution is exact only after the boundary and parity sectors are handled correctly.  On a ring, the Jordan--Wigner string crossing the boundary produces a fermion-parity dependence:
+\begin{equation}
+\label{eq:conclusion-parity-boundary}
+    c_{L+1}=\pm c_1,
+\end{equation}
+where the sign is fixed by the total fermion parity sector.  Thus the finite-size spectrum is not obtained by a single Fourier transform with an arbitrary momentum grid.  One must solve the even and odd parity sectors separately and then impose the physical spin boundary condition.
+
+This caveat is not a minor technicality.  It is the finite-size remnant of the fact that fermionization is nonlocal.  In the thermodynamic limit, the difference between the sectors often disappears in bulk observables, but it remains essential for exact finite-size spectra, degeneracies, and edge-mode physics.
+
+\subsection{Classical--quantum correspondence}
+
+The same free-fermion mechanism appears in the two-dimensional classical Ising model.  The row-to-row transfer matrix \(T\) can be interpreted as an imaginary-time evolution operator,
+\begin{equation}
+\label{eq:conclusion-transfer-hamiltonian}
+    T\sim \ee^{-\delta\tau H_{\rm eff}} .
+\end{equation}
+In the strongly anisotropic limit, the two-dimensional classical Ising model reduces to the one-dimensional transverse-field Ising chain with coupling dictionary of the form
+\begin{equation}
+\label{eq:conclusion-ising-tfim-dictionary}
+    K_x=\delta\tau J,
+    \qquad
+    K_y=-\frac12\log\tanh(\delta\tau h).
+\end{equation}
+The Onsager critical curve
+\begin{equation}
+\label{eq:conclusion-onsager-critical}
+    \sinh(2K_x)\sinh(2K_y)=1
+\end{equation}
+then becomes the quantum critical point \(h=J\) in the Hamiltonian limit.
+
+This illustrates a recurring principle:
+\boxedpar{%
+A \(d\)-dimensional quantum model at zero temperature is often related to a \((d+1)\)-dimensional classical statistical model through imaginary time.}
+The relation is not merely formal.  It identifies quantum criticality with anisotropic classical criticality and explains why transfer matrices are natural bridges between statistical mechanics and quantum many-body theory.
+
+\section{Transfer Matrices, Yang--Baxter Structure, and Bethe Ansatz}
+\label{sec:transfer-yang-baxter-bethe-synthesis}
+
+The second major solvability mechanism is integrability by commuting transfer matrices.  This mechanism is more general than free fermions.  The XXZ chain is interacting after Jordan--Wigner transformation, yet it remains exactly solvable because its many-body scattering factorizes into two-body scattering processes.
+
+\subsection{Transfer matrices as generating functions}
+
+The basic construction starts from an \(R\)-matrix acting on the tensor product of two two-dimensional spaces.  The monodromy matrix is
+\begin{equation}
+\label{eq:conclusion-monodromy}
+    M_a(u)
+    =
+    R_{aL}(u)R_{a,L-1}(u)\cdots R_{a1}(u),
+\end{equation}
+where \(a\) is an auxiliary space and \(1,\ldots,L\) are quantum spaces.  The transfer matrix is the auxiliary trace
+\begin{equation}
+\label{eq:conclusion-transfer-matrix}
+    \tau(u)=\Tr_a M_a(u).
+\end{equation}
+The Yang--Baxter equation implies
+\begin{equation}
+\label{eq:conclusion-commuting-transfer}
+    [\tau(u),\tau(v)]=0
+    \qquad
+    \text{for all }u,v.
+\end{equation}
+Therefore \(\tau(u)\) is a generating function for commuting conserved quantities:
+\begin{equation}
+\label{eq:conclusion-log-transfer-charges}
+    Q_n
+    \propto
+    \left.
+    \frac{\dd^n}{\dd u^n}\log\tau(u)
+    \right|_{u=u_0} .
+\end{equation}
+For a regular \(R\)-matrix satisfying \(R(0)\propto P\), the first logarithmic derivative gives a local quantum Hamiltonian.
+
+\subsection{Coordinate Bethe ansatz}
+
+In coordinate Bethe ansatz, one works directly in the basis of magnon positions.  In a sector with \(M\) down spins, the wavefunction is written as a superposition of plane waves in each ordering region:
+\begin{equation}
+\label{eq:conclusion-cba-wavefunction}
+    \psi(x_1,\ldots,x_M)
+    =
+    \sum_{P\in S_M}
+    A(P)
+    \exp\left(\ii\sum_{a=1}^M k_{P_a}x_a\right),
+    \qquad
+    x_1<\cdots<x_M .
+\end{equation}
+The amplitudes \(A(P)\) are related by two-body scattering.  For the XXZ normalization used in these notes,
+\begin{equation}
+\label{eq:conclusion-xxz-hamiltonian}
+    H_{\rm XXZ}^{(+)}
+    =
+    J\sum_{j=1}^L
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +\sigma_j^y\sigma_{j+1}^y
+        +\Delta(\sigma_j^z\sigma_{j+1}^z-1)
+    \right),
+\end{equation}
+with one-magnon dispersion
+\begin{equation}
+\label{eq:conclusion-one-magnon-dispersion}
+    \varepsilon(k)=4J(\cos k-\Delta).
+\end{equation}
+Periodic boundary conditions give Bethe equations
+\begin{equation}
+\label{eq:conclusion-bethe-equations-momentum}
+    \ee^{\ii k_jL}
+    =
+    \prod_{\ell\neq j}S(k_j,k_\ell),
+    \qquad j=1,\ldots,M.
+\end{equation}
+The conceptual content of \cref{eq:conclusion-bethe-equations-momentum} is that taking one magnon around the ring is equivalent to scattering it through all other magnons.
+
+\subsection{Algebraic Bethe ansatz}
+
+Algebraic Bethe ansatz repackages the same physics in operator language.  Write
+\begin{equation}
+\label{eq:conclusion-aba-monodromy-entries}
+    M_a(u)
+    =
+    \begin{pmatrix}
+        A(u) & B(u)\\
+        C(u) & D(u)
+    \end{pmatrix}_a .
+\end{equation}
+A reference state \(\ket{0}\) is chosen so that
+\begin{equation}
+\label{eq:conclusion-pseudovacuum}
+    C(u)\ket{0}=0,
+    \qquad
+    A(u)\ket{0}=\alpha(u)\ket{0},
+    \qquad
+    D(u)\ket{0}=\delta(u)\ket{0}.
+\end{equation}
+Bethe vectors are then created by the operator \(B(u)\):
+\begin{equation}
+\label{eq:conclusion-bethe-vector}
+    \ket{\lambda_1,\ldots,\lambda_M}
+    =
+    B(\lambda_1)\cdots B(\lambda_M)\ket{0}.
+\end{equation}
+The RTT algebra determines the action of \(\tau(u)=A(u)+D(u)\) on this state.  The unwanted terms vanish precisely when the rapidities satisfy the Bethe equations.  In the hyperbolic XXZ convention used earlier, these equations take the representative form
+\begin{equation}
+\label{eq:conclusion-aba-bethe-equations}
+    \left[
+    \frac{\sinh(\lambda_j+\eta)}{\sinh\lambda_j}
+    \right]^L
+    =
+    \prod_{\ell\neq j}
+    \frac{\sinh(\lambda_j-\lambda_\ell+\eta)}
+         {\sinh(\lambda_j-\lambda_\ell-\eta)} .
+\end{equation}
+
+\subsection{One structure, several models}
+
+The transfer-matrix viewpoint explains why classical vertex models and quantum spin chains appear in pairs.
+
+\begin{longtable}{L{0.23\textwidth}L{0.23\textwidth}L{0.34\textwidth}}
+\caption{Transfer-matrix and Bethe-ansatz families.}\label{tab:integrability-families}\\
+\toprule
+Classical/statistical object & Quantum Hamiltonian limit & Integrability structure \\
+\midrule
+\endfirsthead
+\toprule
+Classical/statistical object & Quantum Hamiltonian limit & Integrability structure \\
+\midrule
+\endhead
+Six-vertex model & XXZ chain & Trigonometric \(R\)-matrix; \(U(1)\) conservation \\
+Rational six-vertex limit & XXX chain & Rational \(R(u)=u\id+P\); enhanced \(SU(2)\) symmetry \\
+Eight-vertex model & XYZ chain & Elliptic \(R\)-matrix; Baxter \(TQ\) equation \\
+Hubbard vertex structure & Hubbard chain & Nested Bethe ansatz; spin and charge rapidities \\
+Long-range inverse-square structure & Haldane--Shastry / Calogero--Sutherland & Yangian symmetry; fractional statistics \\
+\bottomrule
+\end{longtable}
+
+The most compact statement is:
+\boxedpar{%
+Bethe-ansatz integrability is the exact solvability of interacting many-body motion by factorized scattering.}
+Coordinate Bethe ansatz makes the factorized scattering visible in wavefunctions.  Algebraic Bethe ansatz makes the same structure visible in the \(R\)-matrix algebra.
+
+\section{Topological Exact Solvability in Two Dimensions}
+\label{sec:topological-exact-solvability-synthesis}
+
+Two-dimensional quantum models introduce a different class of exact solvability.  Instead of diagonalizing a one-dimensional quadratic Hamiltonian or solving one-dimensional factorized scattering, one often exploits local constraints, gauge structure, and topological sectors.
+
+\subsection{Commuting projectors and the toric code}
+
+The toric code is the cleanest example.  Spins live on links of a two-dimensional lattice, and the Hamiltonian is
+\begin{equation}
+\label{eq:conclusion-toric-code}
+    H_{\rm TC}
+    =
+    -J_e\sum_s A_s
+    -J_m\sum_p B_p,
+    \qquad
+    A_s=\prod_{\ell\ni s}\sigma_\ell^x,
+    \qquad
+    B_p=\prod_{\ell\in\partial p}\sigma_\ell^z .
+\end{equation}
+The exact solution follows from
+\begin{equation}
+\label{eq:conclusion-toric-commuting}
+    [A_s,A_{s'}]=[B_p,B_{p'}]=[A_s,B_p]=0.
+\end{equation}
+The ground-state conditions are
+\begin{equation}
+\label{eq:conclusion-toric-ground-conditions}
+    A_s=+1,
+    \qquad
+    B_p=+1.
+\end{equation}
+On a torus, two global constraints reduce the number of independent stabilizers, leaving a four-dimensional ground-state space:
+\begin{equation}
+\label{eq:conclusion-toric-degeneracy}
+    \dim\calH_{\rm GS}(\mathbb{T}^2)=4.
+\end{equation}
+This degeneracy is not caused by spontaneous symmetry breaking.  It is topological: local operators cannot distinguish the four ground states in the thermodynamic limit.
+
+The elementary excitations are \(e\) charges, \(m\) fluxes, and their composite \(\epsilon=e\times m\).  Their fusion rules are
+\begin{equation}
+\label{eq:conclusion-toric-fusion}
+    e\times e=m\times m=\epsilon\times\epsilon=1,
+    \qquad
+    e\times m=\epsilon.
+\end{equation}
+The mutual statistics of \(e\) and \(m\) is semionic: braiding one around the other gives a phase \(-1\).
+
+\subsection{Quantum doubles}
+
+Kitaev's quantum double models generalize the toric code from \(G=\ZZ_2\) to an arbitrary finite group \(G\).  Each oriented link carries a group algebra Hilbert space
+\begin{equation}
+\label{eq:conclusion-qdouble-link-hilbert}
+    \calH_\ell=\CC[G].
+\end{equation}
+Vertex terms impose gauge invariance, while plaquette terms impose flatness.  The Hamiltonian has the same schematic form:
+\begin{equation}
+\label{eq:conclusion-quantum-double-hamiltonian}
+    H_{D(G)}
+    =
+    -J_e\sum_v A_v
+    -J_m\sum_p B_p .
+\end{equation}
+The exact solution again follows from commuting projectors.  On a closed surface, ground states are gauge-invariant flat \(G\)-connections.  On a torus they are labeled, roughly, by commuting pairs of group elements modulo simultaneous conjugation.
+
+The anyons of the untwisted quantum double \(D(G)\) are labeled by
+\begin{equation}
+\label{eq:conclusion-quantum-double-labels}
+    (C,\rho),
+\end{equation}
+where \(C\) is a conjugacy class of \(G\), and \(\rho\) is an irreducible representation of the centralizer of a representative element of \(C\).  Their quantum dimensions are
+\begin{equation}
+\label{eq:conclusion-qdouble-dimensions}
+    d_{(C,\rho)}=|C|\dim\rho,
+    \qquad
+    \mathcal{D}=|G|.
+\end{equation}
+The toric code is the Abelian special case where all conjugacy classes and irreducible representations are one-dimensional.
+
+\subsection{Kitaev honeycomb model}
+
+The Kitaev honeycomb model is not a commuting-projector Hamiltonian.  Its solvability is subtler.  It uses spin fractionalization into four Majorana fermions,
+\begin{equation}
+\label{eq:conclusion-khc-majorana-representation}
+    \sigma_i^\alpha=\ii b_i^\alpha c_i,
+    \qquad
+    D_i=b_i^x b_i^y b_i^z c_i=+1,
+\end{equation}
+with link variables
+\begin{equation}
+\label{eq:conclusion-khc-link-variable}
+    u_{ij}=\ii b_i^\alpha b_j^\alpha
+    \qquad
+    \text{on an }\alpha\text{-type bond}.
+\end{equation}
+These link variables commute with the Hamiltonian, so they define static \(\ZZ_2\) gauge sectors.  In each fixed sector, the matter Majorana Hamiltonian is quadratic:
+\begin{equation}
+\label{eq:conclusion-khc-free-majorana}
+    H[u]
+    =
+    \ii\sum_{\langle ij\rangle_\alpha}
+    J_\alpha u_{ij}c_i c_j .
+\end{equation}
+Thus the honeycomb model combines two earlier mechanisms:
+\begin{equation}
+\label{eq:conclusion-khc-two-mechanisms}
+    \text{static gauge-field decomposition}
+    +
+    \text{free Majorana diagonalization}.
+\end{equation}
+Its gapped Abelian phases reduce, in the strong anisotropy limit, to toric-code topological order.  With time-reversal-breaking perturbations, the gapless phase can be gapped into a chiral non-Abelian Ising topological phase.
+
+\begin{principle}[Two-dimensional exact solvability]
+In two dimensions, exact solvability often comes from decomposing the Hilbert space into gauge or topological sectors before diagonalizing the remaining degrees of freedom.
+\end{principle}
+
+\section{Frustration-Free and Parent-Hamiltonian Solvability}
+\label{sec:frustration-free-parent-synthesis}
+
+Another form of exact solvability controls the ground state rather than the entire spectrum.  The general structure is frustration-free:
+\begin{equation}
+\label{eq:conclusion-frustration-free}
+    H=\sum_\alpha h_\alpha,
+    \qquad
+    h_\alpha\geq0,
+    \qquad
+    h_\alpha\ket{\Psi_0}=0
+    \quad
+    \text{for every }\alpha.
+\end{equation}
+It follows immediately that \(\ket{\Psi_0}\) is an exact ground state with energy zero.
+
+\subsection{Rokhsar--Kivelson points}
+
+For a quantum dimer model, the Hilbert space consists of close-packed dimer coverings.  On a flippable plaquette \(p\), the RK Hamiltonian at \(v=t\) is
+\begin{equation}
+\label{eq:conclusion-rk-projector}
+    H_p^{\rm RK}
+    =
+    t
+    (\ket{h_p}-\ket{v_p})(\bra{h_p}-\bra{v_p}).
+\end{equation}
+The equal-amplitude state in a fixed topological or winding sector \(\mathcal{S}\),
+\begin{equation}
+\label{eq:conclusion-rk-ground-state}
+    \ket{\Psi_{\mathcal{S}}}
+    =
+    \frac{1}{\sqrt{N_{\mathcal{S}}}}
+    \sum_{D\in\mathcal{S}}\ket{D},
+\end{equation}
+
+is annihilated by every local RK projector.  Equal-time quantum correlations in this state reduce to correlations of the corresponding classical dimer ensemble.  On the square lattice this connects the RK point to height models and quantum Lifshitz criticality.  On the triangular lattice the RK point realizes a gapped \(\ZZ_2\) dimer liquid.
+
+\subsection{AKLT chain}
+
+The spin-1 AKLT chain is another frustration-free model.  Its Hamiltonian is a sum of projectors onto the total spin-2 subspace of neighboring spin-1's:
+\begin{equation}
+\label{eq:conclusion-aklt-hamiltonian}
+    H_{\rm AKLT}
+    =
+    \sum_j P_{j,j+1}^{(2)}.
+\end{equation}
+Using the spin-1 algebra, this projector can be written as
+\begin{equation}
+\label{eq:conclusion-aklt-projector-polynomial}
+    P_{j,j+1}^{(2)}
+    =
+    \frac16(\bm S_j\cdot\bm S_{j+1})^2
+    +\frac12\bm S_j\cdot\bm S_{j+1}
+    +\frac13 .
+\end{equation}
+The exact ground state is the valence-bond-solid state: each spin-1 is decomposed into two virtual spin-\(1/2\)'s, neighboring virtual spins form singlets, and the two virtual spins on each site are projected back to the symmetric spin-1 subspace.  This gives an exact matrix-product state and explains the spin-\(1/2\) edge modes of an open chain.
+
+\subsection{Cluster states and stabilizer parent Hamiltonians}
+
+The one-dimensional cluster Hamiltonian is
+\begin{equation}
+\label{eq:conclusion-cluster-hamiltonian}
+    H_{\rm cl}
+    =
+    -\sum_j K_j,
+    \qquad
+    K_j=Z_{j-1}X_jZ_{j+1}.
+\end{equation}
+The stabilizers commute and satisfy \(K_j^2=1\).  Hence the ground state is exactly characterized by
+\begin{equation}
+\label{eq:conclusion-cluster-stabilizer-condition}
+    K_j\ket{\Psi_{\rm cl}}=\ket{\Psi_{\rm cl}}
+    \qquad
+    \text{for all }j.
+\end{equation}
+This is both a commuting-projector model and a parent Hamiltonian for a graph state.  In one dimension, with suitable symmetry, it is also a canonical example of symmetry-protected topological order.
+
+\subsection{MPS and PEPS parent Hamiltonians}
+
+The parent-Hamiltonian idea generalizes these examples.  Suppose \(\ket{\Psi}\) is an MPS or PEPS.  For a region \(R\), let \(\Pi_R\) be the projector onto the support of the reduced density matrix \(\rho_R\).  A local parent Hamiltonian is
+\begin{equation}
+\label{eq:conclusion-parent-hamiltonian}
+    H_{\rm parent}
+    =
+    \sum_R (\id-\Pi_R).
+\end{equation}
+By construction,
+\begin{equation}
+\label{eq:conclusion-parent-annihilation}
+    (\id-\Pi_R)\ket{\Psi}=0
+    \qquad
+    \text{for every }R.
+\end{equation}
+The state \(\ket{\Psi}\) is therefore an exact ground state.
+
+The important distinction is:
+\boxedpar{%
+A parent Hamiltonian gives exact ground-state solvability.  It does not automatically give full spectral solvability.}
+This separates AKLT, cluster, RK, and PEPS parent models from free-fermion and Bethe-ansatz systems.
+
+\section{A Map of Mother Models and Their Descendants}
+\label{sec:mother-model-map-conclusion}
+
+The organizing philosophy of these notes is that many named models are best understood as descendants of a smaller number of mother structures.  The following table summarizes the resulting map.
+
+\begin{longtable}{L{0.24\textwidth}L{0.22\textwidth}L{0.25\textwidth}L{0.19\textwidth}}
+\caption{Mother structures and representative descendants.}\label{tab:mother-model-map-concluding}\\
+\toprule
+Mother structure & Representative model & Descendants or limits & Main method \\
+\midrule
+\endfirsthead
+\toprule
+Mother structure & Representative model & Descendants or limits & Main method \\
+\midrule
+\endhead
+Quadratic spin-chain fermions & Transverse-field XY chain & TFIM, XX chain, Kitaev chain & Jordan--Wigner + Bogoliubov \\
+BdG two-band structure & Kitaev / SSH chains & Majorana chain, chiral two-band insulator & Nambu spinor and winding number \\
+Classical transfer matrix & 2D classical Ising model & 1D TFIM Hamiltonian limit & Row-to-row transfer matrix \\
+Free Majorana/Pfaffian structure & 2D Ising and dimer models & Ising fermions, Kasteleyn dimers & Pfaffians and covariance matrices \\
+Trigonometric \(R\)-matrix & Six-vertex / XXZ & XXX rational limit, six-vertex phases & Bethe ansatz \\
+Elliptic \(R\)-matrix & Eight-vertex / XYZ & XXZ degeneration & Baxter transfer matrix \\
+Nested integrability & Hubbard chain & Spin-charge rapidities & Nested Bethe ansatz \\
+Commuting projectors & Toric code & Stabilizer codes, \(D(\ZZ_2)\) & Projector algebra \\
+Finite-group gauge theory & Quantum double \(D(G)\) & Abelian and non-Abelian anyons & Flat connections and representation theory \\
+Static gauge Majoranas & Kitaev honeycomb model & Toric-code limit, Ising topological order & Majorana + \(\ZZ_2\) gauge field \\
+RK projector construction & Quantum dimer models & Quantum Lifshitz point, \(\ZZ_2\) dimer liquid & Classical-to-quantum mapping \\
+Tensor-network parent structure & AKLT, cluster, MPS/PEPS & SPT states, exact tensor-network states & Frustration-free parent Hamiltonian \\
+\bottomrule
+\end{longtable}
+
+The mother-model viewpoint also clarifies what should be learned from a model.  The TFIM teaches fermionization, parity sectors, and quantum criticality.  The XXZ chain teaches interacting integrability and factorized scattering.  The toric code teaches topological degeneracy and anyon statistics.  The AKLT chain teaches exact tensor-network ground states and symmetry-protected edge degrees of freedom.  The Kitaev honeycomb model teaches fractionalization into matter Majoranas and static gauge fluxes.
+
+\section{Criticality, Topology, and Fractionalization}
+\label{sec:criticality-topology-fractionalization}
+
+Exact solvability is valuable because it gives sharply defined mechanisms for phases and excitations.  Three themes recur throughout the notes: criticality, topology, and fractionalization.
+
+\subsection{Criticality}
+
+At a quantum critical point, the excitation gap closes:
+\begin{equation}
+\label{eq:conclusion-gap-closes}
+    \Delta_{\rm gap}\to0.
+\end{equation}
+Consequently, the correlation length and correlation time diverge:
+\begin{equation}
+\label{eq:conclusion-critical-divergence}
+    \xi\to\infty,
+    \qquad
+    \tau\sim \xi^z\to\infty.
+\end{equation}
+Exactly solvable models show this mechanism without approximation.  The TFIM has an Ising critical point.  The XY chain contains several gapless regimes and anisotropic transitions.  The 2D classical Ising model gives the exact Onsager critical point.  The XXZ chain is gapless for \(-1<\Delta\leq1\) in the antiferromagnetic convention and is described at low energy by a Luttinger liquid.  The square-lattice RK point realizes a \(z=2\) quantum Lifshitz critical point.
+
+Thus solvable models are not merely examples with closed-form spectra; they are laboratories for the exact relation between gap closing, long-distance field theory, and universality.
+
+\subsection{Topology}
+
+Topological phases do not fit into the Landau paradigm of local order parameters.  The toric code ground states on a torus cannot be distinguished by any local operator.  Quantum double models organize topological charge by conjugacy classes and centralizer representations.  The Kitaev honeycomb model realizes Abelian topological order in its strong-coupling phases and non-Abelian Ising topological order after time-reversal breaking.  The Kitaev chain and SSH chain show one-dimensional topological phases through boundary zero modes and winding numbers.  AKLT and cluster models illustrate symmetry-protected topology rather than intrinsic topological order.
+
+A useful distinction is:
+\begin{equation}
+\label{eq:conclusion-topology-distinction}
+    \text{intrinsic topological order}
+    \neq
+    \text{symmetry-protected topological order}.
+\end{equation}
+The former has long-range entanglement and anyonic excitations in two dimensions.  The latter is short-range entangled but nontrivial in the presence of protecting symmetries.
+
+\subsection{Fractionalization}
+
+Fractionalization occurs when the elementary degrees of freedom of the Hamiltonian are not the elementary excitations of the phase.  Several versions appeared in these notes:
+\begin{enumerate}[label=(\roman*)]
+    \item In Jordan--Wigner solvable chains, spin flips are represented by nonlocal fermions.
+    \item In the Kitaev chain, the fermion can be decomposed into Majorana components, and boundary Majorana zero modes appear in the topological phase.
+    \item In the toric code, local spin operators create pairs of anyons rather than isolated local particles.
+    \item In the Kitaev honeycomb model, a spin operator fractionalizes into a matter Majorana excitation together with a change of \(\ZZ_2\) flux sector.
+    \item In Bethe-ansatz chains, stable quasiparticles scatter elastically with nontrivial two-body phase shifts.
+    \item In the Haldane--Shastry chain, spinon excitations behave as fractionalized spin-\(1/2\) objects with fractional statistics.
+\end{enumerate}
+
+The recurring lesson is that exact solvability often reveals the correct quasiparticles.  These quasiparticles may be nonlocal relative to the microscopic variables.
+
+\section{What Exact Solvability Does Not Mean}
+\label{sec:what-solvability-does-not-mean}
+
+It is equally important to state what exact solvability does \emph{not} imply.
+
+\begin{remark}[Exact ground state versus exact spectrum]
+An exact ground state does not imply an exact solution of the full spectrum.  AKLT, RK, MPS, and PEPS parent Hamiltonians are exact ground-state models, but generic excitations need not be solvable by free-particle or Bethe-ansatz methods.
+\end{remark}
+
+\begin{remark}[Free fermions can be physically nontrivial]
+Free-fermion solvability does not mean trivial physics.  The TFIM contains a nontrivial quantum critical point.  The Kitaev chain contains topological boundary modes.  The Kitaev honeycomb model is quadratic only after decomposition into gauge sectors and supports topological order and non-Abelian anyons.
+\end{remark}
+
+\begin{remark}[Integrability is fragile]
+Bethe-ansatz integrability depends on an infinite set of commuting charges.  Generic perturbations, such as arbitrary next-nearest-neighbor interactions, usually destroy this structure.  The resulting model may still be physically close to an integrable point at intermediate scales, but it is no longer exactly solvable in the same sense.
+\end{remark}
+
+\begin{remark}[Commuting projectors are not conventional order]
+Commuting-projector models often have zero correlation length in local operators, but they can have nontrivial topological order.  The absence of a local order parameter does not imply a trivial phase.
+\end{remark}
+
+\begin{remark}[Thermodynamic and finite-size solutions require different care]
+Finite-size exact solutions require attention to parity sectors, boundary conditions, Bethe quantum numbers, string deviations, gauge constraints, and topological sectors.  These details may disappear from bulk thermodynamics, but they are essential for exact finite-size spectra and degeneracies.
+\end{remark}
+
+These cautions are part of the discipline of exact solvability.  A correct solution is not just a formal diagonalization; it must also specify the Hilbert space, boundary conditions, constraints, and sectors.
+
+\section{Outlook: From Solvable Models to Modern Many-Body Physics}
+\label{sec:outlook-solvable-models-modern-physics}
+
+Exactly solvable models remain central because they provide calibration points for theory, numerics, and physical intuition.  They are used to test field-theory predictions, benchmark tensor-network algorithms, verify quantum Monte Carlo simulations, construct topological quantum codes, study integrability breaking, and train intuition about phases that survive away from the exactly solvable point.
+
+Several modern directions grow naturally from the models studied here.
+
+\paragraph{Conformal field theory.}
+Critical solvable models such as the TFIM, XXZ chain, and 2D classical Ising model flow to conformal field theories in the infrared.  Exact lattice solutions identify the microscopic origin of scaling dimensions, central charges, operator content, and universal finite-size spectra.
+
+\paragraph{Tensor networks.}
+AKLT, cluster, MPS, and PEPS parent Hamiltonians show how exact wavefunctions can be constructed from local tensors.  This is the conceptual basis for modern tensor-network variational methods.  Exact parent models provide fixed points and benchmarks for numerical algorithms.
+
+\paragraph{Topological quantum matter.}
+Toric code, quantum double models, and Kitaev honeycomb models provide microscopic realizations of anyons, topological degeneracy, and fault-tolerant logical operators.  They are foundational models for topological quantum computation and quantum error correction.
+
+\paragraph{Integrability breaking and thermalization.}
+The XXZ and related Bethe-ansatz chains are starting points for studying what happens when integrability is weakly broken.  The contrast between integrable dynamics and generic thermalizing dynamics is sharp only because the integrable limit is exactly controlled.
+
+\paragraph{Numerical and machine-learning benchmarks.}
+Exactly solvable models provide ground-truth data for algorithms.  Free-fermion correlation matrices, Bethe-ansatz energies, toric-code sectors, and RK wavefunctions give controlled tests for tensor networks, Monte Carlo methods, neural quantum states, and generative models.
+
+The final lesson can be summarized as follows:
+\boxedpar{%
+Solvability is hidden structure made explicit.}
+The structures encountered in these notes---nonlocal fermionization, BdG linear algebra, transfer matrices, Yang--Baxter equations, factorized scattering, stabilizer algebras, gauge constraints, topological sectors, and parent Hamiltonians---are not merely solution tricks.  They are organizing principles for quantum many-body physics.
+
+\section*{Final Summary}
+\addcontentsline{toc}{section}{Final Summary}
+
+The models studied in these notes can be arranged into one compact hierarchy:
+\begin{equation}
+\label{eq:conclusion-final-hierarchy}
+\begin{gathered}
+\text{spin algebra}
+\longrightarrow
+\text{Jordan--Wigner fermions}
+\longrightarrow
+\text{BdG/free-fermion mother models},
+\\[3pt]
+\text{transfer matrices}
+\longrightarrow
+\text{classical--quantum correspondence}
+\longrightarrow
+\text{Ising and vertex models},
+\\[3pt]
+\text{Yang--Baxter equation}
+\longrightarrow
+\text{commuting transfer matrices}
+\longrightarrow
+\text{Bethe-ansatz integrable chains},
+\\[3pt]
+\text{local projectors and gauge constraints}
+\longrightarrow
+\text{topological exact solvability},
+\\[3pt]
+\text{frustration-free tensor structures}
+\longrightarrow
+\text{exact ground-state parent Hamiltonians}.
+\end{gathered}
+\end{equation}
+Each line represents a different answer to the question: \emph{why can this many-body problem be solved?}
+
+The answer is never simply that the model is special.  It is special because it possesses a structure strong enough to reorganize the Hilbert space.  Recognizing that structure is the main skill developed by studying exactly solvable quantum many-body models.

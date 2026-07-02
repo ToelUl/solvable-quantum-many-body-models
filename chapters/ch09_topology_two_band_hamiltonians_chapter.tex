@@ -1,0 +1,796 @@
+\chapter{Topology of Two-Band Hamiltonians}
+\chaptermark{Topology of Two-Band Hamiltonians}
+\label{chap:topology-two-band-hamiltonians}
+
+The previous chapters developed the algebraic machinery needed to reduce many
+one-dimensional spin models to quadratic fermions and BdG momentum-space
+blocks.  Once the Hamiltonian has been written as a family of finite-dimensional
+matrices depending on momentum, exact solvability is not only a question of
+finding the spectrum.  It also becomes meaningful to ask whether the family of
+Bloch or BdG Hamiltonians can be continuously deformed into a trivial one while
+keeping the bulk gap open and preserving the required symmetries.
+
+This chapter gives the minimal topological toolkit needed for the later chapters
+on the Kitaev chain, the SSH chain, and the XY/TFIM mother model.  The central
+object is a two-band Hamiltonian
+\begin{equation}
+\label{eq:topo-two-band-general}
+    H(k)=d_0(k)\id+\bm d(k)\cdot\bm\sigma,
+    \qquad
+    \bm d(k)=(d_x(k),d_y(k),d_z(k)),
+\end{equation}
+where $k$ belongs to the Brillouin zone.  For BdG Hamiltonians the Pauli
+matrices act in Nambu space, while for ordinary band Hamiltonians they may act
+in sublattice, orbital, or pseudospin space.  The same formulas therefore apply
+to two physically different but mathematically parallel settings:
+\begin{equation}
+\label{eq:topo-two-realizations}
+\begin{array}{ccl}
+\text{SSH chain} &:& \text{sublattice two-band Hamiltonian},\\[2pt]
+\text{Kitaev chain} &:& \text{BdG two-band Hamiltonian in Nambu space}.
+\end{array}
+\end{equation}
+The distinction between these two realizations is important: the Pauli matrices
+have the same algebra, but the symmetries and the meaning of the two components
+of the spinor are different.
+
+\section{Two-band Hamiltonians and maps to the Bloch sphere}
+\label{sec:topo-two-band-bloch-sphere}
+
+The spectrum of \cref{eq:topo-two-band-general} is
+\begin{equation}
+\label{eq:topo-two-band-spectrum}
+    E_\pm(k)=d_0(k)\pm \abs{\bm d(k)}.
+\end{equation}
+Thus a two-band model is gapped at momentum $k$ precisely when
+\begin{equation}
+\label{eq:topo-gap-condition}
+    \abs{\bm d(k)}\neq 0.
+\end{equation}
+For topology the scalar term $d_0(k)\id$ is usually irrelevant: it shifts the two
+energies by the same amount but does not change the eigenvectors.  If the model
+is gapped over the entire Brillouin zone, one may define the normalized vector
+\begin{equation}
+\label{eq:topo-normalized-d-vector}
+    \widehat{\bm d}(k)=\frac{\bm d(k)}{\abs{\bm d(k)}}\in S^2 .
+\end{equation}
+Therefore a gapped two-band Hamiltonian defines a map
+\begin{equation}
+\label{eq:topo-map-bz-to-sphere}
+    \widehat{\bm d}:\mathrm{BZ}\longrightarrow S^2.
+\end{equation}
+A topological phase is a homotopy class of such maps, possibly restricted by
+symmetry.
+
+The projectors onto the upper and lower bands of $\bm d\cdot\bm\sigma$ are
+\begin{equation}
+\label{eq:topo-band-projectors}
+    P_+(k)=\frac{1+\widehat{\bm d}(k)\cdot\bm\sigma}{2},
+    \qquad
+    P_-(k)=\frac{1-\widehat{\bm d}(k)\cdot\bm\sigma}{2}.
+\end{equation}
+If the lower band is occupied, the occupied-band geometry is completely encoded
+in $P_-(k)$.
+
+\begin{principle}[Gap closing is the only way to change topology]
+For a two-band Hamiltonian, the topological invariant can change only if there
+exists a momentum $k_0$ such that
+\begin{equation}
+    \bm d(k_0)=0.
+\end{equation}
+At this point the two bands touch, the normalized vector
+$\widehat{\bm d}(k)$ is undefined, and the homotopy class of the map can change.
+\end{principle}
+
+This principle is the topological version of the gap-closing conditions already
+encountered in the BdG chapter.  For example, the Kitaev-chain spectrum
+\begin{equation}
+    E(k)=\sqrt{\xi(k)^2+\abs{\Delta(k)}^2}
+\end{equation}
+can close only when both $\xi(k)$ and $\Delta(k)$ vanish.  Since the nearest-neighbor
+$p$-wave gap is proportional to $\sin k$, the possible gap closings occur at
+$k=0,\pi$.
+
+\section{Berry connection, Berry curvature, and Chern number}
+\label{sec:topo-berry-curvature-chern}
+
+Although much of this chapter focuses on one-dimensional models, the general
+two-band language is most transparent if we first state the two-dimensional
+Berry-curvature formula.  Let $\ket{u_-(\bm k)}$ be a normalized eigenvector of
+the lower band.  The Berry connection and Berry curvature are
+\begin{equation}
+\label{eq:topo-berry-connection-curvature}
+    A_a(\bm k)=\ii\braket{u_-(\bm k)}{\partial_{k_a}u_-(\bm k)},
+    \qquad
+    F_{xy}=\partial_{k_x}A_y-\partial_{k_y}A_x .
+\end{equation}
+Equivalently, in a manifestly gauge-invariant form,
+\begin{equation}
+\label{eq:topo-projector-curvature}
+    F_{xy}(\bm k)
+    =
+    \ii\Tr\Bigl(P_-(\bm k)\bigl[\partial_{k_x}P_-(\bm k),
+    \partial_{k_y}P_-(\bm k)\bigr]\Bigr).
+\end{equation}
+Substituting \cref{eq:topo-band-projectors} gives the standard two-band formula
+\begin{equation}
+\label{eq:topo-two-band-berry-curvature}
+    F_{xy}(\bm k)
+    =
+    \frac12\widehat{\bm d}\cdot
+    \left(
+        \partial_{k_x}\widehat{\bm d}
+        \times
+        \partial_{k_y}\widehat{\bm d}
+    \right).
+\end{equation}
+The first Chern number of the occupied band is
+\begin{equation}
+\label{eq:topo-chern-number}
+    C
+    =
+    \frac{1}{2\pi}\int_{\mathrm{BZ}} F_{xy}(\bm k)\,\dd^2k
+    =
+    \frac{1}{4\pi}\int_{\mathrm{BZ}}
+    \widehat{\bm d}\cdot
+    \left(
+        \partial_{k_x}\widehat{\bm d}
+        \times
+        \partial_{k_y}\widehat{\bm d}
+    \right)\dd^2k .
+\end{equation}
+Geometrically, $C$ counts how many times the Brillouin-zone torus wraps the unit
+sphere under the map $\widehat{\bm d}$.
+
+\begin{example}[A standard lattice Chern-insulator block]
+\label{ex:topo-qwz-model}
+Consider
+\begin{equation}
+\label{eq:topo-qwz-d-vector}
+    \bm d(\bm k)=
+    \bigl(
+        \sin k_x,
+        \sin k_y,
+        m+\cos k_x+\cos k_y
+    \bigr).
+\end{equation}
+The gap can close only at the four high-symmetry points
+$(0,0)$, $(\pi,0)$, $(0,\pi)$, and $(\pi,\pi)$, giving critical values
+$m=-2,0,2$.  With the orientation convention in
+\cref{eq:topo-chern-number}, the occupied-band Chern number is
+\begin{equation}
+\label{eq:topo-qwz-chern-values}
+    C=\begin{cases}
+    0, & m>2,\\
+    -1, & 0<m<2,\\
+    +1, & -2<m<0,\\
+    0, & m<-2.
+    \end{cases}
+\end{equation}
+This example is not one of the main solvable chains of these notes, but it is a
+useful reference point: in two dimensions the full sphere $S^2$ can be wrapped,
+whereas in one-dimensional chiral models topology usually comes from restricting
+$\widehat{\bm d}$ to an equator.
+\end{example}
+
+\section{Why one-dimensional two-band topology needs symmetry}
+\label{sec:topo-1d-needs-symmetry}
+
+For a generic one-dimensional two-band Hamiltonian, the map is
+\begin{equation}
+    S^1_{\rm BZ}\longrightarrow S^2 .
+\end{equation}
+Since $\pi_1(S^2)=0$, every loop on the sphere can be contracted to a point.
+Therefore a generic gapped one-dimensional two-band Hamiltonian has no stable
+integer winding number.
+
+A nontrivial one-dimensional invariant appears when a symmetry forces
+$\widehat{\bm d}(k)$ to lie on a great circle of the sphere.  The most important
+case for these notes is chiral symmetry.
+
+\begin{definition}[Chiral symmetry]
+A two-band Hamiltonian has chiral symmetry if there exists a unitary matrix
+$S$ with $S^2=\id$ such that
+\begin{equation}
+\label{eq:topo-chiral-symmetry-definition}
+    S H(k) S^{-1}=-H(k).
+\end{equation}
+For the conventional choice $S=\sigma_z$, chiral symmetry forbids the identity
+and $\sigma_z$ terms, so that
+\begin{equation}
+\label{eq:topo-chiral-two-band}
+    H(k)=d_x(k)\sigma_x+d_y(k)\sigma_y.
+\end{equation}
+\end{definition}
+
+The vector $\bm d(k)$ now lies in the $d_x$--$d_y$ plane.  If the system is
+gapped, the complex number
+\begin{equation}
+\label{eq:topo-q-definition}
+    q(k)=d_x(k)+\ii d_y(k)
+\end{equation}
+never vanishes.  Thus $q(k)$ defines a map
+\begin{equation}
+\label{eq:topo-q-map}
+    S^1_{\rm BZ}\longrightarrow \CC\setminus\{0\}\simeq S^1 .
+\end{equation}
+This map is classified by an integer winding number.
+
+\section{Winding number of chiral two-band Hamiltonians}
+\label{sec:topo-winding-number}
+
+For the chiral Hamiltonian
+\begin{equation}
+\label{eq:topo-chiral-hamiltonian}
+    H(k)=d_x(k)\sigma_x+d_y(k)\sigma_y
+    =
+    \begin{pmatrix}
+        0 & q(k)^*\\
+        q(k) & 0
+    \end{pmatrix},
+    \qquad
+    q(k)=d_x(k)+\ii d_y(k),
+\end{equation}
+where the second equality follows from the standard Pauli matrices.  The winding
+number is
+\begin{equation}
+\label{eq:topo-winding-number}
+    \nu
+    =
+    \frac{1}{2\pi\ii}\int_{\rm BZ}\dd k\,\partial_k\log q(k).
+\end{equation}
+Equivalently, writing
+\begin{equation}
+    q(k)=\abs{q(k)}\ee^{\ii\varphi(k)},
+\end{equation}
+one obtains
+\begin{equation}
+\label{eq:topo-winding-angle}
+    \nu
+    =
+    \frac{1}{2\pi}\int_{\rm BZ}\dd k\,\partial_k\varphi(k)
+    =
+    \frac{\varphi(2\pi)-\varphi(0)}{2\pi}\in\ZZ .
+\end{equation}
+Thus $\nu$ counts how many times the curve
+\begin{equation}
+    k\longmapsto (d_x(k),d_y(k))
+\end{equation}
+winds around the origin.
+
+\begin{proposition}[Topological stability of the winding number]
+If $q_s(k)$ is a smooth one-parameter family with $q_s(k)\neq 0$ for all
+$k$ and all $s\in[0,1]$, then the winding number \cref{eq:topo-winding-number}
+is independent of $s$.
+\end{proposition}
+
+\begin{proof}
+The $s$-derivative of the winding number is
+\begin{equation}
+    \partial_s\nu
+    =
+    \frac{1}{2\pi\ii}\int_{\rm BZ}\dd k\,
+    \partial_k\left(q^{-1}\partial_s q\right).
+\end{equation}
+Since the Brillouin zone is a circle and $q^{-1}\partial_s q$ is single-valued
+when $q$ never vanishes, the integral of the total derivative is zero.
+\end{proof}
+
+The winding number can therefore change only when $q(k_0)=0$ for some momentum.
+This is the one-dimensional chiral version of the general gap-closing principle.
+
+\section{Zak phase and its relation to winding}
+\label{sec:topo-zak-phase}
+
+For a one-dimensional occupied band, the Berry phase over the Brillouin zone is
+called the Zak phase:
+\begin{equation}
+\label{eq:topo-zak-phase-definition}
+    \gamma_{\rm Zak}
+    =
+    \oint_{\rm BZ}\dd k\,
+    \ii\braket{u_-(k)}{\partial_k u_-(k)}
+    \quad\mod 2\pi .
+\end{equation}
+For a chiral two-band Hamiltonian, one may choose the lower-band eigenvector as
+\begin{equation}
+\label{eq:topo-chiral-eigenvector}
+    \ket{u_-(k)}
+    =
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        -\ee^{-\ii\varphi(k)}\\
+        1
+    \end{pmatrix},
+    \qquad
+    q(k)=\abs{q(k)}\ee^{\ii\varphi(k)}.
+\end{equation}
+This gives
+\begin{equation}
+\label{eq:topo-zak-winding-relation}
+    \gamma_{\rm Zak}
+    =
+    +\frac12\int_{\rm BZ}\dd k\,\partial_k\varphi(k)
+    =
+    +\pi\nu
+    \quad\mod 2\pi .
+\end{equation}
+The sign depends on the eigenvector and Pauli-matrix convention, but the
+quantized statement is invariant:
+\begin{equation}
+\label{eq:topo-zak-quantized-statement}
+    \gamma_{\rm Zak}=0\ \text{or}\ \pi\quad\mod 2\pi
+\end{equation}
+for a chiral or inversion-symmetric two-band chain.  Thus the parity of the
+winding number is visible as a Berry phase.
+
+\section{SSH chain as a chiral two-band model}
+\label{sec:topo-ssh-chain}
+
+The Su--Schrieffer--Heeger chain is the canonical ordinary-band example.  It has
+two sublattices $A$ and $B$ in each unit cell, with intracell hopping $t_1$ and
+intercell hopping $t_2$:
+\begin{equation}
+\label{eq:topo-ssh-real-space}
+    H_{\rm SSH}
+    =
+    \sum_j
+    \left(
+        t_1 a_j^\dagger b_j
+        +t_2 a_{j+1}^\dagger b_j
+        +\text{h.c.}
+    \right).
+\end{equation}
+Using the Bloch spinor
+\begin{equation}
+    \Psi_k=\begin{pmatrix}a_k\\ b_k\end{pmatrix},
+\end{equation}
+the Hamiltonian becomes
+\begin{equation}
+\label{eq:topo-ssh-bloch-hamiltonian}
+    H_{\rm SSH}
+    =
+    \sum_k\Psi_k^\dagger
+    \begin{pmatrix}
+        0 & q_{\rm SSH}(k)^*\\
+        q_{\rm SSH}(k) & 0
+    \end{pmatrix}
+    \Psi_k,
+    \qquad
+    q_{\rm SSH}(k)=t_1+t_2\ee^{\ii k}.
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:topo-ssh-d-vector}
+    d_x(k)=t_1+t_2\cos k,
+    \qquad
+    d_y(k)=t_2\sin k,
+    \qquad
+    d_z(k)=0.
+\end{equation}
+The curve $q_{\rm SSH}(k)$ is a circle of radius $\abs{t_2}$ centered at $t_1$ on
+the real axis.  It winds around the origin if and only if the origin lies inside
+this circle.  For $t_1,t_2>0$ and the convention in
+\cref{eq:topo-ssh-bloch-hamiltonian},
+\begin{equation}
+\label{eq:topo-ssh-winding-result}
+    \nu_{\rm SSH}
+    =
+    \begin{cases}
+    0, & \abs{t_1}>\abs{t_2},\\
+    1, & \abs{t_2}>\abs{t_1}.
+    \end{cases}
+\end{equation}
+The transition occurs at $\abs{t_1}=\abs{t_2}$, where the gap closes at
+$k=\pi$ for $t_1=t_2$.
+
+\begin{remark}[Unit-cell convention and the sign of winding]
+Changing the unit-cell convention multiplies $q(k)$ by a phase
+$\ee^{\ii n k}$.  This shifts the integer assigned to a particular Bloch
+basis.  The robust physical statement for the SSH chain with a fixed boundary
+termination is whether the dimerization leaves unpaired edge sites.  In the
+convention above, $\abs{t_2}>\abs{t_1}$ is the topological phase for the usual
+termination with weak intracell bonds at the boundary.
+\end{remark}
+
+\subsection{Edge zero modes}
+\label{subsec:topo-ssh-edge-zero-modes}
+
+For an open chain in the topological regime $\abs{t_2}>\abs{t_1}$, the left-edge
+zero mode has support only on one sublattice.  A zero-energy ansatz of the form
+\begin{equation}
+\label{eq:topo-ssh-left-edge-ansatz}
+    \ket{\psi_L}=\sum_{j\geq 1}\alpha_j a_j^\dagger\ket{0}
+\end{equation}
+obeys the recursion
+\begin{equation}
+\label{eq:topo-ssh-edge-recursion}
+    t_1\alpha_j+t_2\alpha_{j+1}=0,
+    \qquad
+    \alpha_{j+1}=-\frac{t_1}{t_2}\alpha_j .
+\end{equation}
+Therefore
+\begin{equation}
+\label{eq:topo-ssh-edge-wavefunction}
+    \alpha_j=\left(-\frac{t_1}{t_2}\right)^{j-1}\alpha_1,
+\end{equation}
+which is normalizable precisely when $\abs{t_1/t_2}<1$.  The bulk winding and
+the boundary zero mode therefore encode the same phase distinction.
+
+\section{BdG topology: Kitaev chain and Majorana zero modes}
+\label{sec:topo-bdg-kitaev}
+
+The Kitaev chain is also a two-band Hamiltonian, but the two components of the
+spinor are not sublattices.  They are particle and hole components of a Nambu
+spinor.  In the convention of the BdG chapter,
+\begin{equation}
+\label{eq:topo-kitaev-bdg-block}
+    \mathcal{H}_{\rm K}(k)
+    =
+    \begin{pmatrix}
+        \xi(k) & \Delta_\phi(k)\\
+        \Delta_\phi(k)^* & -\xi(k)
+    \end{pmatrix},
+    \qquad
+    \xi(k)=-\mu-2t\cos k,
+\end{equation}
+with
+\begin{equation}
+\label{eq:topo-kitaev-gap-function}
+    \Delta_\phi(k)
+    =
+    2\ii\abs{\Delta}\ee^{\ii(\theta_\Delta-2\phi)}\sin k .
+\end{equation}
+The uniform phase $\theta_\Delta$ and the Fourier/Nambu gauge phase $\phi$ enter
+only through the combination $\theta_\Delta-2\phi$.  For a single uniform chain,
+one may choose
+\begin{equation}
+    \phi=\frac{\theta_\Delta}{2}
+\end{equation}
+so that
+\begin{equation}
+\label{eq:topo-kitaev-real-gap-gauge}
+    \Delta_\phi(k)=2\ii\abs{\Delta}\sin k.
+\end{equation}
+In this real pairing gauge,
+\begin{equation}
+\label{eq:topo-kitaev-d-vector}
+    \mathcal{H}_{\rm K}(k)
+    =
+    d_y(k)\tau_y+d_z(k)\tau_z,
+    \qquad
+    d_y(k)=-2\abs{\Delta}\sin k,
+    \qquad
+    d_z(k)=\xi(k).
+\end{equation}
+Here the Pauli matrices $\tau_a$ act in Nambu space.  Since the vector lies in a
+plane, the real Kitaev chain has a winding-number description analogous to a
+chiral two-band model.
+
+A convenient complex function is
+\begin{equation}
+\label{eq:topo-kitaev-q-function}
+    q_{\rm K}(k)=\xi(k)+2\ii\abs{\Delta}\sin k
+    =-\mu-2t\cos k+2\ii\abs{\Delta}\sin k.
+\end{equation}
+Its winding number is
+\begin{equation}
+\label{eq:topo-kitaev-bdi-winding}
+    \nu_{\rm BDI}
+    =
+    \frac{1}{2\pi\ii}\int_{\rm BZ}\dd k\,
+    \partial_k\log q_{\rm K}(k).
+\end{equation}
+Geometrically, $q_{\rm K}(k)$ traces an ellipse centered at $-\mu$ on the real
+axis.  The origin lies inside this ellipse if and only if
+\begin{equation}
+\label{eq:topo-kitaev-topological-condition}
+    \abs{\mu}<2\abs{t}.
+\end{equation}
+Thus the Kitaev chain is topological for $\abs{\mu}<2\abs{t}$ and trivial for
+$\abs{\mu}>2\abs{t}$, assuming $\Delta\neq0$.
+
+\subsection{Class D Pfaffian invariant}
+\label{subsec:topo-class-d-pfaffian}
+
+The real gauge above makes an additional chiral symmetry manifest and places the
+nearest-neighbor Kitaev chain in class BDI.  More generally, a superconducting
+BdG Hamiltonian always has particle-hole symmetry.  In the Nambu convention
+used earlier,
+\begin{equation}
+\label{eq:topo-phs-condition}
+    \tau_x\mathcal{H}_{\rm BdG}(k)^*\tau_x=-\mathcal{H}_{\rm BdG}(-k).
+\end{equation}
+Without a real gauge or time-reversal-like symmetry, the one-dimensional
+superconductor is in class D and has a $\ZZ_2$ invariant rather than an integer
+winding number.
+
+For a two-band Kitaev chain the class-D invariant reduces to the sign of the
+normal-state term at the particle-hole-invariant momenta $k=0,\pi$, because the
+odd-parity pairing vanishes there:
+\begin{equation}
+\label{eq:topo-kitaev-class-d-invariant}
+    \mathcal{M}
+    =
+    \sgn\bigl[\xi(0)\xi(\pi)\bigr]
+    =
+    \sgn\bigl[(-\mu-2t)(-\mu+2t)\bigr]
+    =
+    \sgn(\mu^2-4t^2).
+\end{equation}
+The nontrivial phase is
+\begin{equation}
+\label{eq:topo-class-d-nontrivial-condition}
+    \mathcal{M}=-1
+    \quad\Longleftrightarrow\quad
+    \abs{\mu}<2\abs{t}.
+\end{equation}
+This is the $\ZZ_2$ remnant of the integer BDI winding.  Uniform complex phases
+of $\Delta$ do not change \cref{eq:topo-kitaev-class-d-invariant}; they can be
+removed by a global Nambu gauge choice.  Relative superconducting phases,
+spatially varying phases, or fluxes that cannot be removed globally can reduce
+the manifest symmetry to class D, but the $\ZZ_2$ invariant remains well-defined
+as long as particle-hole symmetry and the bulk gap persist.
+
+\subsection{Exactly solvable Majorana limit}
+\label{subsec:topo-majorana-edge-limit}
+
+The boundary meaning of \cref{eq:topo-kitaev-topological-condition} is clearest
+at the exactly solvable point
+\begin{equation}
+\label{eq:topo-kitaev-sweet-spot}
+    \mu=0,
+    \qquad
+    t=\abs{\Delta}>0,
+\end{equation}
+with open boundary conditions.  Using Majorana operators
+\begin{equation}
+\label{eq:topo-majorana-definitions}
+    a_{2j-1}=c_j+c_j^\dagger,
+    \qquad
+    a_{2j}=\ii(c_j-c_j^\dagger),
+\end{equation}
+the Hamiltonian becomes, up to an overall sign convention fixed by the phase of
+$\Delta$,
+\begin{equation}
+\label{eq:topo-kitaev-majorana-sweet-spot}
+    H_{\rm K}
+    =
+    -\ii t\sum_{j=1}^{L-1}a_{2j}a_{2j+1}.
+\end{equation}
+All bulk Majoranas are paired on bonds, while $a_1$ and $a_{2L}$ are absent from
+the Hamiltonian.  These two unpaired Majorana operators form a nonlocal boundary
+fermion
+\begin{equation}
+\label{eq:topo-edge-fermion}
+    f_{\rm edge}=\frac{a_1+\ii a_{2L}}{2}.
+\end{equation}
+The two occupations of $f_{\rm edge}$ are degenerate in the thermodynamic limit.
+Away from the exactly solvable point but within the same gapped topological
+phase, the Majorana zero modes remain exponentially localized at the edges.
+
+\begin{principle}[Bulk-boundary correspondence in one-dimensional two-band models]
+A nontrivial bulk winding or class-D $\ZZ_2$ invariant predicts protected
+boundary zero modes, provided the boundary termination respects the protecting
+symmetry and the bulk gap remains open.
+\end{principle}
+
+For the SSH chain the boundary zero modes are ordinary complex fermion states
+localized on sublattices.  For the Kitaev chain they are Majorana zero modes in
+Nambu space.  The algebraic similarity of the two-band Hamiltonians should not
+obscure this physical difference.
+
+\section{Relation to the TFIM and the Majorana mass sign}
+\label{sec:topo-relation-to-tfim}
+
+The duality chapter showed that the transverse-field Ising chain separates two
+phases exchanged by Kramers--Wannier duality.  The Jordan--Wigner and BdG
+chapters showed that the same model is equivalent to a quadratic Majorana chain.
+Topology supplies a third language for the same transition.
+
+Near a gap-closing momentum, a one-dimensional BdG Hamiltonian takes the
+continuum Dirac/Majorana form
+\begin{equation}
+\label{eq:topo-continuum-majorana-dirac}
+    \mathcal{H}(q)=v q\,\tau_y+m\,\tau_z+\text{higher-order terms},
+\end{equation}
+where $q$ measures momentum relative to the gap-closing point.  A topological
+transition occurs when the mass $m$ changes sign.  For the Kitaev chain,
+\begin{equation}
+\label{eq:topo-kitaev-masses}
+    m_0=\xi(0)=-\mu-2t,
+    \qquad
+    m_\pi=\xi(\pi)=-\mu+2t.
+\end{equation}
+The class-D invariant is simply the relative sign of these two masses:
+\begin{equation}
+\label{eq:topo-mass-sign-invariant}
+    \mathcal{M}=\sgn(m_0m_\pi).
+\end{equation}
+The nontrivial phase has opposite signs at $k=0$ and $k=\pi$.
+
+In the TFIM image, the topological Majorana phase corresponds to the ordered
+Ising phase for open chains.  The edge Majoranas encode the same twofold
+structure that appears as symmetry breaking in the spin variables.  Thus the
+following descriptions are equivalent ways of describing the same physics:
+\begin{equation}
+\label{eq:topo-tfim-equivalent-descriptions}
+\begin{array}{ccl}
+\text{spin language} &:& \text{ordered versus disordered Ising phase},\\[2pt]
+\text{duality language} &:& \text{order variable versus disorder variable},\\[2pt]
+\text{fermion language} &:& \text{trivial versus topological Majorana chain},\\[2pt]
+\text{continuum language} &:& \text{sign of a Majorana mass}.
+\end{array}
+\end{equation}
+
+\section{Symmetry classes relevant to the mother models}
+\label{sec:topo-symmetry-classes}
+
+The full tenfold classification is beyond the scope of these notes, but the
+following restricted table is sufficient for the solvable models treated here.
+
+\begin{center}
+\small
+\begin{tabular}{L{0.15\textwidth}L{0.22\textwidth}L{0.21\textwidth}L{0.28\textwidth}}
+\toprule
+Class & Symmetry content & 1D invariant & Representative model in these notes \\
+\midrule
+AIII & Chiral symmetry only & $\ZZ$ winding & SSH chain with chiral sublattice symmetry \\
+BDI & Particle-hole plus real time-reversal-like symmetry, hence chiral symmetry & $\ZZ$ winding & Real Kitaev chain / JW image of XY-type chains in a real gauge \\
+D & Particle-hole symmetry only & $\ZZ_2$ Pfaffian invariant & Kitaev chain with only BdG particle-hole symmetry manifest \\
+A & No protecting symmetry & No stable 1D two-band invariant; $\ZZ$ Chern number in 2D & Two-dimensional Chern-insulator block \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The table should be read operationally.  The same matrix expression may belong
+to different classes depending on what physical structure the Pauli matrices
+represent and which perturbations are allowed.  For example, adding a sublattice
+staggering term $m\sigma_z$ to the SSH chain breaks chiral symmetry and destroys
+the integer winding classification.  Adding a perturbation to a BdG Hamiltonian
+must still respect particle-hole redundancy, so the allowed deformations are
+different.
+
+\section{Gauge choices, phases, and what is physically invariant}
+\label{sec:topo-gauge-phases}
+
+The Fourier and BdG chapters emphasized that a constant phase in the Fourier
+transform,
+\begin{equation}
+\label{eq:topo-fourier-gauge-reminder}
+    c_k=\frac{\ee^{-\ii\phi}}{\sqrt{L}}\sum_j\ee^{-\ii k j}c_j,
+\end{equation}
+is a gauge convention.  In BdG language it rotates the Nambu spinor and changes
+the phase of the gap function as
+\begin{equation}
+\label{eq:topo-gap-gauge-rotation}
+    \Delta_\phi(k)=\ee^{-2\ii\phi}\Delta_0(k).
+\end{equation}
+Consequently the components $(d_x,d_y)$ of a BdG vector may rotate in the
+transverse plane under a gauge change.  This rotation does not change the energy
+spectrum, the existence of a gap, or the class-D invariant
+\cref{eq:topo-kitaev-class-d-invariant}.
+
+For an ordinary chiral band Hamiltonian such as the SSH chain, a change of Bloch
+basis can also multiply $q(k)$ by a phase.  If the phase is periodic and smooth,
+it does not change the physically meaningful distinction between phases with and
+without protected boundary states for a fixed termination.  If the phase has the
+form $\ee^{\ii n k}$, it reflects a shift of unit-cell convention and changes the
+integer assigned to the winding by a convention-dependent offset.  Boundary
+physics is recovered only after the unit cell and termination are specified.
+
+The correct hierarchy is therefore
+\begin{equation}
+\label{eq:topo-invariant-hierarchy}
+\begin{array}{ccl}
+\text{basis-dependent} &:& d_x(k),d_y(k),d_z(k)\ \text{as components},\\[2pt]
+\text{gauge-covariant} &:& q(k)\ \text{and its phase},\\[2pt]
+\text{physically invariant} &: &
+\begin{gathered}
+\text{gap closings, Berry phases modulo }2\pi,\\
+\text{winding differences, }\ZZ_2\text{ parity, and edge modes}
+\end{gathered}.
+\end{array}
+\end{equation}
+This distinction is especially important for the Kitaev chain with a complex
+superconducting gap: a uniform complex phase is removable by a global gauge
+choice, while a relative phase across a junction or a spatial phase twist can
+represent physical superconducting phase bias or flux.
+
+\section{Practical diagnostic formulas}
+\label{sec:topo-practical-diagnostics}
+
+For later use, we collect the most useful diagnostic formulas.
+
+\subsection*{Chiral two-band chain}
+For
+\begin{equation}
+    H(k)=d_x(k)\sigma_x+d_y(k)\sigma_y,
+    \qquad
+    q(k)=d_x(k)+\ii d_y(k),
+\end{equation}
+the integer invariant is
+\begin{equation}
+\label{eq:topo-summary-chiral-winding}
+    \nu=\frac{1}{2\pi\ii}\oint_{\rm BZ}\dd k\,\partial_k\log q(k).
+\end{equation}
+A gap closing occurs when $q(k)=0$.
+
+\subsection*{SSH chain}
+For
+\begin{equation}
+    q_{\rm SSH}(k)=t_1+t_2\ee^{\ii k},
+\end{equation}
+the usual topological regime for the standard open-chain termination is
+\begin{equation}
+\label{eq:topo-summary-ssh}
+    \abs{t_2}>\abs{t_1}.
+\end{equation}
+
+\subsection*{Kitaev chain}
+For
+\begin{equation}
+    \xi(k)=-\mu-2t\cos k,
+    \qquad
+    \Delta(k)=2\ii\abs{\Delta}\sin k
+\end{equation}
+in a real pairing gauge, the BDI winding may be computed from
+\begin{equation}
+\label{eq:topo-summary-kitaev-winding}
+    q_{\rm K}(k)=\xi(k)+2\ii\abs{\Delta}\sin k.
+\end{equation}
+The class-D invariant is
+\begin{equation}
+\label{eq:topo-summary-kitaev-z2}
+    \mathcal{M}=\sgn\bigl[\xi(0)\xi(\pi)\bigr]
+    =\sgn(\mu^2-4t^2).
+\end{equation}
+The topological Majorana phase is
+\begin{equation}
+\label{eq:topo-summary-kitaev-topological-phase}
+    \mathcal{M}=-1
+    \quad\Longleftrightarrow\quad
+    \abs{\mu}<2\abs{t}.
+\end{equation}
+
+\subsection*{Two-dimensional two-band block}
+For a two-dimensional occupied lower band,
+\begin{equation}
+\label{eq:topo-summary-chern}
+    C
+    =
+    \frac{1}{4\pi}\int_{\rm BZ}
+    \widehat{\bm d}\cdot
+    \left(
+        \partial_{k_x}\widehat{\bm d}
+        \times
+        \partial_{k_y}\widehat{\bm d}
+    \right)\dd^2k.
+\end{equation}
+
+\section{Summary}
+\label{sec:topo-summary}
+
+The essential lesson of this chapter is that a solvable two-band Hamiltonian
+contains more information than its dispersion.  The eigenvectors define a map
+from momentum space to a target space, and the topology of this map constrains
+possible phases and boundary states.
+
+The main results are:
+\begin{enumerate}[label=(\roman*)]
+    \item A gapped two-band Hamiltonian defines a normalized vector
+    $\widehat{\bm d}(k)$ and can change topology only when $\bm d(k)=0$.
+    \item In one dimension, a generic two-band Hamiltonian is topologically
+    trivial unless a symmetry restricts the target space.
+    \item Chiral two-band chains have an integer winding number
+    $\nu=(2\pi\ii)^{-1}\int\partial_k\log q(k)$.
+    \item The SSH chain realizes this winding in sublattice space.
+    \item The Kitaev chain realizes an analogous structure in Nambu space; in
+    class D the robust invariant is the Pfaffian sign
+    $\mathcal{M}=\sgn[\xi(0)\xi(\pi)]$.
+    \item Majorana edge modes are the boundary manifestation of the nontrivial
+    Kitaev-chain invariant.
+    \item The TFIM transition, the Kitaev-chain topological transition, and the
+    sign change of a continuum Majorana mass are different languages for the
+    same solvable critical structure.
+\end{enumerate}

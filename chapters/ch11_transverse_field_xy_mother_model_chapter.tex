@@ -1,0 +1,915 @@
+\chapter{The Transverse-Field XY Chain as a Mother Model}
+\label{chap:xy-chain-mother-model}
+
+The transverse-field XY chain is the first genuine mother model in these notes.
+It is not merely one more spin chain in a list of examples.  It contains, as
+parameter limits or equivalent fermionic descriptions, the transverse-field
+Ising model, the XX chain, and the spinless Kitaev chain.  It is also the
+simplest setting in which all technical tools developed in Part~I meet in one
+calculation: Jordan--Wigner fermionization, parity-dependent boundary sectors,
+Fourier transformation, BdG blocks, Bogoliubov quasiparticles, Gaussian
+correlators, duality, and two-band topology.
+
+The purpose of this chapter is therefore twofold.  First, we solve the XY chain
+completely as a quadratic fermion problem.  Second, we organize its special
+limits so that the later chapters can be read as controlled reductions of one
+solved mother model.
+
+\section{Hamiltonian and conventions}
+\label{sec:xy-hamiltonian-conventions}
+
+The transverse-field XY chain is defined by
+\begin{equation}
+\label{eq:xy-hamiltonian}
+    H_{\rm XY}
+    =-
+    \sum_{j=1}^{L}
+    \left[
+        \frac{J(1+\gamma)}{2}\sigma_j^x\sigma_{j+1}^x
+        +
+        \frac{J(1-\gamma)}{2}\sigma_j^y\sigma_{j+1}^y
+    \right]
+    -h\sum_{j=1}^{L}\sigma_j^z .
+\end{equation}
+Here $J$ sets the exchange scale, $h$ is the transverse field, and $\gamma$ is the
+XY anisotropy.  The isotropic XX chain is obtained at $\gamma=0$, while the
+transverse-field Ising chain is obtained at $\gamma=1$.
+
+Unless otherwise stated, the bulk formulas below are independent of whether one
+starts from open or periodic spin boundary conditions.  Boundary conditions only
+enter when the Jordan--Wigner string wraps around the chain.  This distinction is
+central enough that we keep it explicit throughout the derivation.
+
+The spin and fermion conventions are those fixed in Part~I:
+\begin{equation}
+\label{eq:xy-mother-jw-convention-reminder}
+    c_j
+    =
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^+,
+    \qquad
+    c_j^\dagger
+    =
+    \left(\prod_{\ell=1}^{j-1}\sigma_\ell^z\right)\sigma_j^- ,
+\end{equation}
+with
+\begin{equation}
+    n_j=c_j^\dagger c_j=\frac{1-\sigma_j^z}{2},
+    \qquad
+    \sigma_j^z=1-2n_j.
+\end{equation}
+Thus a spin-down state is interpreted as an occupied fermion state.  This is the
+convention responsible for the sign of the chemical potential in the Kitaev-chain
+dictionary below.
+
+It is useful to rewrite the exchange part of \cref{eq:xy-hamiltonian}
+as
+\begin{equation}
+\label{eq:xy-mother-isotropic-anisotropic-split}
+    \frac{J(1+\gamma)}{2}\sigma_j^x\sigma_{j+1}^x
+    +
+    \frac{J(1-\gamma)}{2}\sigma_j^y\sigma_{j+1}^y
+    =
+    \frac{J}{2}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        +
+        \sigma_j^y\sigma_{j+1}^y
+    \right)
+    +
+    \frac{J\gamma}{2}
+    \left(
+        \sigma_j^x\sigma_{j+1}^x
+        -
+        \sigma_j^y\sigma_{j+1}^y
+    \right).
+\end{equation}
+The first bracket becomes fermion hopping; the second becomes $p$-wave pairing.
+This is the algebraic reason why the XY chain is a BdG mother model.
+
+\section{Special limits and the mother-model viewpoint}
+\label{sec:xy-special-limits-mother-model}
+
+The most important reductions of \cref{eq:xy-hamiltonian} are
+summarized in \cref{tab:xy-mother-special-limits}.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\caption{Special limits and equivalent descriptions of the transverse-field XY chain.}
+\label{tab:xy-mother-special-limits}
+\begin{tabularx}{\textwidth}{L{0.23\textwidth}L{0.29\textwidth}Y}
+\toprule
+Parameter choice or map & Model obtained & Interpretation \\
+\midrule
+$\gamma=1$ & Transverse-field Ising model & Maximal anisotropy; Ising criticality at $h=\pm J$ in the convention of this chapter \\
+$\gamma=0$ & XX chain in a transverse field & Number-conserving free fermions; gapless for $\abs{h}<\abs{J}$ \\
+$h=0$ & Zero-field anisotropic XY chain & Pure competition between hopping and pairing after Jordan--Wigner transformation \\
+General $h,\gamma$ & Spinless BdG chain & Independent $(k,-k)$ two-level systems after Fourier transformation \\
+Jordan--Wigner image & Kitaev $p$-wave chain & $t=J$, $\mu=-2h$, and pairing amplitude fixed by $J\gamma$ up to pairing convention \\
+Near $h=\pm J$, $\gamma\neq0$ & Massive Majorana theory & Ising universality class with a sign-changing Majorana mass \\
+Near $\gamma=0$, $\abs{h}<\abs{J}$ & Two Fermi points & XX/Luttinger-liquid universality class rather than Ising criticality \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The role of the XY chain as a mother model can be summarized as
+\begin{equation}
+\label{eq:xy-mother-model-map}
+\begin{aligned}
+    \text{XY spin chain}
+    &\xrightarrow{\rm JW}
+    \text{spinless BdG chain}\\
+    &\xrightarrow{\rm Fourier}
+    \prod_{k>0}\text{two-level BdG blocks}
+    \xrightarrow{\rm Bogoliubov}
+    \text{free quasiparticles}.
+\end{aligned}
+\end{equation}
+All exact results in the later TFIM, XX, and Kitaev-chain chapters are obtained
+by specializing this chain of maps.
+
+\section{Jordan--Wigner image}
+\label{sec:xy-jordan-wigner-image}
+
+We now derive the fermionic Hamiltonian.  The nearest-neighbor Jordan--Wigner
+identities established earlier give
+\begin{align}
+\label{eq:xy-mother-jw-xx-plus-yy}
+    \sigma_j^x\sigma_{j+1}^x+
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    2\left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right),
+    \\
+\label{eq:xy-mother-jw-xx-minus-yy}
+    \sigma_j^x\sigma_{j+1}^x-
+    \sigma_j^y\sigma_{j+1}^y
+    &=
+    2\left(
+        c_j^\dagger c_{j+1}^\dagger+c_{j+1}c_j
+    \right),
+    \\
+\label{eq:xy-mother-jw-z}
+    \sigma_j^z&=1-2c_j^\dagger c_j.
+\end{align}
+Substituting these identities into \cref{eq:xy-hamiltonian} gives the
+bulk Jordan--Wigner image
+\begin{equation}
+\label{eq:xy-mother-bulk-fermion-hamiltonian}
+    H_{\rm XY}^{\rm bulk}
+    =
+    -J\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -J\gamma\sum_j
+    \left(
+        c_j^\dagger c_{j+1}^\dagger+c_{j+1}c_j
+    \right)
+    -h\sum_j(1-2n_j).
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:xy-mother-bulk-fermion-expanded}
+    H_{\rm XY}^{\rm bulk}
+    =
+    -hL
+    +2h\sum_j n_j
+    -J\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -J\gamma\sum_j
+    \left(
+        c_j^\dagger c_{j+1}^\dagger+c_{j+1}c_j
+    \right).
+\end{equation}
+The field term therefore plays the role of a chemical-potential term for the
+Jordan--Wigner fermions.
+
+\begin{remark}[Why the anisotropy becomes pairing]
+The isotropic part
+$\sigma^x\sigma^x+\sigma^y\sigma^y$ conserves the number of spin flips and becomes
+fermion hopping.  The anisotropic part
+$\sigma^x\sigma^x-\sigma^y\sigma^y$ creates or annihilates spin flips in pairs and
+therefore becomes a superconducting pairing term.  Fermion number is not
+conserved for $\gamma\neq0$, but fermion parity is conserved.
+\end{remark}
+
+For an open chain, \cref{eq:xy-mother-bulk-fermion-hamiltonian} is the full
+fermionic Hamiltonian, with the sums running over $j=1,\ldots,L-1$.
+
+For a periodic spin chain, the boundary term carries the Jordan--Wigner parity
+sign.  Let
+\begin{equation}
+\label{eq:xy-mother-fermion-parity}
+    P_F=(-1)^N,
+    \qquad
+    N=\sum_{j=1}^{L}n_j,
+\end{equation}
+and fix a parity sector
+\begin{equation}
+    P_F=p,
+    \qquad
+    p=\pm1.
+\end{equation}
+As shown in the Jordan--Wigner chapter, the periodic spin chain is represented in
+that sector by the effective fermionic boundary condition
+\begin{equation}
+\label{eq:xy-mother-effective-fermion-boundary}
+    c_{L+1}=-p\,c_1.
+\end{equation}
+Thus
+\begin{equation}
+\label{eq:xy-mother-pbc-apbc-sector}
+    p=+1
+    \quad\Longleftrightarrow\quad
+    c_{L+1}=-c_1
+    \quad\text{(anti-periodic fermions)},
+\end{equation}
+whereas
+\begin{equation}
+\label{eq:xy-mother-pbc-pbc-sector}
+    p=-1
+    \quad\Longleftrightarrow\quad
+    c_{L+1}=c_1
+    \quad\text{(periodic fermions)}.
+\end{equation}
+In a fixed sector, one may use
+\cref{eq:xy-mother-bulk-fermion-hamiltonian} with $j=1,\ldots,L$ provided the
+boundary condition \cref{eq:xy-mother-effective-fermion-boundary} is imposed.  The
+exact finite-size spin partition function or spectrum is obtained only after
+combining the two parity sectors with the correct parity projection.  In the
+thermodynamic bulk spectrum, this distinction affects only finite-size momentum
+quantization.
+
+\section{Momentum quantization and Fourier transform}
+\label{sec:xy-momentum-quantization-fourier}
+
+In a fixed parity sector $p$, the allowed momenta are
+\begin{equation}
+\label{eq:xy-mother-allowed-momenta}
+    k_m=\frac{2\pi m+\vartheta_p}{L},
+    \qquad
+    m=0,1,\ldots,L-1,
+\end{equation}
+where
+\begin{equation}
+\label{eq:xy-mother-boundary-twist-sector}
+    \vartheta_p=
+    \begin{cases}
+        \pi, & p=+1 \quad \text{(even sector, APBC)},\\
+        0, & p=-1 \quad \text{(odd sector, PBC)}.
+    \end{cases}
+\end{equation}
+We write the corresponding momentum set as $\mathcal{K}_{\vartheta_p}$.
+
+We use the Fourier convention developed earlier,
+\begin{equation}
+\label{eq:xy-mother-fourier-convention}
+    c_k
+    =
+    \frac{\ee^{-\ii\phi}}{\sqrt{L}}
+    \sum_{j=1}^{L}\ee^{-\ii kj}c_j,
+    \qquad
+    c_j
+    =
+    \frac{\ee^{\ii\phi}}{\sqrt{L}}
+    \sum_{k\in\mathcal{K}_{\vartheta_p}}\ee^{\ii kj}c_k .
+\end{equation}
+The twist $\vartheta_p$ is physical boundary data.  The constant phase $\phi$ is a
+Fourier-gauge convention; it rotates the phase of the pairing gap but not the
+spectrum.
+
+The hopping and field terms give
+\begin{equation}
+\label{eq:xy-mother-normal-dispersion}
+    -J\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    +2h\sum_j n_j
+    =
+    \sum_{k\in\mathcal{K}_{\vartheta_p}}
+    \xi(k)c_k^\dagger c_k,
+\end{equation}
+with
+\begin{equation}
+\label{eq:xy-mother-xi-k}
+    \xi(k)=2(h-J\cos k).
+\end{equation}
+The pairing term gives an odd gap function.  With the real-space sign in
+\cref{eq:xy-mother-bulk-fermion-hamiltonian}, the direct Fourier transform gives
+\begin{equation}
+\label{eq:xy-mother-raw-gap}
+    \Delta_\phi^{\rm raw}(k)
+    =
+    -2\ii J\gamma\,\ee^{-2\ii\phi}\sin k.
+\end{equation}
+This sign is a convention for the orientation of the Nambu pairing plane.  Many
+BdG summaries, including some compact formulas in these notes, use the equivalent
+orientation
+\begin{equation}
+\label{eq:xy-mother-standard-gap}
+    \Delta_\phi(k)
+    =
+    +2\ii J\gamma\,\ee^{-2\ii\phi}\sin k.
+\end{equation}
+The two choices are related by a harmless reversal of the pairing-plane
+orientation, for example by $\gamma\mapsto-\gamma$ or by an equivalent Nambu-gauge
+relabelling.  They have the same $\abs{\Delta(k)}$, the same quasiparticle
+spectrum, the same critical lines, and the same absolute winding number.  Only
+orientation-sensitive signs of winding numbers change.  In the rest of this
+chapter we display formulas with the convention
+\cref{eq:xy-mother-standard-gap}, because it matches the BdG-vector convention
+used in the preceding chapters.
+
+With this convention, the momentum-space Hamiltonian is
+\begin{equation}
+\label{eq:xy-mother-momentum-hamiltonian}
+    H_{\rm XY}^{(p)}
+    =
+    -hL
+    +
+    \sum_{k\in\mathcal{K}_{\vartheta_p}}
+    \xi(k)c_k^\dagger c_k
+    +
+    \frac12
+    \sum_{k\in\mathcal{K}_{\vartheta_p}}
+    \left[
+        \Delta_\phi(k)c_k^\dagger c_{-k}^\dagger
+        +
+        \Delta_\phi(k)^*c_{-k}c_k
+    \right],
+\end{equation}
+up to the finite-size parity projection already discussed.
+
+\section{BdG block and quasiparticle spectrum}
+\label{sec:xy-bdg-block-spectrum}
+
+Introduce the Nambu spinor
+\begin{equation}
+\label{eq:xy-mother-nambu-spinor}
+    \Psi_k=
+    \begin{pmatrix}
+        c_k\\ c_{-k}^\dagger
+    \end{pmatrix}.
+\end{equation}
+For $k\not\equiv -k$ modulo $2\pi$, the pair $(k,-k)$ is governed by the BdG
+block
+\begin{equation}
+\label{eq:xy-mother-bdg-block}
+    \mathcal{H}_{\rm XY}(k)
+    =
+    \begin{pmatrix}
+        \xi(k)&\Delta_\phi(k)\\
+        \Delta_\phi(k)^*&-\xi(k)
+    \end{pmatrix}.
+\end{equation}
+In the gauge $\phi=0$ and with \cref{eq:xy-mother-standard-gap}, this becomes
+\begin{equation}
+\label{eq:xy-mother-bdg-block-explicit}
+    \mathcal{H}_{\rm XY}(k)
+    =
+    \begin{pmatrix}
+        2(h-J\cos k)&2\ii J\gamma\sin k\\
+        -2\ii J\gamma\sin k&-2(h-J\cos k)
+    \end{pmatrix}.
+\end{equation}
+Equivalently,
+\begin{equation}
+\label{eq:xy-mother-d-vector}
+    \mathcal{H}_{\rm XY}(k)
+    =
+    \bm d_{\rm XY}(k)\cdot\bm\tau,
+    \qquad
+    \bm d_{\rm XY}(k)
+    =
+    \bigl(0,-2J\gamma\sin k,2(h-J\cos k)\bigr),
+\end{equation}
+where $\tau_x,\tau_y,\tau_z$ act in Nambu space.  The sign of the $d_y$
+component follows from the convention $d_y=-\operatorname{Im}\Delta(k)$.
+
+The quasiparticle energies are
+\begin{equation}
+\label{eq:xy-mother-quasiparticle-spectrum}
+    E_\pm(k)=\pm E(k),
+    \qquad
+    E(k)
+    =
+    2\sqrt{(h-J\cos k)^2+(J\gamma\sin k)^2}.
+\end{equation}
+This is the central exact result of the chapter.  All phase boundaries and low-energy limits follow from the zeros of this dispersion.
+
+\begin{remark}[BdG eigenvalues versus many-body excitations]
+The negative branch $-E(k)$ is the particle--hole partner of the positive branch.
+It is not an independent physical particle.  After the Bogoliubov
+transformation, the many-body Hamiltonian is written in terms of positive-energy
+quasiparticles, with a ground-state energy shift.
+\end{remark}
+
+\section{Bogoliubov angle and diagonal form}
+\label{sec:xy-bogoliubov-angle-diagonal-form}
+
+For each independent non-self-conjugate pair $(k,-k)$, define
+\begin{equation}
+\label{eq:xy-mother-pair-xi-delta}
+    \xi_k=2(h-J\cos k),
+    \qquad
+    \Delta_k=2\ii J\gamma\,\ee^{-2\ii\phi}\sin k,
+    \qquad
+    E_k=\sqrt{\xi_k^2+\abs{\Delta_k}^2}.
+\end{equation}
+The Bogoliubov polar angle is
+\begin{equation}
+\label{eq:xy-mother-bogoliubov-angle}
+    \cos\theta_k=\frac{\xi_k}{E_k},
+    \qquad
+    \sin\theta_k=\frac{\abs{\Delta_k}}{E_k}.
+\end{equation}
+Writing
+\begin{equation}
+    \Delta_k=\abs{\Delta_k}\ee^{\ii\alpha_k},
+\end{equation}
+the coherence factors may be chosen as
+\begin{equation}
+\label{eq:xy-mother-coherence-factors}
+    u_k=
+    \sqrt{\frac{E_k+\xi_k}{2E_k}},
+    \qquad
+    v_k=
+    -\ee^{\ii\alpha_k}
+    \sqrt{\frac{E_k-\xi_k}{2E_k}}.
+\end{equation}
+The quasiparticle operators are
+\begin{equation}
+\label{eq:xy-mother-quasiparticle-operators}
+    \gamma_k=u_kc_k-v_kc_{-k}^\dagger,
+    \qquad
+    \gamma_{-k}=u_kc_{-k}+v_kc_k^\dagger.
+\end{equation}
+They satisfy canonical anticommutation relations and diagonalize the pair block:
+\begin{equation}
+\label{eq:xy-mother-pair-diagonal}
+    H_k
+    =
+    E_k
+    \left(
+        \gamma_k^\dagger\gamma_k
+        +
+        \gamma_{-k}^\dagger\gamma_{-k}
+        -1
+    \right).
+\end{equation}
+The normalized even-parity ground state of the pair block is
+\begin{equation}
+\label{eq:xy-mother-pair-ground-state}
+    \ket{\Omega_k}
+    =
+    \left(
+        u_k+v_k c_k^\dagger c_{-k}^\dagger
+    \right)
+    \ket{0}_{k,-k}.
+\end{equation}
+Thus, ignoring possible self-conjugate modes for the moment, the BCS ground state
+in a fixed boundary sector is
+\begin{equation}
+\label{eq:xy-mother-bcs-ground-state}
+    \ket{\Omega}
+    =
+    \prod_{k\in\mathcal{K}_+}
+    \left(
+        u_k+v_k c_k^\dagger c_{-k}^\dagger
+    \right)
+    \ket{0},
+\end{equation}
+where $\mathcal{K}_+$ contains one representative from each pair $\{k,-k\}$.
+
+The corresponding ground-state energy in the thermodynamic limit is
+\begin{equation}
+\label{eq:xy-mother-ground-state-energy-density}
+    e_0
+    =
+    \lim_{L\to\infty}\frac{E_0}{L}
+    =
+    -\frac{1}{2\pi}\int_0^\pi E(k)\,\dd k,
+\end{equation}
+with $E(k)$ given in \cref{eq:xy-mother-quasiparticle-spectrum}.  This formula
+includes the constant $-hL$ in the original spin Hamiltonian.  For example, in
+the large-field limit $h\gg J$, it gives $e_0\simeq -h$, as expected for the
+fully $+z$ polarized spin state.
+
+\section{Self-conjugate momenta and finite-size parity bookkeeping}
+\label{sec:xy-self-conjugate-momenta}
+
+The momenta $k=0$ and $k=\pi$ satisfy $k\equiv-k$ modulo $2\pi$.  They occur only
+in the periodic fermion sector and only for compatible system sizes.  Since the
+spinless pairing gap is odd in momentum,
+\begin{equation}
+    \Delta(0)=0,
+    \qquad
+    \Delta(\pi)=0,
+\end{equation}
+these modes are not paired.  They must be treated as ordinary fermionic modes.
+Their normal energies are
+\begin{equation}
+\label{eq:xy-mother-self-conjugate-xi}
+    \xi(0)=2(h-J),
+    \qquad
+    \xi(\pi)=2(h+J).
+\end{equation}
+Occupying such a mode changes fermion parity and therefore affects the exact
+finite-size matching between the spin Hilbert space and the fermionic sector.
+
+For bulk thermodynamics, the contribution of these isolated modes is negligible
+as $L\to\infty$.  For exact diagonalization, finite-size spectra, and parity
+selection, they are essential.  A safe finite-size procedure is:
+\begin{enumerate}[label=(\roman*)]
+    \item choose a spin boundary condition;
+    \item split the fermionic problem into $P_F=+1$ and $P_F=-1$ sectors;
+    \item impose APBC in the even sector and PBC in the odd sector;
+    \item diagonalize each quadratic Hamiltonian;
+    \item keep only states whose quasiparticle occupations have the required
+    fermion parity.
+\end{enumerate}
+
+\section{Excitation gap and phase diagram}
+\label{sec:xy-phase-diagram}
+
+The bulk gap closes when
+\begin{equation}
+\label{eq:xy-mother-gap-closing-condition}
+    h-J\cos k=0,
+    \qquad
+    J\gamma\sin k=0.
+\end{equation}
+Assume $J\neq0$.  For $\gamma\neq0$, the second equation forces
+\begin{equation}
+    k=0
+    \quad\text{or}\quad
+    k=\pi.
+\end{equation}
+The first equation then gives the two Ising critical lines
+\begin{equation}
+\label{eq:xy-mother-ising-critical-lines}
+    h=J
+    \quad(k=0),
+    \qquad
+    h=-J
+    \quad(k=\pi).
+\end{equation}
+Near $h=J$, set $k\ll1$.  Then
+\begin{equation}
+\label{eq:xy-mother-near-h-plus-J}
+    E(k)
+    \simeq
+    2\sqrt{
+        \left(h-J+\frac{Jk^2}{2}\right)^2
+        +(J\gamma k)^2
+    }.
+\end{equation}
+At the critical point $h=J$ with $\gamma\neq0$, the leading dispersion is
+linear,
+\begin{equation}
+\label{eq:xy-mother-ising-linear-dispersion}
+    E(k)\simeq 2\abs{J\gamma}\,\abs{k},
+\end{equation}
+which is the lattice signature of an Ising/Majorana critical point with dynamical
+exponent $z=1$.
+
+Similarly, near $h=-J$ one expands around $k=\pi$.  Writing $q=k-\pi$, one finds
+another Ising critical point with the same low-energy structure.
+
+The situation changes qualitatively when $\gamma=0$.  The pairing term vanishes
+and the Hamiltonian is number conserving.  The dispersion reduces to
+\begin{equation}
+\label{eq:xy-mother-xx-dispersion}
+    \xi(k)=2(h-J\cos k).
+\end{equation}
+The system is gapless whenever there are Fermi points satisfying
+\begin{equation}
+\label{eq:xy-mother-fermi-points}
+    \cos k_F=\frac{h}{J}.
+\end{equation}
+Thus, for $J>0$,
+\begin{equation}
+\label{eq:xy-mother-xx-critical-region}
+    \gamma=0,
+    \qquad
+    \abs{h}<J
+\end{equation}
+defines the gapless XX region.  This is not an Ising critical line.  It is a
+number-conserving free-fermion critical phase with two Fermi points and central
+charge $c=1$ in the continuum limit.  By contrast, the Ising lines at
+$\gamma\neq0$ have a single Majorana critical mode and central charge $c=1/2$.
+
+The phase structure is therefore:
+\begin{equation}
+\label{eq:xy-mother-phase-summary}
+\begin{array}{ccl}
+\gamma\neq0,\ h=J &:& \text{Ising critical line at } k=0,\\[2pt]
+\gamma\neq0,\ h=-J &:& \text{Ising critical line at } k=\pi,\\[2pt]
+\gamma=0,\ \abs{h}<J &:& \text{gapless XX/free-fermion critical phase},\\[2pt]
+\abs{h}>J &:& \text{gapped polarized phase},\\[2pt]
+\abs{h}<J,\ \gamma\neq0 &:& \text{gapped paired/ordered phase}.
+\end{array}
+\end{equation}
+At the multicritical points $(h,\gamma)=(\pm J,0)$, the linear pairing velocity
+vanishes and the dispersion along the $\gamma=0$ direction becomes quadratic.
+This is why the multicritical point is not described by the same scaling limit as
+a generic Ising point.
+
+\section{Relation to the transverse-field Ising model}
+\label{sec:xy-relation-to-tfim}
+
+Setting $\gamma=1$ in \cref{eq:xy-hamiltonian} gives
+\begin{equation}
+\label{eq:xy-mother-tfim-limit}
+    H_{\rm TFIM}
+    =
+    -J\sum_j\sigma_j^x\sigma_{j+1}^x
+    -h\sum_j\sigma_j^z.
+\end{equation}
+The quasiparticle spectrum becomes
+\begin{equation}
+\label{eq:xy-mother-tfim-spectrum}
+    E_{\rm TFIM}(k)
+    =
+    2\sqrt{(h-J\cos k)^2+J^2\sin^2 k}
+    =
+    2\sqrt{h^2+J^2-2hJ\cos k}.
+\end{equation}
+For $J>0$ and $h\ge0$, the physically standard transition is at
+\begin{equation}
+\label{eq:xy-mother-tfim-critical-h-positive}
+    h=J.
+\end{equation}
+The excitation gap is
+\begin{equation}
+\label{eq:xy-mother-tfim-gap}
+    \Delta_{\rm gap}=2\abs{h-J}.
+\end{equation}
+The sign of $h-J$ becomes the sign of the continuum Majorana mass.  This is the
+fermionic counterpart of the order-disorder transition of the Ising chain.
+
+The second line $h=-J$ is present in the full XY parameter plane.  For the usual
+TFIM convention one often restricts to $J>0$ and $h\ge0$, in which case this
+second line is outside the standard positive-field discussion.  Keeping it in the
+mother-model phase diagram is useful because it is required by the full lattice
+BdG structure.
+
+\section{Relation to the XX chain}
+\label{sec:xy-relation-to-xx}
+
+Setting $\gamma=0$ removes the pairing term in
+\cref{eq:xy-mother-bulk-fermion-hamiltonian}.  The Hamiltonian becomes
+\begin{equation}
+\label{eq:xy-mother-xx-fermion-hamiltonian}
+    H_{\rm XX}
+    =
+    -J\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -hL+2h\sum_j n_j.
+\end{equation}
+This is a tight-binding model with dispersion
+\begin{equation}
+\label{eq:xy-mother-xx-tight-binding-dispersion}
+    \xi(k)=2(h-J\cos k).
+\end{equation}
+The ground state is a Fermi sea, not a BCS paired state.  For $J>0$, modes with
+\begin{equation}
+    \xi(k)<0
+    \quad\Longleftrightarrow\quad
+    \cos k>\frac{h}{J}
+\end{equation}
+are occupied.  When $\abs{h}<J$, the two Fermi points are
+\begin{equation}
+\label{eq:xy-mother-xx-fermi-momenta}
+    k=\pm k_F,
+    \qquad
+    k_F=\arccos\left(\frac{h}{J}\right).
+\end{equation}
+Linearizing near the Fermi points gives two chiral fermion modes, or equivalently
+a compact boson/Luttinger-liquid continuum theory.  This is why the XX critical
+region has central charge $c=1$, not the Ising value $c=1/2$.
+
+\section{Relation to the Kitaev chain}
+\label{sec:xy-relation-to-kitaev-chain}
+
+The bulk fermionic image of the XY chain is a spinless $p$-wave superconducting
+chain.  To compare conventions cleanly, write the Kitaev chain as
+\begin{equation}
+\label{eq:xy-mother-kitaev-convention-annihilation}
+    H_{\rm K}
+    =
+    -t\sum_j
+    \left(
+        c_j^\dagger c_{j+1}+c_{j+1}^\dagger c_j
+    \right)
+    -\mu\sum_j\left(n_j-\frac12\right)
+    +\Delta\sum_j
+    \left(
+        c_jc_{j+1}+c_{j+1}^\dagger c_j^\dagger
+    \right),
+\end{equation}
+with real $\Delta$ for the moment.  Since
+\begin{equation}
+    c_{j+1}^\dagger c_j^\dagger=-c_j^\dagger c_{j+1}^\dagger,
+    \qquad
+    c_jc_{j+1}=-c_{j+1}c_j,
+\end{equation}
+comparison with \cref{eq:xy-mother-bulk-fermion-expanded} gives the bulk
+dictionary
+\begin{equation}
+\label{eq:xy-mother-kitaev-dictionary}
+    t=J,
+    \qquad
+    \Delta=J\gamma,
+    \qquad
+    \mu=-2h.
+\end{equation}
+The constant term also matches:
+\begin{equation}
+    -\mu\sum_j\left(n_j-\frac12\right)
+    =
+    2h\sum_j n_j-hL
+    \qquad
+    \text{when } \mu=-2h.
+\end{equation}
+
+Some references instead define the pairing term as
+\begin{equation}
+    \Delta_{\rm cr}\sum_j
+    \left(
+        c_j^\dagger c_{j+1}^\dagger+c_{j+1}c_j
+    \right).
+\end{equation}
+In that convention the same XY Hamiltonian corresponds to
+\begin{equation}
+\label{eq:xy-mother-kitaev-creation-dictionary}
+    \Delta_{\rm cr}=-J\gamma.
+\end{equation}
+This is only a convention for how the Hermitian conjugate pair is written.  The
+physical spectrum depends on $\abs{\Delta}$ and on the relative orientation of the
+BdG vector, not on this bookkeeping sign alone.
+
+Using \cref{eq:xy-mother-kitaev-dictionary}, the Kitaev-chain topological
+condition
+\begin{equation}
+    \abs{\mu}<2\abs{t}
+\end{equation}
+becomes
+\begin{equation}
+\label{eq:xy-mother-kitaev-topological-condition-spin}
+    \abs{h}<\abs{J}.
+\end{equation}
+This is precisely the region between the two Ising critical lines of the XY
+mother model when $\gamma\neq0$.  In the spin language it is the ordered region
+for the Ising-anisotropic chain; in the fermion language it is the topological
+superconducting phase with Majorana edge modes under open boundary conditions.
+
+\section{Topological interpretation of the BdG vector}
+\label{sec:xy-bdg-vector-topological-interpretation}
+
+For real $J$, $h$, and $\gamma$, and in a real pairing gauge, the BdG vector lies
+in a two-dimensional plane:
+\begin{equation}
+\label{eq:xy-mother-bdg-plane-vector}
+    \bm d(k)=
+    \bigl(0,-2J\gamma\sin k,2(h-J\cos k)\bigr).
+\end{equation}
+Equivalently, one may encode the loop by the complex function
+\begin{equation}
+\label{eq:xy-mother-q-function}
+    q(k)=d_z(k)+\ii d_y(k)
+    =
+    2(h-J\cos k)-2\ii J\gamma\sin k.
+\end{equation}
+As $k$ runs around the Brillouin zone, $q(k)$ traces an ellipse centered at
+$2h$ on the real axis.  The origin is enclosed if and only if
+\begin{equation}
+    \abs{h}<\abs{J}
+    \qquad
+    \text{and}
+    \qquad
+    \gamma\neq0.
+\end{equation}
+The corresponding winding number may be written as
+\begin{equation}
+\label{eq:xy-mother-winding-number}
+    \nu
+    =
+    \frac{1}{2\pi\ii}
+    \int_{-\pi}^{\pi}\dd k\,\partial_k\log q(k).
+\end{equation}
+With the orientation convention in \cref{eq:xy-mother-q-function},
+\begin{equation}
+\label{eq:xy-mother-winding-result}
+    \nu
+    =
+    \begin{cases}
+        -\operatorname{sgn}(J\gamma), & \abs{h}<\abs{J},\\
+        0, & \abs{h}>\abs{J}.
+    \end{cases}
+\end{equation}
+Changing the sign convention for the pairing reverses the sign of $\nu$ but does
+not change whether the phase is topological.  The robust class-D statement is
+the corresponding $\ZZ_2$ distinction:
+\begin{equation}
+\label{eq:xy-mother-z2-topological-condition}
+    \abs{h}<\abs{J}
+    \quad\Longleftrightarrow\quad
+    \text{nontrivial Kitaev phase}.
+\end{equation}
+
+\section{Continuum limits}
+\label{sec:xy-continuum-limits}
+
+The same exact lattice dispersion produces different continuum theories in
+different regions of parameter space.
+
+\subsection*{Ising/Majorana scaling near $h=J$}
+
+Take $J>0$, $\gamma\neq0$, and expand near $k=0$ and $h=J$.  Keeping the leading
+terms gives
+\begin{equation}
+\label{eq:xy-mother-majorana-expansion-h-plus}
+    \mathcal{H}_{\rm XY}(k)
+    \simeq
+    2(h-J)\tau_z
+    -2J\gamma k\,\tau_y,
+\end{equation}
+up to the sign convention of the pairing plane.  This is the momentum-space form
+of a massive Majorana Hamiltonian.  The mass is proportional to
+\begin{equation}
+\label{eq:xy-mother-majorana-mass-h-plus}
+    m_+=2(h-J),
+\end{equation}
+and the velocity is proportional to
+\begin{equation}
+    v=2J\gamma.
+\end{equation}
+The critical theory at $m_+=0$ has central charge $c=1/2$.
+
+Near $h=-J$, one expands around $k=\pi$.  Setting $k=\pi+q$ gives another
+Majorana theory with mass proportional to
+\begin{equation}
+\label{eq:xy-mother-majorana-mass-h-minus}
+    m_-=2(h+J).
+\end{equation}
+
+\subsection*{XX scaling for $\gamma=0$}
+
+For $\gamma=0$ and $\abs{h}<J$, expand around the two Fermi points
+$\pm k_F$.  The Fermi velocity is
+\begin{equation}
+\label{eq:xy-mother-xx-fermi-velocity}
+    v_F
+    =
+    \left.\abs{\frac{\dd \xi(k)}{\dd k}}\right|_{k=k_F}
+    =
+    2J\sin k_F
+    =
+    2J\sqrt{1-\left(\frac{h}{J}\right)^2}.
+\end{equation}
+The resulting low-energy theory is a massless Dirac fermion, or equivalently a
+compact boson.  Adding a small nonzero $\gamma$ pairs the two Fermi points and
+gaps the XX critical phase, except at the Ising critical endpoints.
+
+\section{Summary}
+\label{sec:xy-mother-summary}
+
+The transverse-field XY chain is solved by the following sequence:
+\begin{enumerate}[label=(\roman*)]
+    \item Jordan--Wigner transformation maps the spin chain to a quadratic
+    spinless fermion Hamiltonian with hopping, chemical potential, and $p$-wave
+    pairing.
+    \item Periodic spin boundary conditions split the fermionic problem into
+    parity sectors: even parity gives APBC, odd parity gives PBC.
+    \item Fourier transformation decomposes the Hamiltonian into independent
+    $(k,-k)$ BdG blocks.
+    \item Each block has
+    \begin{equation}
+        \xi(k)=2(h-J\cos k),
+        \qquad
+        \abs{\Delta(k)}=2\abs{J\gamma\sin k}.
+    \end{equation}
+    \item The exact quasiparticle dispersion is
+    \begin{equation}
+        E(k)=2\sqrt{(h-J\cos k)^2+(J\gamma\sin k)^2}.
+    \end{equation}
+    \item For $\gamma\neq0$, the bulk gap closes at $h=\pm J$, giving Ising
+    critical lines.
+    \item For $\gamma=0$, the chain is number conserving and is gapless for
+    $\abs{h}<\abs{J}$, giving the XX/free-fermion critical phase.
+    \item Under the Kitaev-chain dictionary $t=J$, $\mu=-2h$, and
+    $\Delta=J\gamma$ up to pairing convention, the region $\abs{h}<\abs{J}$ is
+    the topological superconducting phase.
+\end{enumerate}
+
+This single solution therefore supplies the exact solution of the TFIM, the XX
+chain, and the Kitaev chain as special cases or equivalent descriptions.
