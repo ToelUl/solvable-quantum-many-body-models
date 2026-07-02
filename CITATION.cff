@@ -7,6 +7,7 @@ authors:
 version: "0.1.0"
 date-released: "2026-07-02"
 license: "CC-BY-NC-SA-4.0"
+repository-code: https://github.com/ToelUl/solvable-quantum-many-body-models.git
 type: "book"
 abstract: "Lecture notes on exactly solvable quantum many-body models in condensed matter physics, organized around mother models, equivalence maps, and unified solution methods."
 keywords:
