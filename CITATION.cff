@@ -1,14 +1,15 @@
 cff-version: 1.2.0
 message: "If you use these lecture notes, please cite them using the metadata in this file."
 title: "Solvable Quantum Many-Body Models in Condensed Matter: Mother Models, Equivalence Maps, and Unified Solution Methods"
+type: software
 authors:
   - family-names: "Lee"
     given-names: "Qian-Rui"
+    orcid: "https://orcid.org/0009-0009-2250-2419"
 version: "0.1.0"
 date-released: "2026-07-02"
 license: "CC-BY-NC-SA-4.0"
-repository-code: https://github.com/ToelUl/solvable-quantum-many-body-models.git
-type: "book"
+repository-code: "https://github.com/ToelUl/solvable-quantum-many-body-models"
 abstract: "Lecture notes on exactly solvable quantum many-body models in condensed matter physics, organized around mother models, equivalence maps, and unified solution methods."
 keywords:
   - "quantum many-body physics"
@@ -19,3 +20,13 @@ keywords:
   - "transfer matrix"
   - "spin chains"
   - "topological phases"
+preferred-citation:
+  type: book
+  title: "Solvable Quantum Many-Body Models in Condensed Matter: Mother Models, Equivalence Maps, and Unified Solution Methods"
+  authors:
+    - family-names: "Lee"
+      given-names: "Qian-Rui"
+      orcid: "https://orcid.org/0009-0009-2250-2419"
+  year: 2026
+  version: "0.1.0"
+  url: "https://github.com/ToelUl/solvable-quantum-many-body-models"
